@@ -1,6 +1,5 @@
 
 # PYCMS开发
-# 开发之初并未参考咩2016的代码（2020/06/15补充），功能可能类似，但是代码不同
 # 本人初次开发爬虫工具，如果您有更好的建议，可以提出（当然语气请不要太激烈）
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
