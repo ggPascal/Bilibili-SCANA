@@ -14,6 +14,7 @@ max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/
 page_input = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/input'
 js = "window.scrollTo(0, document.body.scrollHeight)"
 browser = webdriver.Firefox()
+json_broswer = webdriver.Firefox()
 browser.get(url)
 time.sleep(20)  # 保证浏览器响应成功后再进行下一步操作
 browser.execute_script(js)
@@ -84,7 +85,7 @@ while page < max_page or page == max_page:
     json_get_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(page)+'&type=1&oid='+str(video_oid)
 
-   browser.get(json_get_url)
+   json_broswer.get(json_get_url)
 
     if all_in_one:
         video_info()
@@ -93,8 +94,8 @@ while page < max_page or page == max_page:
     
     if write_copy:
         f = open(json_path, 'wb')
-        browser.get(json_get_url)
-        f.write(browser.page_source.encode("utf-8"))
+        json_broswer.get(json_get_url)
+        f.write(json_broswer.page_source.encode("utf-8"))
         print('写入成功')
         # 关闭文件
         f.close()
@@ -105,6 +106,13 @@ while page < max_page or page == max_page:
     # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
     page = page + 1
     browser.execute_script(js)  # 最下方确保获得所有元素
+    pass
+    # 下方代码作为保留性使用
+    browser.find_element_by_xpath(page_input).send_keys(page)#准备进入指定页
+    print("正在跳转至" + str(page) +"页")
+    browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)# 执行跳转
+    time.sleep(5)
+
     
 
 print("爬取结束")
