@@ -1,13 +1,16 @@
 import psycopg2
 import getpass
 
-passwd=getpass.getpass("输入密码")
+passwd = getpass.getpass("输入密码")
 
-def table_exists(con, table_str): # From https://www.itranslater.com/qa/details/2583162923480777728
+
+# From https://www.itranslater.com/qa/details/2583162923480777728
+def table_exists(con, table_str):
     exists = False
     try:
         cur = con.cursor()
-        cur.execute("select exists(select relname from pg_class where relname='" + table_str + "')")
+        cur.execute(
+            "select exists(select relname from pg_class where relname='" + table_str + "')")
         exists = cur.fetchone()[0]
         print exists
         cur.close()
@@ -15,31 +18,34 @@ def table_exists(con, table_str): # From https://www.itranslater.com/qa/details/
         print e
     return exists
 
+
 def connect_db():
     # TODO:用户交接数据
-    if has_con_config :
-        pass # 读取设置
+    if has_con_config:
+        pass  # 读取设置
     else:
         db_name = input("数据库名（留空将使用postgres）: ")
-        if db_name == None :
+        if db_name == None:
             db_name = 'postgres'
         db_user = input("用户名（留空将使用postgres）:")
-        if db_user == None :
+        if db_user == None:
             db_user = 'postgres'
         db_host = input('数据库主机（留空将使用localhost）: ')
-        if db_host == None :
+        if db_host == None:
             db_host = 'localhost'
         db_port = input('数据库端口（留空将使用5432）: ')
-        if db_port == None :
+        if db_port == None:
             db_port = '5432'
-    
-        while not_input_password :
+
+        while not_input_password:
             db_pwd = getpass.getpass("输入密码（输入后不可见）:")
-            if db_pwd == None :
+            if db_pwd == None:
                 print("你没有输入密码，请重试")
 
-    conn = psycopg2.connect(database=str(db_name), user=str(db_user), password=str(db_pwd), host=str(db_host), port=str(db_port))
+    conn = psycopg2.connect(database=str(db_name), user=str(
+        db_user), password=str(db_pwd), host=str(db_host), port=str(db_port))
     cur = conn.cursor()
+
 
 def init_db():
     # 初始化数据库布局
@@ -53,12 +59,12 @@ def init_db():
                 cur.execute('/l')
                 db_list = cur.fetchall
                 db_list = db_list[0]
-                if db_name not in db_list :
-                    retry=input('我们尚未找到该数据库，是否重新尝试？(Y/N）: ')
-                    if retry == 'Y' :
+                if db_name not in db_list:
+                    retry = input('我们尚未找到该数据库，是否重新尝试？(Y/N）: ')
+                    if retry == 'Y':
                         retry = True
                     else:
-                        not_done=input('是否新建一个数据库？(Y/N) : ')
+                        not_done = input('是否新建一个数据库？(Y/N) : ')
                         if not_done == 'Y':
                             not_done = True
                         else:
