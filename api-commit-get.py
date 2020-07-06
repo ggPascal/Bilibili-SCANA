@@ -1,16 +1,18 @@
 import json
 import requests
 
-def commit_info(commit_all,commit_index,reply_ana_flag,root_rid):
+
+def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
     current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
-    reply_id = int(current_commit['rpid'])
+    reply_id = int(current_commit['rpid'])  # 获取评论ID
 
-    if reply_ana_flag and root_rid == reply_id:
+    if reply_ana_flag and root_rid == reply_id:  # 用于回复分析模式下跳过主评论
         pass
 
-    member_id = int(current_commit['mid'])
-    like_number = int(current_commit['like'])
+
+    member_id = int(current_commit['mid'])  # 获取UID
+    like_number = int(current_commit['like'])  # 获取点赞数
     fans_detail = current_commit['']
     if fans_detail == 'null':
         fans_level = 'N/A'
@@ -19,25 +21,25 @@ def commit_info(commit_all,commit_index,reply_ana_flag,root_rid):
     post_time_step = current_commit['ctime']  # 注意使用的是UNIX时，贮存的是秒
 
     member_data = current_commit['member']
-    user_name = member_data['uname']
-    sex = member_data['sex']
-    sign = member_data['sign']
-    avatar_adress = member_data['avatar']
+    user_name = member_data['uname']  # 获取用户名
+    sex = member_data['sex']  # 获取性别
+    sign = member_data['sign']  # 获取个人签名
+    avatar_adress = member_data['avatar']  # 获取头像地址
 
     level_data = member_data['level_info']
-    user_level = level_data['current_level']
+    user_level = level_data['current_level']  # 获取等级
 
-    if 'nameplate' in current_commit_keys:
+    if 'nameplate' in current_commit_keys:  # 判断是否有名牌
         nameplate_data = member_data['nameplate']
-        nameplate_kind = nameplate_data['nid']
-        nameplate_name = nameplate_data['name']
-        nameplate_image = nameplate_data['image']
-        nameplate_image_small = nameplate_data['image_small']
-        nameplate_level = nameplate_data['level']
-        nameplate_condition = nameplate_data['condition']
+        nameplate_kind = nameplate_data['nid']  # 获取名牌ID
+        nameplate_name = nameplate_data['name']  # 获取名称
+        nameplate_image = nameplate_data['image']  # 获取此名牌对应的图片
+        nameplate_image_small = nameplate_data['image_small']  # 获取缩小版图片
+        nameplate_level = nameplate_data['level']  # 获取等级
+        nameplate_condition = nameplate_data['condition']  # 获取对应名牌简介
         has_nameplate = 'Y'
     else:
-        # 处理没有徽章的情况
+        # 处理没有徽章的情况，全部替换为N/A
         has_nameplate = 'N'
         nameplate_kind = 'N/A'
         nameplate_name = 'N/A'
@@ -45,26 +47,25 @@ def commit_info(commit_all,commit_index,reply_ana_flag,root_rid):
         nameplate_image_small = 'N/A'
         nameplate_level = 'N/A'
         nameplate_condition = 'N/A'
-    if 'vip' in current_commit_keys:
+    if 'vip' in current_commit_keys:  # 检测是否有VIP
         vip_data = member_data['vip']
-        vip_type = int(vip_data['vipType'])
-        vip_due_timestep = int(vip_data['vipDueDate'])
+        vip_type = int(vip_data['vipType'])  # 获取VIP种类
+        vip_due_timestep = int(vip_data['vipDueDate'])  # 获取该VIP的截止时间
         has_vip = 'Y'
-    else :
+    else:
+        # 处理没有VIP的情况，全部替换为N/A
         has_vip = 'N'
         vip_type = 'N/A'
         vip_due_timestep = 'N/A'
 
     message_data = current_commit['content']
-    message = message_data['message']
-    if reply_ana_flag == False :
+    message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
+    if reply_ana_flag == False:
         root_rid = 'N/A'
         if message_data['replies'] == 'null':
             has_replies = 'N'
         else:
             has_replies = 'Y'
-
-
 
 
 def reply_get_online():
@@ -79,12 +80,11 @@ def reply_get_online():
     commit_data = json.loads(replies_data)
     reply_index = 0
     reply_ana_flag = True
-    root_rid = reply_id 
+    root_rid = reply_id
     root_timestep = post_time_step
-    while reply_index in commit_data.keys() :
+    while reply_index in commit_data.keys():
         commit_info()
         reply_index = reply_index + 1
-    
 
 
 def commit_json_ana(f):
@@ -97,11 +97,11 @@ def commit_json_ana(f):
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
     commit_index_list = commit_all.keys()
-    while commit_index in commit_index_list :
-        commit_info(commit_all,commit_index,reply_ana_flag=False,None)
-        build_commit_dictory() # 建立当前评论的字典数据
+    while commit_index in commit_index_list:
+        commit_info(commit_all, commit_index, reply_ana_flag=False, None)
+        build_commit_dictory()  # 建立当前评论的字典数据
         all_commit_direct[reply_id] = commit_info
-        all_user_dict[member_id] = commit_user_info # 保存当前数据
+        all_user_dict[member_id] = commit_user_info  # 保存当前数据
         commit_index = commit_index + 1
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
@@ -111,6 +111,3 @@ def commit_json_ana(f):
         is_top = 'Y'
         commit_info()
         build_commit_dictory()
-
-
-   
