@@ -110,33 +110,33 @@ def init_db():
 
 def update_data_video_info(): # 视频数据更新
     sheet_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
-            if sheet == None :
-                sheet_name = 'bilcs'
-            cur.execute('CREATE TABLE '+sheet_name+""" { 
-                video-av BIGSERIAL , 
-                copyright-type int , 
-                picture-add BIGSERIAL , 
-                post-time-step int ,
-                cite-time-step int , 
-                desctrion BIGSERIAL ,
-                owner-uid int , 
-                view-number int ,
-                favorite-number int , 
-                coin-number int ,
-                share-number int ,
-                daily-highest-rank int ,
-                like-number int
-                dilike-number int
-                };""")
-            # TODO:创建表格
-            cur.commit()
-            cur.execute('\d')
-            list_all = cur.fetchall()
-            list_all = list_all[1]
-            if sheet_name not in list_all :
-                pass
-                error_check_out() #TODO:错误码检查
-                
+            
+    cur.execute('CREATE TABLE '+sheet_name+""" { 
+        video-av BIGSERIAL , 
+        copyright-type int , 
+        picture-add BIGSERIAL , 
+        post-time-step int ,
+        cite-time-step int , 
+        desctrion BIGSERIAL ,
+        owner-uid int , 
+        view-number int ,
+        favorite-number int , 
+        coin-number int ,
+        share-number int ,
+        daily-highest-rank int ,
+        like-number int ,
+        dilike-number int ,
+        collect-time-step int
+        };""")
+    # TODO:创建表格
+    cur.commit()
+    cur.execute('\d')
+    list_all = cur.fetchall()
+    list_all = list_all[1]
+    if sheet_name not in list_all :
+        pass
+        error_check_out() #TODO:错误码检查
+
 def update_data_commit_info():
     # TODO:数据库数据更新
    
