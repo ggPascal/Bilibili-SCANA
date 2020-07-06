@@ -127,31 +127,31 @@ def init_db():
 
 
 def update_data_video_info(): # 视频数据更新
-    
-            
-    cur.execute('CREATE TABLE '+table_name+""" { 
-        video-av BIGSERIAL , 
-        copyright-type int , 
-        picture-add BIGSERIAL , 
-        post-time-step int ,
-        cite-time-step int , 
-        desctrion BIGSERIAL ,
-        owner-uid int , 
-        view-number int ,
-        favorite-number int , 
-        coin-number int ,
-        share-number int ,
-        daily-highest-rank int ,
-        like-number int ,
-        dilike-number int ,
-        collect-time-step int
-        };""")
-    # TODO:创建表格
-    cur.commit()
-    exit_flag=table_exists(cur,str(table_name))# 查询表格是否存在
-    if exit_flag :
-        pass
-        error_check_out() #TODO:错误码检查
+    table_name = str(video_id)+'_info' 
+    if table_exists(cur,table_name) == False : 
+        cur.execute('CREATE TABLE '+table_name+""" { 
+            video-av BIGSERIAL , 
+            copyright-type int , 
+            picture-add BIGSERIAL , 
+            post-time-step int ,
+            cite-time-step int , 
+            desctrion BIGSERIAL ,
+            owner-uid int , 
+            view-number int ,
+            favorite-number int , 
+            coin-number int ,
+            share-number int ,
+            daily-highest-rank int ,
+            like-number int ,
+            dilike-number int ,
+            collect-time-step int
+            };""")
+        # TODO:创建表格
+        cur.commit()
+        exit_flag=table_exists(cur,str(table_name))# 查询表格是否存在
+        if exit_flag :
+            pass
+            error_check_out() #TODO:错误码检查
 
 def update_data_commit_info():
     # TODO:数据库数据更新
