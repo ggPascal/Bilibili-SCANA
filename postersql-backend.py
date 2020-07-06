@@ -3,7 +3,7 @@ import getpass
 
 passwd = getpass.getpass("输入密码")
 
-
+# 用于检测表格是否存在
 # Orinal code from https://www.itranslater.com/qa/details/2583162923480777728
 def table_exists(con, table_str):
     exists = False
