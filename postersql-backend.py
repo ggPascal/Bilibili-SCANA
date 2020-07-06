@@ -148,9 +148,7 @@ def update_data_video_info(): # 视频数据更新
         };""")
     # TODO:创建表格
     cur.commit()
-    cur.execute('\d')
-    list_all = cur.fetchall()
-    list_all = list_all[1]
+    table_exists(cur,str(sheet_name))# 查询表格是否存在
     if sheet_name not in list_all :
         pass
         error_check_out() #TODO:错误码检查

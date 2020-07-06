@@ -23,7 +23,7 @@ browser.execute_script(js)
 max_page_string = browser.find_element_by_xpath(max_page_xpath).text
 
 
-def video_info():
+def video_info(video_data):
     video_basic_data = video_data['data']
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
