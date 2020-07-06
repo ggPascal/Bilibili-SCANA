@@ -72,10 +72,10 @@ def init_db():
                         break
              cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
-            sheet_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
+            table_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
             if sheet == None :
-                sheet_name = 'bilcs'
-            cur.execute('CREATE TABLE '+sheet_name+""" { 
+                table_name = 'bilcs'
+            cur.execute('CREATE TABLE '+table_name+""" { 
                 video-av BIGSERIAL , 
                 copyright-type int , 
                 picture-add BIGSERIAL , 
@@ -96,7 +96,7 @@ def init_db():
             cur.execute('\d')
             list_all = cur.fetchall()
             list_all = list_all[1]
-            if sheet_name not in list_all :
+            if table_name not in list_all :
                 pass
                 error_check_out() #TODO:错误码检查
 
@@ -127,9 +127,9 @@ def init_db():
 
 
 def update_data_video_info(): # 视频数据更新
-    sheet_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
+    
             
-    cur.execute('CREATE TABLE '+sheet_name+""" { 
+    cur.execute('CREATE TABLE '+table_name+""" { 
         video-av BIGSERIAL , 
         copyright-type int , 
         picture-add BIGSERIAL , 
@@ -148,8 +148,8 @@ def update_data_video_info(): # 视频数据更新
         };""")
     # TODO:创建表格
     cur.commit()
-    table_exists(cur,str(sheet_name))# 查询表格是否存在
-    if sheet_name not in list_all :
+    exit_flag=table_exists(cur,str(table_name))# 查询表格是否存在
+    if exit_flag :
         pass
         error_check_out() #TODO:错误码检查
 
