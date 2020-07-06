@@ -135,7 +135,8 @@ def init_db():
 
 
 
-def update_data_video_info():
-    # TODO:解析数据
+def update_data_commit_info():
+    # TODO:数据库数据更新
+   
     # TODO:数据查询
     pass
