@@ -3,7 +3,25 @@ import getpass
 
 passwd = getpass.getpass("输入密码")
 
+def commit_exit(cur, uid, post_time_step):
+    commit_exists = False
+    try:
+        cur = con.cursor()
+        cur.execute(
+            "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
+        uid_exists = cur.fetchone()[0]
+        if uid_exists :
+            cur.execute(
+            "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
+            post_time_exists = cur.fetchone()[0]
+            if post_time_exists :
+                commit_exit = True
+        cur.close()
+    except psycopg2.Error as e:
+        print(e)
+    return commit_exists
 
+# 检测用户是否存在于数据库中
 def user_exit(cur, uid_str):
     exists = False
     try:
