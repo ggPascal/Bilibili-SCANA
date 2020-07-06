@@ -3,6 +3,18 @@ import getpass
 
 passwd=getpass.getpass("输入密码")
 
+def table_exists(con, table_str): # From https://www.itranslater.com/qa/details/2583162923480777728
+    exists = False
+    try:
+        cur = con.cursor()
+        cur.execute("select exists(select relname from pg_class where relname='" + table_str + "')")
+        exists = cur.fetchone()[0]
+        print exists
+        cur.close()
+    except psycopg2.Error as e:
+        print e
+    return exists
+
 def connect_db():
     # TODO:用户交接数据
     if has_con_config :
