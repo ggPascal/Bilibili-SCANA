@@ -1,16 +1,17 @@
 import json
 import requests
 
-def commit_info(commit_all,reply_ana_flag,root_rid):
+def commit_info(commit_all,commit_index,reply_ana_flag,root_rid):
     current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])
 
     if reply_ana_flag and root_rid == reply_id:
-        continue
+        pass
 
     member_id = int(current_commit['mid'])
     like_number = int(current_commit['like'])
+    fans_detail = current_commit['']
     if fans_detail == 'null':
         fans_level = 'N/A'
     else:
@@ -97,7 +98,7 @@ def commit_json_ana(f):
     commit_all = commit_data['replies']
     commit_index_list = commit_all.keys()
     while commit_index in commit_index_list :
-        commit_info()
+        commit_info(commit_all,commit_index,reply_ana_flag=False,None)
         build_commit_dictory() # 建立当前评论的字典数据
         all_commit_direct[reply_id] = commit_info
         all_user_dict[member_id] = commit_user_info # 保存当前数据
