@@ -100,7 +100,16 @@ def init_db():
             print('成功建立数据库 '+str(db_name))
             cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
-            sheet_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
+            
+
+            # TODO:写入配置
+
+        
+
+
+
+def update_data_video_info(): # 视频数据更新
+    sheet_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
             if sheet == None :
                 sheet_name = 'bilcs'
             cur.execute('CREATE TABLE '+sheet_name+""" { 
@@ -127,14 +136,7 @@ def init_db():
             if sheet_name not in list_all :
                 pass
                 error_check_out() #TODO:错误码检查
-
-            # TODO:写入配置
-
-        
-
-
-
-
+                
 def update_data_commit_info():
     # TODO:数据库数据更新
    
