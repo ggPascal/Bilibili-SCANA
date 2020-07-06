@@ -1,7 +1,7 @@
 import json
 import requests
 
-def commit_info():
+def commit_info(commit_all,reply_ana_flag,root_rid):
     current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])

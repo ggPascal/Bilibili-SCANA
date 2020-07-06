@@ -40,7 +40,8 @@ if reply_id not in all_commit_direct.keys():
         'message':message,
         'has_replies':has_replies,
         'root_rid':root_rid,
-        'is_top':is_top
+        'is_top':is_top,
+        'collect_time':collect_time_step
         }
     all_commit_direct[reply_id] = commit_info
     

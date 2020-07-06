@@ -3,6 +3,20 @@ import getpass
 
 passwd = getpass.getpass("输入密码")
 
+
+def user_exit(cur, uid_str):
+    exists = False
+    try:
+        cur = con.cursor()
+        cur.execute(
+            "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
+        exists = cur.fetchone()[0]
+        print(exists)
+        cur.close()
+    except psycopg2.Error as e:
+        print(e)
+    return exists
+
 # 用于检测表格是否存在
 # Orinal code from https://www.itranslater.com/qa/details/2583162923480777728
 def table_exists(con, table_str):
@@ -153,8 +167,10 @@ def update_data_video_info(): # 视频数据更新
             pass
             error_check_out() #TODO:错误码检查
 
-def update_data_commit_info():
+def update_data_commit_info(commit_dire):
     # TODO:数据库数据更新
-   
+   for uid in commit_dire.keys() :
+       current_data = commit_dire[uid]
+       
     # TODO:数据查询
     pass
