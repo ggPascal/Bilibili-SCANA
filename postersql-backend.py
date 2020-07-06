@@ -4,7 +4,7 @@ import getpass
 passwd = getpass.getpass("输入密码")
 
 
-# From https://www.itranslater.com/qa/details/2583162923480777728
+# Orinal code from https://www.itranslater.com/qa/details/2583162923480777728
 def table_exists(con, table_str):
     exists = False
     try:
@@ -12,10 +12,10 @@ def table_exists(con, table_str):
         cur.execute(
             "select exists(select relname from pg_class where relname='" + table_str + "')")
         exists = cur.fetchone()[0]
-        print exists
+        print(exists)
         cur.close()
     except psycopg2.Error as e:
-        print e
+        print(e)
     return exists
 
 
