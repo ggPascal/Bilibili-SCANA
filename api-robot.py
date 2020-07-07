@@ -1,9 +1,12 @@
 
 # PYCMS开发
 # 本人初次开发爬虫工具，如果您有更好的建议，可以提出（当然语气请不要太激烈）
+from api_commit_get import *
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
+import queue
 
 
 video_id = input("输入需要获取评论的BV号： ")
@@ -21,6 +24,8 @@ browser.execute_script(js)
 time.sleep(10)
 browser.execute_script(js)
 max_page_string = browser.find_element_by_xpath(max_page_xpath).text
+video_info_pipe = queue.Queue(0)
+
 
 
 def video_info(video_data):

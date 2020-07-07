@@ -13,11 +13,8 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
 
     member_id = int(current_commit['mid'])  # 获取UID
     like_number = int(current_commit['like'])  # 获取点赞数
-    fans_detail = current_commit['']
-    if fans_detail == 'null':
-        fans_level = 'N/A'
-    else:
-        fans_level = int(current_commit['fans_grade'])
+    fans_detail = current_commit['fans_detail']
+    fans_level = int(current_commit['fans_grade'])
     post_time_step = current_commit['ctime']  # 注意使用的是UNIX时，贮存的是秒
 
     member_data = current_commit['member']
@@ -87,7 +84,7 @@ def reply_get_online():
         reply_index = reply_index + 1
 
 
-def commit_json_ana(f):
+def commit_json_ana(f, page_init):
     json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
     if page_init == True:
