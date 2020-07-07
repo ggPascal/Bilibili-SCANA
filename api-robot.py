@@ -91,7 +91,7 @@ while page < max_page or page == max_page:
     json_get_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(page)+'&type=1&oid='+str(video_oid)
 
-   json_broswer.get(json_get_url)
+    json_broswer.get(json_get_url)
 
     if all_in_one:
         video_info()
