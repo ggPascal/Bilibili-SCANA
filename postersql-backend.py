@@ -1,18 +1,19 @@
 import psycopg2
 import getpass
+from error_handel import *
 
 passwd = getpass.getpass("输入密码")
 
-def commit_exit(cur, uid, post_time_step):
+def commit_exit(con, uid, post_time_step):
     commit_exists = False
     try:
         cur = con.cursor()
         cur.execute(
-            "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
+            "select exists(select 1 from user_tablet where uid='" + str(uid) + "')")
         uid_exists = cur.fetchone()[0]
         if uid_exists :
             cur.execute(
-            "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
+            "select exists(select 1 from user_tablet where uid='" + str(uid) + "')")
             post_time_exists = cur.fetchone()[0]
             if post_time_exists :
                 commit_exit = True
@@ -25,7 +26,6 @@ def commit_exit(cur, uid, post_time_step):
 def user_exit(cur, uid_str):
     exists = False
     try:
-        cur = con.cursor()
         cur.execute(
             "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
         exists = cur.fetchone()[0]
@@ -51,7 +51,7 @@ def table_exists(con, table_str):
     return exists
 
 
-def connect_db():
+def connect_db(has_con_config):
     # TODO:用户交接数据
     if has_con_config:
         pass  # 读取设置
@@ -68,24 +68,27 @@ def connect_db():
         db_port = input('数据库端口（留空将使用5432）: ')
         if db_port == None:
             db_port = '5432'
-
+        not_input_password = True
         while not_input_password:
             db_pwd = getpass.getpass("输入密码（输入后不可见）:")
             if db_pwd == None:
                 print("你没有输入密码，请重试")
+                not_input_password = True
 
     conn = psycopg2.connect(database=str(db_name), user=str(
         db_user), password=str(db_pwd), host=str(db_host), port=str(db_port))
     cur = conn.cursor()
 
 
-def init_db():
+def init_db(cur):
     # 初始化数据库布局
     print('本向导会指引你初始化数据库布局')
     has_db = input('您是否有已经有了一个专供本软件使用的数据库？(Y/N): ')
+    not_done = True
     while not_done:
         if has_db == 'Y':
             has_db = True
+            retry = True
             while retry:
                 db_name = input('数据库名称: ')
                 cur.execute('/l')
@@ -102,10 +105,10 @@ def init_db():
                         else:
                             return
                         break
-             cur.execute('\c '+str(db_name))
+            cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
             table_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
-            if sheet == None :
+            if table_name == None :
                 table_name = 'bilcs'
             cur.execute('CREATE TABLE '+table_name+""" { 
                 video-av BIGSERIAL , 
@@ -130,7 +133,8 @@ def init_db():
             list_all = list_all[1]
             if table_name not in list_all :
                 pass
-                error_check_out() #TODO:错误码检查
+                # error_check_out() 
+                #TODO:错误码检查
 
             
         else:
@@ -146,7 +150,9 @@ def init_db():
             db_list = cur.fetchall
             db_list = db_list[0]
             if db_name not in db_list :
-                error_check_out()# 错误码跳转
+                pass
+                # error_check_out()
+                # 错误码跳转
             print('成功建立数据库 '+str(db_name))
             cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
@@ -158,7 +164,7 @@ def init_db():
 
 
 
-def update_data_video_info(): # 视频数据更新
+def update_data_video_info(cur,video_id): # 视频数据更新
     table_name = str(video_id)+'_info' 
     if table_exists(cur,table_name) == False : 
         cur.execute('CREATE TABLE '+table_name+""" { 
@@ -183,7 +189,8 @@ def update_data_video_info(): # 视频数据更新
         exit_flag=table_exists(cur,str(table_name))# 查询表格是否存在
         if exit_flag :
             pass
-            error_check_out() #TODO:错误码检查
+            # error_check_out() 
+            #TODO:错误码检查
 
 def update_data_commit_info(commit_dire):
     # TODO:数据库数据更新
@@ -191,4 +198,4 @@ def update_data_commit_info(commit_dire):
        current_data = commit_dire[uid]
        
     # TODO:数据查询
-    pass
+    # pass

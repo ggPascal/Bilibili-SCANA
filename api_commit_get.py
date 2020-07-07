@@ -1,5 +1,7 @@
 import json
+
 import requests
+
 from dire_manger import *
 
 
@@ -10,7 +12,6 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
 
     if reply_ana_flag and root_rid == reply_id:  # 用于回复分析模式下跳过主评论
         pass
-
 
     member_id = int(current_commit['mid'])  # 获取UID
     like_number = int(current_commit['like'])  # 获取点赞数
@@ -79,7 +80,7 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
     reply_index = 0
     reply_ana_flag = True
     while reply_index in commit_data.keys():
-        commit_info(commit_data,reply_index,reply_ana_flag,root_rid)
+        commit_info(commit_data, reply_index, reply_ana_flag, root_rid)
         reply_index = reply_index + 1
 
 
@@ -95,10 +96,9 @@ def commit_json_ana(f, page_init):
     commit_index_list = commit_all.keys()
     commit_index = 0
     while commit_index in commit_index_list:
-        commit_info(commit_all, commit_index, reply_ana_flag=False, root_rid=None)
+        commit_info(commit_all, commit_index,
+                    reply_ana_flag=False, root_rid=None)
         build_commit_dictory()  # 建立当前评论的字典数据
-        all_commit_direct[reply_id] = commit_info
-        all_user_dict[member_id] = commit_user_info  # 保存当前数据
         commit_index = commit_index + 1
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
@@ -106,5 +106,5 @@ def commit_json_ana(f, page_init):
         commit_index = 0
         commit_all = upper_data['top']
         is_top = 'Y'
-        commit_info()
+        commit_info(commit_all,0,reply_ana_flag=False,root_rid=None)
         build_commit_dictory()
