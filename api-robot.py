@@ -51,7 +51,7 @@ def video_info(video_data):
     dislike_number = state_data['dislike']
 
     video_info_dire = {
-        'video_av': video_oid，
+        'video_av': video_oid,
         'copyright_type': copyright_type,
         'picture_add': picture_add,
         'post_time_step': post_time_step,

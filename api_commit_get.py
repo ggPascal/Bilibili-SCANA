@@ -1,5 +1,6 @@
 import json
 import requests
+from dire_manger import *
 
 
 def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
@@ -65,7 +66,7 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
             has_replies = 'Y'
 
 
-def reply_get_online():
+def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
     # example replies address: https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=9&type=1&oid=796031275&ps=10&root=3070784970&_=1592802523767
     replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
@@ -74,13 +75,11 @@ def reply_get_online():
     replies = requests.get(replies_full_url)
     replies.encoding = 'utf-8'
     replies_json = replies.text
-    commit_data = json.loads(replies_data)
+    commit_data = json.loads(replies_json)
     reply_index = 0
     reply_ana_flag = True
-    root_rid = reply_id
-    root_timestep = post_time_step
     while reply_index in commit_data.keys():
-        commit_info()
+        commit_info(commit_data,reply_index,reply_ana_flag,root_rid)
         reply_index = reply_index + 1
 
 
@@ -94,8 +93,9 @@ def commit_json_ana(f, page_init):
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
     commit_index_list = commit_all.keys()
+    commit_index = 0
     while commit_index in commit_index_list:
-        commit_info(commit_all, commit_index, reply_ana_flag=False, None)
+        commit_info(commit_all, commit_index, reply_ana_flag=False, root_rid=None)
         build_commit_dictory()  # 建立当前评论的字典数据
         all_commit_direct[reply_id] = commit_info
         all_user_dict[member_id] = commit_user_info  # 保存当前数据
