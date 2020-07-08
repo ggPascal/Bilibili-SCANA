@@ -7,6 +7,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
 import queue
+import os
 
 
 video_id = input("输入需要获取评论的BV号： ")
@@ -14,13 +15,13 @@ url = "https://www.bilibili.com/video/" + video_id  # BV装载
 
 all_in_one = False
 write_copy = True
-root_dir = "E:\\爬虫\\test-data\\"
+root_dir = "E:/爬虫/test-data/"
 
 
 max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/span'
 page_input = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/input'
 js = "window.scrollTo(0, document.body.scrollHeight)"
-browser = webdriver.Chrome()
+browser = webdriver.Firefox()
 browser.get(url)
 print("已获取链接，等待20秒，确保浏览器完成操作")
 time.sleep(20)  # 保证浏览器响应成功后再进行下一步操作
@@ -95,12 +96,15 @@ while page < max_page or page == max_page:
     json_get_url ='https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
     requests.get(json_get_url)
     oid_dire = requests.get(json_get_url)
+    oid_dire = oid_dire.text
     oid_dire = json.loads(oid_dire)
+    oid_dire = oid_dire['data']
     video_oid = int(oid_dire['aid'])
     json_get_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(page)+'&type=1&oid='+str(video_oid)
-
-    json_path = root_dir+time.strftime("%Y-%m-%d|%H:%M:%S|%Z", time.localtime())+'_'+video_id+'.json'
+    os.chdir(root_dir)
+    # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
+    json_path = video_id+' '+str(page)+'.json'
 
     requests.get(json_get_url)
     # TODO:一体化入库函数
@@ -110,8 +114,8 @@ while page < max_page or page == max_page:
         # 写入数据库
     
     if write_copy:
-        f = open(json_path, 'wb')
-        json = requests.get(json_get_url)
+        f = open(file=str(json_path),mode="w")
+        json = requests.get(json_get_url).text
         f.write(json)
         print('写入成功')
         # 关闭文件

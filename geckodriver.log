@@ -70,14 +70,107 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 1594231248801	Marionette	INFO	Listening on port 52279
 1594231249306	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
-0363\\AppData\\Local\\Temp\\rust_mozprofile7ip49z"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+te to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594239408027	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileEdAQ9Z"
 JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
-1594231254639	Marionette	INFO	Listening on port 52325
-1594231255033	Marionette	WARN	TLS certificate errors will be ignored for this session
-1594231939521	Marionette	INFO	Stopped listening on port 52325
+1594239410304	Marionette	INFO	Listening on port 50563
+1594239410644	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+1594239762838	Marionette	INFO	Stopped listening on port 50563
 
 ###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
 
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594239548833	Marionette	INFO	Listening on port 50971
+1594239549063	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+1594239653293	Marionette	INFO	Stopped listening on port 50971
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594239663716	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileR73663"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594239666520	Marionette	INFO	Listening on port 51154
+1594239666844	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594239762083	Marionette	INFO	Stopped listening on port 51154
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594239778028	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile2xiYTy"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594239780777	Marionette	INFO	Listening on port 51363
+1594239781162	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1594240214630	Marionette	INFO	Stopped listening on port 51363
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594240219386	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileTLntnX"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594240222268	Marionette	INFO	Listening on port 51969
+1594240222521	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1594240510427	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileU19UhD"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594240514137	Marionette	INFO	Listening on port 52347
+1594240514566	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594240679402	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileG6P5e6"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594240682436	Marionette	INFO	Listening on port 52579
+1594240682532	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594241165748	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilehJ2Msf"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594241168986	Marionette	INFO	Listening on port 53248
+1594241169393	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+1594241447339	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile8M0AmO"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594241449843	Marionette	INFO	Listening on port 53684
+1594241449967	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+1594241547023	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile4UNs6r"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594241549862	Marionette	INFO	Listening on port 53851
+1594241550149	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1594241655216	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileuYIzzE"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594241658720	Marionette	INFO	Listening on port 54044
+1594241658847	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594241788986	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile2MSbgN"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594241792292	Marionette	INFO	Listening on port 54249
+1594241792619	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594242290355	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilelmIeHu"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594242293289	Marionette	INFO	Listening on port 54693
+1594242293486	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.399c30c8.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: resource://gre/actors/AutoCompleteChild.jsm, line 208: Error: Invalid autocomplete selectedIndex
