@@ -101,11 +101,11 @@ while page < max_page or page == max_page:
     oid_dire = json.loads(oid_dire)
     oid_dire = oid_dire['data']
     video_oid = int(oid_dire['aid'])
-    json_get_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
+    json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
         str(page)+'&type=1&oid='+str(video_oid)
     os.chdir(root_dir)
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
-    json_path = video_id+' '+str(page)+'.json'
+    json_path = str(page)+'.json'
     json_browser.get(json_get_url)
     video_commits=json_browser.page_source.encode("utf-8")
     # TODO:一体化入库函数

@@ -322,3 +322,79 @@ JavaScript error: resource://gre/modules/URIFixup.jsm, line 281: NS_ERROR_FAILUR
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1594352304101	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilev0MCZm"
+1594352308237	Marionette	INFO	Listening on port 15597
+1594352308276	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594352318395	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f641f385.js, line 0: Successfully compiled asm.js code (total compilation time 22ms)
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+S_ERROR_UNEXPECTED: 
+1594399900835	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileIUhfuY"
+1594399902950	Marionette	INFO	Listening on port 52493
+1594399902969	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
+_create_dc_and_bitmap: 操作成功完成。
+1594399940005	Marionette	INFO	Stopped listening on port 52493
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+dRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x3B0001,name=PCookieService::Msg_SetCookies) Closed channel: cannot send/recv
+
+1594399934771	Marionette	INFO	Stopped listening on port 52583
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594399972593	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilecx2oq5"
+1594399974836	Marionette	INFO	Listening on port 52905
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594399975218	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
+_create_dc_and_bitmap: 操作成功完成。
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+console.error: "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers."
+console.error: "Task cancelled"
+console.error: "Error sending event: serverWebSocketClosed"
+console.error: (new Error("undefined passed where a value is required", "resource://devtools/shared/protocol/types.js", 115))
+Error: undefined passed where a value is required: identityWrite@resource://devtools/shared/protocol/types.js:115:11
+write@resource://devtools/shared/protocol/Request.js:117:22
+write@resource://devtools/shared/protocol/Request.js:43:26
+_sendEvent@resource://devtools/shared/protocol/Actor.js:66:24
+initialize/<@resource://devtools/shared/protocol/Actor.js:46:16
+_emit@resource://devtools/shared/event-emitter.js:226:34
+emit@resource://devtools/shared/event-emitter.js:172:18
+emit@resource://devtools/shared/event-emitter.js:324:18
+webSocketClosed@resource://devtools/server/actors/network-monitor/websocket-actor.js:96:10
+
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 20ms)
+JavaScript warning: https://s1.hdslb.com/bfs/static/jinkela/international-home/1.international-home.94115f1175732897c38d29de25c9c6b240821d37.js, line 18: Script terminated by timeout at:
+t@https://s1.hdslb.com/bfs/static/jinkela/international-home/1.international-home.94115f1175732897c38d29de25c9c6b240821d37.js:18:23908
+t.use@https://s1.hdslb.com/bfs/static/jinkela/international-home/1.international-home.94115f1175732897c38d29de25c9c6b240821d37.js:7:36938
+827@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:359109
+s@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:5269
+367@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:151655
+s@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:5269
+i@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:5138
+@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:6261
+@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:6265
+
+1594400577798	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilePjgXuv"
+1594400580129	Marionette	INFO	Listening on port 54207
+1594400580425	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
+_create_dc_and_bitmap: 操作成功完成。
+ionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
+_create_dc_and_bitmap: 操作成功完成。
