@@ -4,7 +4,47 @@ import requests
 
 from dire_manger import *
 
+def video_info(video_data): # 使用评论区数据工作
+    video_basic_data = video_data['data']
+    video_oid = video_basic_data['aid']
+    copyright_type = video_basic_data['copyright']
+    picture_add = video_basic_data['pic']
+    post_time_step = video_basic_data['pubdate']
+    cite_time_step = video_basic_data['ctime']
+    desctrion = video_basic_data['desc']
 
+    owner_data = video_data['owner']
+    owner_mid = owner_data['mid']
+
+    state_data = video_data['stat']
+    view_number = state_data['view']
+    commit_number = state_data['reply']
+    favorite_number = state_data['favorite']
+    coin_number = state_data['coin']
+    share_number = state_data['share']
+    daily_highest_rank = state_data['his_rank']
+    like_number = state_data['like']
+    dislike_number = state_data['dislike']
+
+    video_info_dire = {
+        'video_av': video_oid,
+        'copyright_type': copyright_type,
+        'picture_add': picture_add,
+        'post_time_step': post_time_step,
+        'cite_time_step': cite_time_step,
+        'desctrion': desctrion,
+        'owner_uid': owner_mid,
+        'view_number': view_number,
+        'favorite_number': favorite_number,
+        'coin_number': coin_number,
+        'share_number': share_number,
+        'daily_highest_rank': daily_highest_rank,
+        'like_number': like_number,
+        'dislike_number': dislike_number
+
+    }
+    return video_info_dire 
+    
 def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
     current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
@@ -106,5 +146,5 @@ def commit_json_ana(f, page_init):
         commit_index = 0
         commit_all = upper_data['top']
         is_top = 'Y'
-        commit_info(commit_all,0,reply_ana_flag=False,root_rid=None)
+        commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None)
         build_commit_dictory()

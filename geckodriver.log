@@ -359,8 +359,14 @@ JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-play
 _create_dc_and_bitmap: 操作成功完成。
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
-JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
-console.error: "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers."
+JavaScript war1594435025386	Marionette	INFO	Stopped listening on port 52990
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+cers is an object whose values are reducers."
 console.error: "Task cancelled"
 console.error: "Error sending event: serverWebSocketClosed"
 console.error: (new Error("undefined passed where a value is required", "resource://devtools/shared/protocol/types.js", 115))
@@ -388,13 +394,59 @@ i@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.
 @https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:6261
 @https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:6265
 
-1594400577798	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilePjgXuv"
+console.error: "Task cancelled"
+1594435018827	Marionette	INFO	Stopped listening on port 52905
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+Local\\Temp\\rust_mozprofilePjgXuv"
 1594400580129	Marionette	INFO	Listening on port 54207
 1594400580425	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
 _create_dc_and_bitmap: 操作成功完成。
-ionette	WARN	TLS certificate errors will be ignored for this session
-JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594435023933	Marionette	INFO	Stopped listening on port 54207
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+RemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
 _create_dc_and_bitmap: 操作成功完成。
+1594435010844	Marionette	INFO	Stopped listening on port 54280
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilex7xOxB"
+1594414847115	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilemJeMn0"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594414851010	Marionette	INFO	Listening on port 4566
+1594414851258	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
+_create_dc_and_bitmap: 操作成功完成。
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.412316860419
+1594434541324	Marionette	INFO	Stopped listening on port 4566
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+esource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.412316860420
+1594434540086	Marionette	INFO	Stopped listening on port 4668
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594443958116	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileMhjh8Y"
+1594443961841	Marionette	INFO	Listening on port 28074
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594443962277	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+0363\\AppData\\Local\\Temp\\rust_mozprofilePNBrko"
+1594443975127	Marionette	INFO	Listening on port 28157
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594443975589	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594444207295	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilej5cR1U"
+1594444210962	Marionette	INFO	Listening on port 28505
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594444211435	Marionette	WARN	TLS certificate errors will be ignored for this session

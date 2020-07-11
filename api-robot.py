@@ -13,8 +13,8 @@ broswer_profile = "C:\\Users\\20363\\AppData\\Roaming\\Mozilla\\Firefox\\Profile
 video_id = input("输入需要获取评论的BV号： ")
 url = "https://www.bilibili.com/video/" + video_id  # BV装载
 
-all_in_one = False
-write_copy = True
+all_in_one = True
+write_copy = False
 root_dir = "E:/爬虫/test-data/"
 fp = webdriver.FirefoxProfile(broswer_profile)
 
@@ -31,49 +31,6 @@ time.sleep(10)
 browser.execute_script(js)
 max_page_string = browser.find_element_by_xpath(max_page_xpath).text
 video_info_pipe = queue.Queue(0)
-
-
-
-def video_info(video_data):
-    video_basic_data = video_data['data']
-    video_oid = video_basic_data['aid']
-    copyright_type = video_basic_data['copyright']
-    picture_add = video_basic_data['pic']
-    post_time_step = video_basic_data['pubdate']
-    cite_time_step = video_basic_data['ctime']
-    desctrion = video_basic_data['desc']
-
-    owner_data = video_data['owner']
-    owner_mid = owner_data['mid']
-
-    state_data = video_data['stat']
-    view_number = state_data['view']
-    commit_number = state_data['reply']
-    favorite_number = state_data['favorite']
-    coin_number = state_data['coin']
-    share_number = state_data['share']
-    daily_highest_rank = state_data['his_rank']
-    like_number = state_data['like']
-    dislike_number = state_data['dislike']
-
-    video_info_dire = {
-        'video_av': video_oid,
-        'copyright_type': copyright_type,
-        'picture_add': picture_add,
-        'post_time_step': post_time_step,
-        'cite_time_step': cite_time_step,
-        'desctrion': desctrion,
-        'owner_uid': owner_mid,
-        'view_number': view_number,
-        'favorite_number': favorite_number,
-        'coin_number': coin_number,
-        'share_number': share_number,
-        'daily_highest_rank': daily_highest_rank,
-        'like_number': like_number,
-        'dislike_number': dislike_number
-
-    }
-    return video_info_dire 
 
 
 def isElementExist(target_xpath):
@@ -94,7 +51,7 @@ print("开始爬取")
 
 while page < max_page or page == max_page:
     print("正在爬取" + str(page) + "页")
-    json_get_url ='https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
+    json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
     requests.get(json_get_url)
     oid_dire = requests.get(json_get_url)
     oid_dire = oid_dire.text
@@ -107,22 +64,20 @@ while page < max_page or page == max_page:
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
     json_path = str(page)+'.json'
     json_browser.get(json_get_url)
-    video_commits=json_browser.page_source.encode("utf-8")
+    video_commits = json_browser.page_source.encode("utf-8")
     # TODO:一体化入库函数
-    #if all_in_one:
-        #video_info()
-        #commit_json_ana()
+    if all_in_one:
+        commit_json_ana()
         # 写入数据库
-    
+
     if write_copy:
-        f = open(file=str(json_path),mode="wb")
+        f = open(file=str(json_path), mode="wb")
         json_data = video_commits
         f.write(json_data)
         print('写入成功')
         # 关闭文件
         f.close()
-    
-    
+
     # ————————————————
     # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
     # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
@@ -130,11 +85,10 @@ while page < max_page or page == max_page:
     browser.execute_script(js)  # 最下方确保获得所有元素
     pass
     # 下方代码作为保留性使用
-    browser.find_element_by_xpath(page_input).send_keys(page)#准备进入指定页
-    print("正在跳转至" + str(page) +"页")
-    browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)# 执行跳转
+    browser.find_element_by_xpath(page_input).send_keys(page)  # 准备进入指定页
+    print("正在跳转至" + str(page) + "页")
+    browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
     time.sleep(5)
 
-    
 
 print("爬取结束")
