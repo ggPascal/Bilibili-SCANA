@@ -40,11 +40,12 @@ def video_info(video_data): # 使用评论区数据工作
         'share_number': share_number,
         'daily_highest_rank': daily_highest_rank,
         'like_number': like_number,
-        'dislike_number': dislike_number
+        'dislike_number': dislike_number,
+        'commit_number': commit_number
 
     }
     return video_info_dire 
-    
+
 def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
     current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()

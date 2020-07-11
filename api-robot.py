@@ -64,15 +64,16 @@ while page < max_page or page == max_page:
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
     json_path = str(page)+'.json'
     json_browser.get(json_get_url)
-    video_commits = json_browser.page_source.encode("utf-8")
+    video_commits_data = json_browser.page_source.encode("utf-8")
     # TODO:一体化入库函数
     if all_in_one:
+        video_info(video_commits_data)
         commit_json_ana()
         # 写入数据库
 
     if write_copy:
         f = open(file=str(json_path), mode="wb")
-        json_data = video_commits
+        json_data = video_commits_data
         f.write(json_data)
         print('写入成功')
         # 关闭文件
