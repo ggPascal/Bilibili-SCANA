@@ -2,9 +2,14 @@ import json
 
 import requests
 
-from dire_manger import *
 
-def video_info(video_data): # 使用评论区数据工作
+def init():
+    all_user_dict = {}
+    all_commit_direct = {}
+    return all_user_dict, all_commit_direct
+
+
+def video_info(video_data):  # 使用评论区数据工作
     video_basic_data = video_data['data']
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
@@ -44,9 +49,10 @@ def video_info(video_data): # 使用评论区数据工作
         'commit_number': commit_number
 
     }
-    return video_info_dire 
+    return video_info_dire
 
-def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
+
+def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top):
     current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])  # 获取评论ID
@@ -106,6 +112,37 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
             has_replies = 'N'
         else:
             has_replies = 'Y'
+    if member_id not in all_user_dict.keys():
+        commit_user_info = {
+            'user_name': user_name,
+            'sign': sign,
+            'avatar_image_address': avatar_adress,
+            'user_level': user_level,
+            'has_nameplate': has_nameplate,
+            'nameplate_kind': nameplate_kind,
+            'nameplate_name': nameplate_name,
+            'nameplate_image': nameplate_image,
+            'nameplate_image_small': nameplate_image_small,
+            'nameplate_level': nameplate_level,
+            'nameplate_condition': nameplate_condition,
+            'has_vip': has_vip,
+            'vip_type': vip_type,
+            'vip_due_timestep': vip_due_timestep,
+        }
+        all_user_dict[member_id] = commit_user_info  # uid作为键
+    if reply_id not in all_commit_direct.keys():
+        commit_info = {
+            'uid': member_id,
+            'time': post_time_step,
+            'like_number': like_number,
+            'message': message,
+            'has_replies': has_replies,
+            'root_rid': root_rid,
+            'is_top': is_top,
+            'collect_time': collect_time_step
+        }
+        all_commit_direct[reply_id] = commit_info
+    return all_commit_direct, all_user_dict
 
 
 def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
@@ -121,12 +158,13 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
     reply_index = 0
     reply_ana_flag = True
     while reply_index in commit_data.keys():
-        commit_info(commit_data, reply_index, reply_ana_flag, root_rid)
+        commit_info(commit_data, reply_index, reply_ana_flag, root_rid, )
         reply_index = reply_index + 1
 
 
-def commit_json_ana(f, page_init):
-    json_data = json.load(f)
+def commit_json_ana(f, page_init, is_file, json_data):
+    if is_file:
+        json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
     if page_init == True:
         page_data = commit_data['page']  # 获取页数据

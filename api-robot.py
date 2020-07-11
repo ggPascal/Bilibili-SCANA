@@ -68,7 +68,7 @@ while page < max_page or page == max_page:
     # TODO:一体化入库函数
     if all_in_one:
         video_info(video_commits_data)
-        commit_json_ana()
+        commit_json_ana(f=None,is_file=False,page_init=True,json_data=video_commits_data)
         # 写入数据库
 
     if write_copy:
