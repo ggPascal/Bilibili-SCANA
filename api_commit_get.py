@@ -2,6 +2,8 @@ import json
 
 import requests
 
+import time
+
 
 def init():
     all_user_dict = {}
@@ -145,7 +147,7 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
     return all_commit_direct, all_user_dict
 
 
-def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
+def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct):
     # example replies address: https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=9&type=1&oid=796031275&ps=10&root=3070784970&_=1592802523767
     replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
@@ -158,11 +160,12 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
     reply_index = 0
     reply_ana_flag = True
     while reply_index in commit_data.keys():
-        commit_info(commit_data, reply_index, reply_ana_flag, root_rid, )
+        commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
+                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', )
         reply_index = reply_index + 1
 
 
-def commit_json_ana(f, page_init, is_file, json_data):
+def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict):
     if is_file:
         json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
@@ -176,8 +179,8 @@ def commit_json_ana(f, page_init, is_file, json_data):
     commit_index = 0
     while commit_index in commit_index_list:
         commit_info(commit_all, commit_index,
-                    reply_ana_flag=False, root_rid=None)
-        build_commit_dictory()  # 建立当前评论的字典数据
+                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N')
+          # 建立当前评论的字典数据
         commit_index = commit_index + 1
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
@@ -185,5 +188,5 @@ def commit_json_ana(f, page_init, is_file, json_data):
         commit_index = 0
         commit_all = upper_data['top']
         is_top = 'Y'
-        commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None)
-        build_commit_dictory()
+        commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=is_top)
+       
