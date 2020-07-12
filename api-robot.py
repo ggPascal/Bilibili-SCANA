@@ -64,11 +64,15 @@ while page < max_page or page == max_page:
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
     json_path = str(page)+'.json'
     json_browser.get(json_get_url)
-    video_commits_data = json_browser.page_source.encode("utf-8")
+    video_commits_data = json_browser.page_source
+    video_commits_data = json.loads(video_commits_data)
+    video_commits_data_byte = video_commits_data.encode('utf-8')
     # TODO:一体化入库函数
     if all_in_one:
+        all_user_dict, all_commit_direct = init()
         video_info(video_commits_data)
-        commit_json_ana(f=None,is_file=False,page_init=True,json_data=video_commits_data)
+        commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
+                        all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
         # 写入数据库
 
     if write_copy:
