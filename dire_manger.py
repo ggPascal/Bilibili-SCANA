@@ -15,7 +15,7 @@ def update_dire(text):
             dec[str(new_index)] = charater
 
 
-def build_commit_dictory():
+def build_commit_dictory(): #此函数内容正在被整合至commit_info，未来可能会完全删除
     # 使用RID作为主键
     if member_uid not in all_user_dict.keys():
         commit_user_info = {
