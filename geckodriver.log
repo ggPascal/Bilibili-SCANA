@@ -359,8 +359,14 @@ JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-play
 _create_dc_and_bitmap: 操作成功完成。
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
-JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
-console.error: "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers."
+JavaScript war1594435025386	Marionette	INFO	Stopped listening on port 52990
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+cers is an object whose values are reducers."
 console.error: "Task cancelled"
 console.error: "Error sending event: serverWebSocketClosed"
 console.error: (new Error("undefined passed where a value is required", "resource://devtools/shared/protocol/types.js", 115))
@@ -388,13 +394,542 @@ i@https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.
 @https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:6261
 @https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.94115f1175732897c38d29de25c9c6b240821d37.js:1:6265
 
-1594400577798	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilePjgXuv"
+console.error: "Task cancelled"
+1594435018827	Marionette	INFO	Stopped listening on port 52905
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+Local\\Temp\\rust_mozprofilePjgXuv"
 1594400580129	Marionette	INFO	Listening on port 54207
 1594400580425	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
 _create_dc_and_bitmap: 操作成功完成。
-ionette	WARN	TLS certificate errors will be ignored for this session
-JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594435023933	Marionette	INFO	Stopped listening on port 54207
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+RemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
 _create_dc_and_bitmap: 操作成功完成。
+1594435010844	Marionette	INFO	Stopped listening on port 54280
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilex7xOxB"
+1594414847115	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilemJeMn0"
+JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't find profile directory.
+1594414851010	Marionette	INFO	Listening on port 4566
+1594414851258	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+[GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
+_create_dc_and_bitmap: 操作成功完成。
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.412316860419
+1594434541324	Marionette	INFO	Stopped listening on port 4566
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+esource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.412316860420
+1594434540086	Marionette	INFO	Stopped listening on port 4668
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594443958116	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileMhjh8Y"
+1594443961841	Marionette	INFO	Listening on port 28074
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594443962277	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594446743634	Marionette	INFO	Stopped listening on port 28074
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+uitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594443975589	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594446744764	Marionette	INFO	Stopped listening on port 28157
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 28505
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594444211435	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594446745612	Marionette	INFO	Stopped listening on port 28505
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594446746245	Marionette	INFO	Stopped listening on port 28611
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594528803305	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileaI5QQ2"
+1594528807032	Marionette	INFO	Listening on port 4411
+1594528807439	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 26ms)
+1594532461083	Marionette	INFO	Stopped listening on port 4411
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChann1594532462503	Marionette	INFO	Stopped listening on port 4498
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594532486997	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileL7EdLG"
+1594532490261	Marionette	INFO	Listening on port 7918
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594532490636	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 15ms)
+1594532624829	Marionette	INFO	Stopped listening on port 7918
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ errors will be ignored for this session
+1594532625922	Marionette	INFO	Stopped listening on port 8013
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594532653893	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile8N09Ve"
+1594532657581	Marionette	INFO	Listening on port 8311
+1594532658034	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+1594540300150	Marionette	INFO	Stopped listening on port 8311
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ errors will be ignored for this session
+1594540381327	Marionette	INFO	Stopped listening on port 8402
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594586778034	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileozjseM"
+1594586779768	Marionette	INFO	Listening on port 3515
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594586780067	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Child 24564, Chrome_ChildThread] WARNING: pipe error: 232: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 522
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594590902258	Marionette	INFO	Stopped listening on port 3515
+
+###!!! [Child][RunMessage] Error: Channel closing: t1594590902428	Marionette	INFO	Stopped listening
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+v, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+istening on port 3874
+1594586927621	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+[Child 26068, Chrome_ChildThread] WARNING: pipe error: 232: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 522
+1594590902147	Marionette	INFO	Stopped listening on port 3874
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+mNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594590901983	Marionette	INFO	Stopped listening on port 3907
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+istening on port 4385
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594587267619	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+1594590902150	Marionette	INFO	Stopped listening on port 4385
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+22
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+istening on port 4708
+1594587466557	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+[Child 26604, Chrome_ChildThread] WARNING: pipe error: 232: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 522
+1594590902230	Marionette	INFO	Stoppe1594590902518	Marionette	I
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ Channel error: cannot send/recv
+
+file" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile5933RD"
+1594587546409	Marionette	INFO	Listening on port 4895
+1594587546731	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv,1594590902159	Marionette	INFO	Stopped listening on port 4929
+
+###!!! [Child][RunMessag
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv,
+###!!! [Child][MessageCh
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+4587700351	Marionette	WARN	TLS certificate errors will be ignored for this session
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594590902155	Marionette	INFO	Stopped listening on port 5193
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+on port 5228
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594591273736	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileJbSo3b"
+1594591277198	Marionette	INFO	Listening on port 8914
+1594591277386	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594591287399	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 29ms)
+1594610288940	Marionette	INFO	Stopped listening on port 8914
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+xt2@freedownloadmanager.org.274877906944
+1594591446685	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileYPWEeG"
+1594591450311	Marionette	INFO	Listening on port 9269
+1594591450328	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 14ms)
+0363\\AppData\\Local\\Temp\\rust_mozprofileSgP4w4"
+1594591461981	Marionette	INFO	Listening on port 9340
+1594591462077	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileLFzoiu"
+1594593724530	Marionette	INFO	Listening on port 11832
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594593724985	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594593740590	Marionette	INFO	Listening on port 11915
+1594593740822	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceErrJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+1594610294619	Marionette	INFO	Stopped listening on port 11832
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594610300643	Marionette	INFO	Stopped listening on port 11915
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileneJGPY"
+1594595415275	Marionette	INFO	Listening on port 14246
+1594595415535	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: hJavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+les\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofiler4qnJ2"
+1594597201237	Marionette	INFO	Listening on port 16095
+1594597201452	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript errorJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashJavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+roperty "href" on cross-origin object
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileLFPNmo"
+1594609782895	Marionette	INFO	Listening on port 28180
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594609783201	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+J1594610345713	Marionette	INFO	Stopped listening on port 28180
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ipt error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594610326071	Marionette	INFO	Stopped listening on port 28259
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594673537133	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile4Di1mW"
+1594673541887	Marionette	INFO	Listening on port 58342
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594673542368	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594673556801	Marionette	INFO	Listening on port 58459
+1594673557138	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+J
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChanne1594683095956	Marionette	INFO	Stopped listening on port 58459
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594683095640	Marionette	INFO	Stopped listening on port 58342
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+able code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594673722421	Marionette	INFO	Listening on port 58885
+1594673722936	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+J[Child 8568, Chrome_ChildThread] WARNING: pipe error: 232: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/common/ipc_channel_win.cc, line 522
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594683095805	Marionette	INFO	Stopped listening on port 58773
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+dRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594676713129	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594676724960	Marionette	INFO	Listening on port 62331
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594676725448	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JIPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+[Child 33112, Chrome_ChildThread] WARNING: pipe error: 232: file /builds/worker/checkouts/gecko/ipc/chromium/src/chrome/com1594683095576	Marionette	INFO	Stopped listening on port 62331
+
+###!!! [Child][RunMessage] Error
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error:
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 4949
+1594683055633	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594683064503	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/1594683068995	Marionette	INFO	Listening on port 5048
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594683069247	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: ht
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594683095535	Marionette	INFO	Stopped listening on port 4949
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390133,name=PContent::Msg_DiscardBrowsin
+###!!! [Child][MessageChannel] Error: (msgty
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594683128625	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileYkzhSB"
+1594683132661	Marionette	INFO	Listening on port 5314
+1594683132785	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594683141016	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/1594683145434	Marionette	INFO	Listening on port 5407
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594683145752	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A0005,name=PHttpChannel::Msg_Cancel) Closed channel: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A0005,name=PHttpChannel::Msg_Cancel) Closed channel: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A002D,name=PHttpChannel::Msg_SetPriority) Closed channel: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A002D,name=PHttpChannel::Msg_SetPriority) Closed channel: cannot send/recv
+
+1594683157755	Marionette	INFO	Stopped listening on port 5407
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error
+###!!! [Child][MessageChannel] Error: (msgtype=0x390133,name=PContent::Msg_DiscardBrowsingContext) Closed channel: cannot send/recv
+
+1594683158735	Marionette	INFO	Stopped listening on port 5314
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594683267640	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilesp1xU5"
+1594683270307	Marionette	INFO	Listening on port 5672
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594683270788	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594683464031	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileh35bPu"
+1594683468080	Marionette	INFO	Listening on port 6339
+1594683468158	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594683476221	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript error: https://s1.hdslb.com/bfs/static/jinkela/international-home/international-home.f80ed05a1b9a5e95ded2a2537344e22fcf97d18c.js, line 1: TypeError: e is undefined
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+JavaScript warniJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
