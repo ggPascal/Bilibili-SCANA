@@ -3,6 +3,7 @@
 # 本人初次开发爬虫工具，如果您有更好的建议，可以提出（当然语气请不要太激烈）
 from api_commit_get import *
 
+import requests
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
@@ -55,6 +56,7 @@ while page < max_page or page == max_page:
     requests.get(json_get_url)
     oid_dire = requests.get(json_get_url)
     oid_dire = oid_dire.text
+    video_stat_data = oid_dire
     oid_dire = json.loads(oid_dire)
     oid_dire = oid_dire['data']
     video_oid = int(oid_dire['aid'])
@@ -63,21 +65,20 @@ while page < max_page or page == max_page:
     os.chdir(root_dir)
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
     json_path = str(page)+'.json'
-    json_browser.get(json_get_url)
-    video_commits_data = json_browser.page_source
-    video_commits_data = json.loads(video_commits_data)
+    video_commits_data = requests.get(json_get_url).text
     video_commits_data_byte = video_commits_data.encode('utf-8')
+    video_commits_data = json.loads(video_commits_data)
     # TODO:一体化入库函数
     if all_in_one:
         all_user_dict, all_commit_direct = init()
-        video_info(video_commits_data)
+        video_info(oid_dire)
         commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
                         all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
         # 写入数据库
 
     if write_copy:
         f = open(file=str(json_path), mode="wb")
-        json_data = video_commits_data
+        json_data = video_commits_data_byte
         f.write(json_data)
         print('写入成功')
         # 关闭文件

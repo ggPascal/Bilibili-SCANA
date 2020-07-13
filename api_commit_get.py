@@ -12,7 +12,7 @@ def init():
 
 
 def video_info(video_data):  # 使用评论区数据工作
-    video_basic_data = video_data['data']
+    video_basic_data = video_data
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
     picture_add = video_basic_data['pic']
@@ -54,8 +54,11 @@ def video_info(video_data):  # 使用评论区数据工作
     return video_info_dire
 
 
-def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top):
-    current_commit = commit_all[str(commit_index)]
+def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list):
+    if is_list :
+        current_commit = commit_all[commit_index]
+    else:
+        current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])  # 获取评论ID
 
@@ -64,8 +67,12 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
 
     member_id = int(current_commit['mid'])  # 获取UID
     like_number = int(current_commit['like'])  # 获取点赞数
-    fans_detail = current_commit['fans_detail']
-    fans_level = int(current_commit['fans_grade'])
+    if 'fans_detail' in current_commit_keys :
+        fans_detail = current_commit['fans_detail']
+        fans_level = int(current_commit['fans_grade'])
+    else :
+        fans_detail = 'N/A'
+        fans_level = 'N/A'
     post_time_step = current_commit['ctime']  # 注意使用的是UNIX时，贮存的是秒
 
     member_data = current_commit['member']
@@ -107,10 +114,11 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
         vip_due_timestep = 'N/A'
 
     message_data = current_commit['content']
+    message_data_keys = member_data.keys()
     message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
     if reply_ana_flag == False:
         root_rid = 'N/A'
-        if message_data['replies'] == 'null':
+        if 'replies' not in message_data_keys:
             has_replies = 'N'
         else:
             has_replies = 'Y'
@@ -161,7 +169,7 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_us
     reply_ana_flag = True
     while reply_index in commit_data.keys():
         commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
-                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', )
+                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N' )
         reply_index = reply_index + 1
 
 
@@ -175,11 +183,10 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_size = int(page_data['size'])
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
-    commit_index_list = commit_all.keys()
     commit_index = 0
-    while commit_index in commit_index_list:
+    for commit_index in range(0, len(commit_all)-1): # BUG:commit_index_list is list , not dict, change fuction into list work
         commit_info(commit_all, commit_index,
-                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N')
+                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N',is_list=True)
           # 建立当前评论的字典数据
         commit_index = commit_index + 1
     # 顶置评论获取与标记
