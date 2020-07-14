@@ -1121,8 +1121,10 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
-JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594693516649	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileDaqnOZ"
+JavaScript error: h1594707311173	Marionette	INFO	Stopped listening on port 14824
+0#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileDaqnOZ"
 1594693519194	Marionette	INFO	Listening on port 15715
 1594693519272	Marionette	WARN	TLS certificate errors will be ignored for this session
 1594693528536	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
@@ -1133,8 +1135,10 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
-JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594705493776	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilenRHn3w"
+JavaScript error: hJavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+S_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilenRHn3w"
 1594705498579	Marionette	INFO	Listening on port 26363
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 1594705499010	Marionette	WARN	TLS certificate errors will be ignored for this session
@@ -1148,7 +1152,8 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
 JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594705624285	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileE4tn5j"
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileE4tn5j"
 1594705628353	Marionette	INFO	Listening on port 27029
 1594705628418	Marionette	WARN	TLS certificate errors will be ignored for this session
 1594705635857	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/1594705640174	Marionette	INFO	Listening on port 27145
@@ -1161,3 +1166,285 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
 JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594706119303	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile0Fp4CY"
+1594706127842	Marionette	INFO	Listening on port 28329
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706128242	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594706140158	Marionette	INFO	Listening on port 28461
+1594706140345	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JJavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+val, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594706353497	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKmat8y"
+1594706358412	Marionette	INFO	Listening on port 29037
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706358733	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile2z7Qsg"
+1594706442050	Marionette	INFO	Listening on port 29493
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706442429	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://s1.hdslb.com/bfs/static/player/main/video.7705a25b.js?v=20200710, line 2: ChunkLoadError: Loading chunk 10 failed after 1 retries.
+(error: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-vendors~player.798dbdc6.js?cache-bust=true&retry-attempt=1)
+1594706733580	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile5UbaYP"
+1594706739033	Marionette	INFO	Listening on port 30690
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706739313	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594706751293	Marionette	INFO	Listening on port 30802
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706751778	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594707157013	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileY4Onnn"
+1594707160951	Marionette	INFO	Listening on port 31571
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594707161146	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594707173691	Marionette	INFO	Listening on port 31672
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594707174009	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JJavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+val, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileykso4d"
+1594707243709	Marionette	INFO	Listening on port 31948
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594707243986	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594707256666	Marionette	INFO	Listening on port 32076
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594707256974	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileuolDHD"
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+1594712501045	Marionette	INFO	Listening on port 41292
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594712501421	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594712513097	Marionette	INFO	Listening on port 41404
+1594712513248	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+1594758619756	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilevPJC8W"
+1594758621511	Marionette	INFO	Listening on port 55513
+1594758621788	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+1594758814212	Marionette	INFO	Stopped listening on port 55513
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594758811085	Marionette	INFO	Stopped listening on port 55558
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594758834497	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileQAZ9UJ"
+1594758836361	Marionette	INFO	Listening on port 55768
+Extension error: Error: An unexpected error occurred undefined 99
+[[Exception stack
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:99:34
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594758836525	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 22ms)
+1594759605099	Marionette	INFO	Stopped listening on port 55768
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChann1594759676196	Marionette	INFO	Stopped listening on port 55799
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594760182976	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileUjAfa4"
+1594760184560	Marionette	INFO	Listening on port 30899
+1594760185000	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594765039071	Marionette	INFO	Stopped listening on port 30899
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+33
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileiCex5C"
+1594760500332	Marionette	INFO	Listening on port 31164
+1594760500377	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594760507181	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile9hjt1W"
+1594760508908	Marionette	INFO	Listening on port 31192
+1594760509207	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594765038219	Marionette	INFO	Stopped listening on port 31192
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+e 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594765039215	Marionette	INFO	Stopped listening on port 31164
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilee0ng8s"
+1594760730483	Marionette	INFO	Listening on port 31370
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594760730838	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+1594765039235	Marionette	INFO	Stopped listening on port 31370
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+e errors will be ignored for this session
+1594765038462	Marionette	INFO	Stopped listening on port 31412
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileFLD6E0"
+1594762666223	Marionette	INFO	Listening on port 33036
+1594762666346	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594762673641	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofiler9Cnhk"
+1594762675484	Marionette	INFO	Listening on port 33075
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.protJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1594765039086	Marionette	INFO	Stopped listening on port 33036
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594762675671	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594765038270	Marionette	INFO	Stopped listening on port 33075
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594765070581	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileK7f5yX"
+1594765072960	Marionette	INFO	Listening on port 35853
+1594765073208	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+20363\\AppData\\Local\\Temp\\rust_mozprofile0tIdPA"
+1594765082973	Marionette	INFO	Listening on port 35892
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594765083355	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594765237253	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKF0vG2"
+1594765239565	Marionette	INFO	Listening on port 36133
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594765239878	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+20363\\AppData\\Local\\Temp\\rust_mozprofiletrGlGN"
+1594765249721	Marionette	INFO	Listening on port 36252
+1594765249790	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594765535640	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile1AVEaP"
+1594765538007	Marionette	INFO	Listening on port 36636
+1594765538298	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+0363\\AppData\\Local\\Temp\\rust_mozprofileRQUizr"
+1594765547567	Marionette	INFO	Listening on port 36679
+1594765547930	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594766196854	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileyKqtUK"
+1594766199298	Marionette	INFO	Listening on port 37330
+1594766199495	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+0363\\AppData\\Local\\Temp\\rust_mozprofileCCztzA"
+1594766208902	Marionette	INFO	Listening on port 37372
+1594766209090	Marionette	WARN	TLS certificate errors will be ignored for this session
+Extension error: Error: An unexpected error occurred undefined 99
+[[Exception stack
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:99:34
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
