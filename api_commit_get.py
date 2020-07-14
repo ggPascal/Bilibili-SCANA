@@ -194,9 +194,15 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
     if 'top' in upper_data.keys():
         commit_index = 0
         commit_all = upper_data['top']
+<<<<<<< Updated upstream
         if commit_all != None :
             is_top = 'Y'
             commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict,
                         all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top)
 
     return all_commit_direct, all_user_dict
+=======
+        is_top = 'Y'
+        commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=is_top, is_list=False)
+       
+>>>>>>> Stashed changes
