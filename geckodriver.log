@@ -965,10 +965,22 @@ JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=17938
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
-JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
-JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594689348647	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilepm9x5x"
-1594689352896	Marionette	INFO	Listening on port 11152
+J1594691969377	Marionette	INFO	Stopped listening on port 10734
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ne 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594691968867	Marionette	INFO	Stopped listening on port 10819
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 11152
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 1594689353392	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
@@ -979,9 +991,19 @@ JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=17938
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
-JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
-JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594689431595	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileEmShW8"
+1594691968602	Marionette	INFO	Stopped listening on port 11152
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ine 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594691968999	Marionette	INFO	Stopped listening on port 11257
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileEmShW8"
 1594689435420	Marionette	INFO	Listening on port 11537
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 1594689435725	Marionette	WARN	TLS certificate errors will be ignored for this session
@@ -992,8 +1014,14 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
 JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594689494941	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileyt2H33"
-1594689499597	Marionette	INFO	Listening on port 11690
+1594691969372	Marionette	INFO	Stopped listening on port 11537
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 11690
 1594689499672	Marionette	WARN	TLS certificate errors will be ignored for this session
 1594689507278	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/1594689511573	Marionette	INFO	Listening on port 11804
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
@@ -1004,11 +1032,26 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
-JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594689647256	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilesuiJZM"
-1594689651479	Marionette	INFO	Listening on port 12112
-1594689651497	Marionette	WARN	TLS certificate errors will be ignored for this session
-1594689659121	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/1594689664744	Marionette	INFO	Listening on port 12202
+JavaScript error: h1594691968637	Marionette	INFO	Stopped listening on port 11690
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/1594689664744	Marionette	INFO	Listening on port 12202
 1594689664859	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
@@ -1017,8 +1060,16 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
-JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
-1594691382180	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileIWmRZb"
+JavaScript error: h1594691968845	Marionette	INFO	Stopped listening on port 12112
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChann1594691968999	Marionette	INFO	Stopped listening on port 12202
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileIWmRZb"
 1594691386180	Marionette	INFO	Listening on port 13346
 1594691386318	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
@@ -1029,3 +1080,36 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
 JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594691968100	Marionette	INFO	Stopped listening on port 13346
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 13672
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594691673874	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+J1594691968066	Marionette	INFO	Stopped listening on port 13672
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ne 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594691968177	Marionette	INFO	Stopped listening on port 13784
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1594692818196	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileetrW8L"
+1594692821064	Marionette	INFO	Listening on port 14824
+1594692821379	Marionette	WARN	TLS certificate errors will be ignored for this session

@@ -50,23 +50,24 @@ page = 1
 print("共计有" + max_page_string + "页")
 # 初始化结束
 print("开始爬取")
+json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
+requests.get(json_get_url)
+oid_dire = requests.get(json_get_url)
+oid_dire = oid_dire.text
+video_stat_data = oid_dire
+oid_dire = json.loads(oid_dire)
+oid_dire = oid_dire['data']
+video_oid = int(oid_dire['aid'])
 
 while page < max_page or page == max_page:
     print("正在爬取" + str(page) + "页")
-    json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
-    requests.get(json_get_url)
-    oid_dire = requests.get(json_get_url)
-    oid_dire = oid_dire.text
-    video_stat_data = oid_dire
-    oid_dire = json.loads(oid_dire)
-    oid_dire = oid_dire['data']
-    video_oid = int(oid_dire['aid'])
     json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
         str(page)+'&type=1&oid='+str(video_oid)
     os.chdir(root_dir)
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
     json_path = str(page)+'.json'
     video_commits_data = requests.get(json_get_url).text
+    time.sleep(15)
     video_commits_data_byte = video_commits_data.encode('utf-8')
     video_commits_data = json.loads(video_commits_data)
     # TODO:一体化入库函数
