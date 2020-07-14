@@ -2,11 +2,63 @@ import json
 
 import requests
 
-from dire_manger import *
+import time
 
 
-def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
-    current_commit = commit_all[str(commit_index)]
+def init():
+    all_user_dict = {}
+    all_commit_direct = {}
+    return all_user_dict, all_commit_direct
+
+
+def video_info(video_data):  # 使用评论区数据工作
+    video_basic_data = video_data
+    video_oid = video_basic_data['aid']
+    copyright_type = video_basic_data['copyright']
+    picture_add = video_basic_data['pic']
+    post_time_step = video_basic_data['pubdate']
+    cite_time_step = video_basic_data['ctime']
+    desctrion = video_basic_data['desc']
+
+    owner_data = video_data['owner']
+    owner_mid = owner_data['mid']
+
+    state_data = video_data['stat']
+    view_number = state_data['view']
+    commit_number = state_data['reply']
+    favorite_number = state_data['favorite']
+    coin_number = state_data['coin']
+    share_number = state_data['share']
+    daily_highest_rank = state_data['his_rank']
+    like_number = state_data['like']
+    dislike_number = state_data['dislike']
+
+    video_info_dire = {
+        'video_av': video_oid,
+        'copyright_type': copyright_type,
+        'picture_add': picture_add,
+        'post_time_step': post_time_step,
+        'cite_time_step': cite_time_step,
+        'desctrion': desctrion,
+        'owner_uid': owner_mid,
+        'view_number': view_number,
+        'favorite_number': favorite_number,
+        'coin_number': coin_number,
+        'share_number': share_number,
+        'daily_highest_rank': daily_highest_rank,
+        'like_number': like_number,
+        'dislike_number': dislike_number,
+        'commit_number': commit_number
+
+    }
+    return video_info_dire
+
+
+def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list):
+    if is_list:
+        current_commit = commit_all[commit_index]
+    else:
+        current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])  # 获取评论ID
 
@@ -15,8 +67,12 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
 
     member_id = int(current_commit['mid'])  # 获取UID
     like_number = int(current_commit['like'])  # 获取点赞数
-    fans_detail = current_commit['fans_detail']
-    fans_level = int(current_commit['fans_grade'])
+    if 'fans_detail' in current_commit_keys:
+        fans_detail = current_commit['fans_detail']
+        fans_level = int(current_commit['fans_grade'])
+    else:
+        fans_detail = 'N/A'
+        fans_level = 'N/A'
     post_time_step = current_commit['ctime']  # 注意使用的是UNIX时，贮存的是秒
 
     member_data = current_commit['member']
@@ -58,16 +114,48 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid):
         vip_due_timestep = 'N/A'
 
     message_data = current_commit['content']
+    message_data_keys = member_data.keys()
     message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
     if reply_ana_flag == False:
         root_rid = 'N/A'
-        if message_data['replies'] == 'null':
+        if 'replies' not in message_data_keys:
             has_replies = 'N'
         else:
             has_replies = 'Y'
+    if member_id not in all_user_dict.keys():
+        commit_user_info = {
+            'user_name': user_name,
+            'sign': sign,
+            'avatar_image_address': avatar_adress,
+            'user_level': user_level,
+            'has_nameplate': has_nameplate,
+            'nameplate_kind': nameplate_kind,
+            'nameplate_name': nameplate_name,
+            'nameplate_image': nameplate_image,
+            'nameplate_image_small': nameplate_image_small,
+            'nameplate_level': nameplate_level,
+            'nameplate_condition': nameplate_condition,
+            'has_vip': has_vip,
+            'vip_type': vip_type,
+            'vip_due_timestep': vip_due_timestep,
+        }
+        all_user_dict[member_id] = commit_user_info  # uid作为键
+    if reply_id not in all_commit_direct.keys():
+        commit_info = {
+            'uid': member_id,
+            'time': post_time_step,
+            'like_number': like_number,
+            'message': message,
+            'has_replies': has_replies,
+            'root_rid': root_rid,
+            'is_top': is_top,
+            'collect_time': collect_time_step
+        }
+        all_commit_direct[reply_id] = commit_info
+    return all_commit_direct, all_user_dict
 
 
-def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
+def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct):
     # example replies address: https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=9&type=1&oid=796031275&ps=10&root=3070784970&_=1592802523767
     replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
@@ -80,12 +168,14 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep):
     reply_index = 0
     reply_ana_flag = True
     while reply_index in commit_data.keys():
-        commit_info(commit_data, reply_index, reply_ana_flag, root_rid)
+        commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
+                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N')
         reply_index = reply_index + 1
 
 
-def commit_json_ana(f, page_init):
-    json_data = json.load(f)
+def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict):
+    if is_file:
+        json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
     if page_init == True:
         page_data = commit_data['page']  # 获取页数据
@@ -93,18 +183,21 @@ def commit_json_ana(f, page_init):
         commit_size = int(page_data['size'])
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
-    commit_index_list = commit_all.keys()
     commit_index = 0
-    while commit_index in commit_index_list:
+    # BUG:commit_index_list is list , not dict, change fuction into list work
+    for commit_index in range(0, len(commit_all)-1):
         commit_info(commit_all, commit_index,
-                    reply_ana_flag=False, root_rid=None)
-        build_commit_dictory()  # 建立当前评论的字典数据
-        commit_index = commit_index + 1
+                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True)
+        # 建立当前评论的字典数据
+        # commit_index = commit_index + 1
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
     if 'top' in upper_data.keys():
         commit_index = 0
         commit_all = upper_data['top']
-        is_top = 'Y'
-        commit_info(commit_all,0,reply_ana_flag=False,root_rid=None)
-        build_commit_dictory()
+        if commit_all != None :
+            is_top = 'Y'
+            commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict,
+                        all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top)
+
+    return all_commit_direct, all_user_dict
