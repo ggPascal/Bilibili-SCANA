@@ -16,6 +16,7 @@ url = "https://www.bilibili.com/video/" + video_id  # BV装载
 
 all_in_one = True
 write_copy = False
+write_copy_dict = True
 root_dir = "E:/爬虫/test-data/"
 fp = webdriver.FirefoxProfile(broswer_profile)
 
@@ -71,15 +72,16 @@ while page < max_page or page == max_page:
     # TODO:一体化入库函数
     if all_in_one:
         all_user_dict, all_commit_direct = init()
-        video_info(oid_dire)
-        commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                        all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
+        video_info_dire = video_info(oid_dire)
+        all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
+                                                           all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
         # 写入数据库
 
     if write_copy:
         f = open(file=str(json_path), mode="wb")
         json_data = video_commits_data_byte
         f.write(json_data)
+        f.close()
         print('写入成功')
         # 关闭文件
         f.close()
@@ -95,6 +97,14 @@ while page < max_page or page == max_page:
     print("正在跳转至" + str(page) + "页")
     browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
     time.sleep(5)
+
+if write_copy_dict:
+    user_dict_file = open(file="user_dict.json", mode="wb")
+    commit_dict_file = open(file="commits_dict.json", mode="wb")
+    user_dict_file.write(all_user_dict)
+    commit_dict_file.write(commit_dict_file)
+    user_dict_file.close()
+    commit_dict_file.close()
 
 
 print("爬取结束")
