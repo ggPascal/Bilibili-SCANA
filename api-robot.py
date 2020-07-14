@@ -67,6 +67,7 @@ while page < max_page or page == max_page:
     # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
     json_path = str(page)+'.json'
     video_commits_data = requests.get(json_get_url).text
+    time.sleep(15)
     video_commits_data_byte = video_commits_data.encode('utf-8')
     video_commits_data = json.loads(video_commits_data)
     # TODO:一体化入库函数
@@ -99,10 +100,10 @@ while page < max_page or page == max_page:
     time.sleep(5)
 
 if write_copy_dict:
-    user_dict_file = open(file="user_dict.json", mode="wb")
-    commit_dict_file = open(file="commits_dict.json", mode="wb")
-    user_dict_file.write(all_user_dict)
-    commit_dict_file.write(commit_dict_file)
+    user_dict_file = open(file="user_dict.json", mode="w", encoding="utf-8")
+    commit_dict_file = open(file="commits_dict.json", mode="w", encoding="utf-8")
+    json.dump(user_dict_file,all_user_dict)
+    json.dump(commit_dict_file,all_commit_direct)
     user_dict_file.close()
     commit_dict_file.close()
 
