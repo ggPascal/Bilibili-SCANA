@@ -1165,3 +1165,43 @@ JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856
 1594706127842	Marionette	INFO	Listening on port 28329
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 1594706128242	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&1594706140158	Marionette	INFO	Listening on port 28461
+1594706140345	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594706353497	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKmat8y"
+1594706358412	Marionette	INFO	Listening on port 29037
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706358733	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
+JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594706437197	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile2z7Qsg"
+1594706442050	Marionette	INFO	Listening on port 29493
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706442429	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://imgcache.qq.com/ac/qqshow/v5/version/js/frame_v_47.js?max_age=31536000, line 386: unreachable code after return statement
+JavaScript warning: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male, line 385: unreachable code after return statement
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 11: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 354: ReferenceError: QS is not defined
+JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
+JavaScript error: https://s1.hdslb.com/bfs/static/player/main/video.7705a25b.js?v=20200710, line 2: ChunkLoadError: Loading chunk 10 failed after 1 retries.
+(error: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-vendors~player.798dbdc6.js?cache-bust=true&retry-attempt=1)
+1594706733580	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile5UbaYP"
+1594706739033	Marionette	INFO	Listening on port 30690
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706739313	Marionette	WARN	TLS certificate errors will be ignored for this session
