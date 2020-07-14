@@ -3,11 +3,15 @@
 * English: Current writing
 * 中文：本文档
 ## 简介
-一个不断在开发当中的bilibili语料分析工具集，以后可能还会再增加点别的平台（那开个分项目啊！！！）
+一个不断在开发当中的bilibili站内数据分析工具集，目前只有评论区的爬取工具集可用（分析在做了在做了）
 ## 开发状态
-所有代码已经除错完成，不确定可否运行，请谨慎尝试
+所有代码已经除错完成，爬取数据并保存成JSON文件可以运行，但是数据库对接没弄好，AI模块自然要等上一会。
+具体进度可以去看一下两个地方：
+分项目进度：https://github.com/ggPascal/Bilibili-SCANA/projects
+阶段性进度：https://github.com/ggPascal/Bilibili-SCANA/milestones
 ### 可否参与开发
-可以，但是不建议，代码尚未清理完成，issue格式未建立。任务请见Project处。交流语言可以使用英语或者中文，首选中文。请在对应项目中寻找指定分支，并且定期同步分支的处理结果
+可以，当你发现问题后，先去看看Project那里有没有解决该问题的项目在运行，如果没有，请提交issue，可以的话你也可以自行开一个project尝试修复此问题
+你的pull request应该要与你的issiue和project相互连接，我也会定期巡视，帮助你整合进project
 ## TODO 
 1. README
 2. Postersql Backend
