@@ -2,7 +2,6 @@ import psycopg2
 import getpass
 from error_handel import *
 
-passwd = getpass.getpass("输入密码")
 
 def commit_exit(con, uid, post_time_step):
     commit_exists = False
@@ -57,16 +56,16 @@ def connect_db(has_con_config):
         pass  # 读取设置
     else:
         db_name = input("数据库名（留空将使用postgres）: ")
-        if db_name == None:
+        if db_name == '':
             db_name = 'postgres'
         db_user = input("用户名（留空将使用postgres）:")
-        if db_user == None:
+        if db_user == '':
             db_user = 'postgres'
         db_host = input('数据库主机（留空将使用localhost）: ')
-        if db_host == None:
+        if db_host == '':
             db_host = 'localhost'
         db_port = input('数据库端口（留空将使用5432）: ')
-        if db_port == None:
+        if db_port == '':
             db_port = '5432'
         not_input_password = True
         while not_input_password:
@@ -74,6 +73,8 @@ def connect_db(has_con_config):
             if db_pwd == None:
                 print("你没有输入密码，请重试")
                 not_input_password = True
+            else:
+                not_input_password = False
 
     conn = psycopg2.connect(database=str(db_name), user=str(
         db_user), password=str(db_pwd), host=str(db_host), port=str(db_port))
