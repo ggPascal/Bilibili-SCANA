@@ -1161,3 +1161,7 @@ JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.h
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1191: ReferenceError: QS is not defined
 JavaScript error: https://imgcache.qq.com/qqshow/v5/fashion/html/index/index_m.html?sex=M&frame=1, line 1223: ReferenceError: QS is not defined
 JavaScript error: https://show.qq.com/?ADTAG=client.im.card.qqshow&opuin=1793856670#!id=fashion_main_male line 656 > eval, line 76: SecurityError: Permission denied to get property "href" on cross-origin object
+1594706119303	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile0Fp4CY"
+1594706127842	Marionette	INFO	Listening on port 28329
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594706128242	Marionette	WARN	TLS certificate errors will be ignored for this session
