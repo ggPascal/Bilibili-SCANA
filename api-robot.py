@@ -100,10 +100,10 @@ while page < max_page or page == max_page:
     time.sleep(5)
 
 if write_copy_dict:
-    user_dict_file = open(file="user_dict.json", mode="wb")
-    commit_dict_file = open(file="commits_dict.json", mode="wb")
-    user_dict_file.write(all_user_dict)
-    commit_dict_file.write(commit_dict_file)
+    user_dict_file = open(file="user_dict.json", mode="w",encoding="utf-8")
+    commit_dict_file = open(file="commits_dict.json", mode="wb",encoding="utf-8")
+    json.dump(all_user_dict,user_dict_file)
+    json.dump(all_commit_direct,commit_dict_file)
     user_dict_file.close()
     commit_dict_file.close()
 
