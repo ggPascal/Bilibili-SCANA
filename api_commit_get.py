@@ -184,7 +184,6 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
     commit_index = 0
-    # BUG:commit_index_list is list , not dict, change fuction into list work
     for commit_index in range(0, len(commit_all)-1):
         commit_info(commit_all, commit_index,
                     reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True)
