@@ -49,6 +49,7 @@ def video_info_table_create(cur, video_bv_id):
         daily-highest-rank int ,
         like-number int ,
         dilike-number int ,
+        collect-time-step int
         };""")
     cur.commit()
     table_exists_flag = table_exists(con=cur, table_str=str(table_name))
