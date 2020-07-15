@@ -21,8 +21,8 @@ def commit_table_create(cur, video_bv_id):
         message BIGSERIAL, 
         has_replies BIGSERIAL, 
         root_rid BIGSERIAL, 
-        is_top BIGSERIAL
-        collect-time-step int 
+        is_top BIGSERIAL,
+        collect-time-step int, 
         };""") # TODO: Change into commit data format
     cur.commit()
     table_exists_flag = table_exists(con=cur, table_str=str(table_name))
@@ -47,8 +47,8 @@ def video_info_table_create(cur, video_bv_id):
         coin-number int ,
         share-number int ,
         daily-highest-rank int ,
-        like-number int
-        dilike-number int
+        like-number int ,
+        dilike-number int ,
         };""")
     cur.commit()
     table_exists_flag = table_exists(con=cur, table_str=str(table_name))
