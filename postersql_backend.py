@@ -1,17 +1,21 @@
 import psycopg2
 import getpass
 from error_handel import *
-def table_exists(con, table_str):
+
+
+def table_exists(con, table_name):
     exists = False
     try:
         con.execute(
-            "select exists(select relname from pg_class where relname='" + table_str + "')")
+            "select exists(select relname from pg_class where relname='" + table_name + "')")
         exists = con.fetchone()[0]
         print(exists)
         con.close()
     except psycopg2.Error as e:
         print(e)
     return exists
+
+
 def commit_table_create(cur, video_bv_id):
     table_name = str(video_bv_id)+'_commits'
     cur.execute('CREATE TABLE '+table_name+""" { 
@@ -23,18 +27,20 @@ def commit_table_create(cur, video_bv_id):
         root_rid BIGSERIAL, 
         is_top BIGSERIAL,
         collect-time-step int, 
-        };""") # TODO: Change into commit data format
+        };""")  # TODO: Change into commit data format
     cur.commit()
-    table_exists_flag = table_exists(con=cur, table_str=str(table_name))
-    if table_exists_flag == False :
+    table_exists_flag = table_exists(con=cur, table_name=str(table_name))
+    if table_exists_flag == False:
         print("尚未成功创建表格")
         return False
     print(table_name+" 创建成功")
     return True
 
+
 def video_info_table_create(cur, video_bv_id):
     table_name = str(video_bv_id)+'_video_info'
     cur.execute('CREATE TABLE '+table_name+""" { 
+        rid int,
         video-av BIGSERIAL , 
         copyright-type int , 
         picture-add BIGSERIAL , 
@@ -48,16 +54,17 @@ def video_info_table_create(cur, video_bv_id):
         share-number int ,
         daily-highest-rank int ,
         like-number int ,
-        dilike-number int ,
+        dislike-number int ,
         collect-time-step int
         };""")
     cur.commit()
-    table_exists_flag = table_exists(con=cur, table_str=str(table_name))
-    if table_exists_flag == False :
+    table_exists_flag = table_exists(con=cur, table_name=str(table_name))
+    if table_exists_flag == False:
         print("尚未成功创建表格")
         return False
     print(table_name+" 创建成功")
     return True
+
 
 def commit_exit(con, rid, table_name, post_time_step):
     commit_exists = False
@@ -66,11 +73,11 @@ def commit_exit(con, rid, table_name, post_time_step):
         cur.execute(
             "select exists(select rid from "+table_name+" where uid='" + str(rid) + "')")
         uid_exists = cur.fetchone()[0]
-        if uid_exists : # TODO: add a post time exists dected
+        if uid_exists:  # TODO: add a post time exists dected
             cur.execute(
-            "select exists(select post_time from "+table_name+" where uid='" + str(post_time_step) + "')")
+                "select exists(select post_time from "+table_name+" where uid='" + str(post_time_step) + "')")
             post_time_exists = cur.fetchone()[0]
-            if post_time_exists :
+            if post_time_exists:
                 commit_exit = True
         print(commit_exit)
     except psycopg2.Error as e:
@@ -78,6 +85,8 @@ def commit_exit(con, rid, table_name, post_time_step):
     return commit_exists
 
 # 检测用户是否存在于数据库中
+
+
 def user_exit(cur, uid_str):
     exists = False
     try:
@@ -92,7 +101,6 @@ def user_exit(cur, uid_str):
 
 # 用于检测表格是否存在
 # Orinal code from https://www.itranslater.com/qa/details/2583162923480777728
-
 
 
 def connect_db(has_con_config):
@@ -124,7 +132,7 @@ def connect_db(has_con_config):
     conn = psycopg2.connect(database=str(db_name), user=str(
         db_user), password=str(db_pwd), host=str(db_host), port=str(db_port))
     cur = conn.cursor()
-    return cur 
+    return cur
 
 
 def init_db(cur):
@@ -158,7 +166,7 @@ def init_db(cur):
             print('我们将会创建一个全新的数据库')
             while retry:
                 db_name = input('请输入名称：')
-                if db_name == None :
+                if db_name == None:
                     print('你尚未输入名称！')
                     retry = True
                     continue
@@ -166,53 +174,58 @@ def init_db(cur):
             cur.commit()
             db_list = cur.fetchall
             db_list = db_list[0]
-            if db_name not in db_list :
+            if db_name not in db_list:
                 pass
                 # error_check_out()
                 # 错误码跳转
             print('成功建立数据库 '+str(db_name))
             cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
-            
 
             # TODO:写入配置
 
-        
 
-
-
-def update_data_video_info(cur,video_id): # 视频数据更新
-    table_name = str(video_id)+'_info' 
-    if table_exists(cur,table_name) == False : 
-        cur.execute('CREATE TABLE '+table_name+""" { 
-            video-av BIGSERIAL , 
-            copyright-type int , 
-            picture-add BIGSERIAL , 
-            post-time-step int ,
-            cite-time-step int , 
-            desctrion BIGSERIAL ,
-            owner-uid int , 
-            view-number int ,
-            favorite-number int , 
-            coin-number int ,
-            share-number int ,
-            daily-highest-rank int ,
-            like-number int ,
-            dilike-number int ,
-            collect-time-step int
-            };""")
-        # TODO:创建表格
-        cur.commit()
-        exit_flag=table_exists(cur,str(table_name))# 查询表格是否存在
-        if exit_flag :
-            pass
-            # error_check_out() 
-            #TODO:错误码检查
+def update_data_video_info(cur, video_bv_id, video_info_dire, rid, overwrite_flag):
+    table_name = str(video_bv_id)+'_video_info'
+    if table_exists(con=cur, table_name=table_name) == False:
+        is_create = video_info_table_create(cur, video_bv_id=video_bv_id)
+        if is_create == False:
+            print("操作失败，正在退出当前函数")
+            return False
+    for rid in video_info_dire:
+        current_data = video_info_dire[str(rid)]
+        if commit_exit(con=cur, rid=rid, table_name=table_name, post_time_step=current_data['post_time_step']) and overwrite_flag == True:
+            cur.execute('UPDATE '+table_name+' SET video-av = ' + current_data['video_av'] +
+                        ', copyright-type = '+current_data['copyright_type'] +
+                        ', picture-add = ' + current_data['picture_add'] +
+                        ', post-time-step = '+current_data['post_time_step'] +
+                        ', cite-time-step = '+current_data['cite_time_step'] +
+                        ', desctrion = '+current_data['desctrion'] +
+                        ', owner-uid = '+current_data['owner_uid'] +
+                        ', view-number = '+current_data['view_number'] +
+                        ', favorite-number = '+current_data['favorite_number'] +
+                        ', coin-number = '+current_data['coin_number'] +
+                        ', share-number = '+current_data['share_number'] +
+                        ', daily-highest-rank = '+current_data['daily_highest_rank'] +
+                        ', like-number = '+current_data['like_number'] +
+                        ', dislike-number = '+current_data['dislike_number'] +
+                        ', collect-time-step = '+current_data['collect_time_step'] +
+                        ' WHERE video-av = '+current_data['video_av']+' AND post-time-step = '+current_data['post_time_step']+';')
+            cur.commit()
+        else:
+            cur.execute('INSERT INTO '+table_name +
+                        '(rid, video-av, copyright-type, post-time-step, cite-time-step, desctrion, owner-uid, view-number, favorite-number, coin-number, share-number, daily-highest-rank, like-number, dislike-number, collect-time-step'+
+                        'VALUES '+'('+rid+', '+current_data['video_av']+', '+current_data['copyright_type']+', '+current_data['post_time_step']+', '+current_data['cite_time_step']+', '+current_data['desctrion']+', '+current_data['owner_uid']+', '+current_data['view_number']+', '+current_data['coin_number']+', '+current_data['share_number']+', '+current_data['daily_highest_rank']+', '+current_data['like_number']+', '+current_data['dislike_number']+', '+current_data['collect_time_step']+');')
+            cur.commit()
+            if commit_exit(con = cur, rid=rid, table_name=table_name, post_time_step=current_data['post_time_step']) == False :
+                print("我们遇到了错误，正在退出此函数")
+                cur.rollback()
+                return False
 
 def update_data_commit_info(commit_dire):
     # TODO:数据库数据更新
-   for uid in commit_dire.keys() :
-       current_data = commit_dire[uid]
-       
+    for uid in commit_dire.keys():
+        current_data = commit_dire[uid]
+
     # TODO:数据查询
     # pass

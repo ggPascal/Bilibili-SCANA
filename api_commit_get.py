@@ -169,7 +169,7 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_us
     reply_ana_flag = True
     while reply_index in commit_data.keys():
         commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
-                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N')
+                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True)
         reply_index = reply_index + 1
 
 
