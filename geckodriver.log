@@ -1401,18 +1401,17 @@ stener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
 1594765072960	Marionette	INFO	Listening on port 35853
 1594765073208	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
-20363\\AppData\\Local\\Temp\\rust_mozprofile0tIdPA"
-1594765082973	Marionette	INFO	Listening on port 35892
-Extension error: Error: An unexpected error occurred undefined 127
-[[Exception stack
-FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+dea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
 FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
 Current stack
 applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
 addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
 ]]
 1594765083355	Marionette	WARN	TLS certificate errors will be ignored for this session
-1594765237253	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKF0vG2"
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKF0vG2"
 1594765239565	Marionette	INFO	Listening on port 36133
 Extension error: Error: An unexpected error occurred undefined 127
 [[Exception stack
@@ -1424,25 +1423,24 @@ addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:
 ]]
 1594765239878	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
-20363\\AppData\\Local\\Temp\\rust_mozprofiletrGlGN"
-1594765249721	Marionette	INFO	Listening on port 36252
-1594765249790	Marionette	WARN	TLS certificate errors will be ignored for this session
-1594765535640	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile1AVEaP"
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+NS_ERROR_UNEXPECTED: 
+firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile1AVEaP"
 1594765538007	Marionette	INFO	Listening on port 36636
 1594765538298	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
-0363\\AppData\\Local\\Temp\\rust_mozprofileRQUizr"
-1594765547567	Marionette	INFO	Listening on port 36679
-1594765547930	Marionette	WARN	TLS certificate errors will be ignored for this session
-1594766196854	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileyKqtUK"
+[Parent 30748, Gecko_IOThread] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc, line 166
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsJavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+ust_mozprofileyKqtUK"
 1594766199298	Marionette	INFO	Listening on port 37330
 1594766199495	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
-0363\\AppData\\Local\\Temp\\rust_mozprofileCCztzA"
-1594766208902	Marionette	INFO	Listening on port 37372
-1594766209090	Marionette	WARN	TLS certificate errors will be ignored for this session
-Extension error: Error: An unexpected error occurred undefined 99
-[[Exception stack
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+Exception stack
 FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:99:34
 Current stack
 applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
@@ -1451,3 +1449,23 @@ addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:
 1594784315794	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileHee313"
 1594784318326	Marionette	INFO	Listening on port 60843
 1594784318432	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1594797084994	Marionette	INFO	Stopped listening on port 60843
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ned 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1594797083613	Marionette	INFO	Stopped listening on port 60889
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+

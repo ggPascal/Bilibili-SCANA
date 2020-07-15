@@ -12,6 +12,25 @@ def table_exists(con, table_str):
     except psycopg2.Error as e:
         print(e)
     return exists
+def commit_table_create(cur, video_bv_id):
+    table_name = str(video_bv_id)+'_commits'
+    cur.execute('CREATE TABLE '+table_name+""" { 
+        uid int,
+        post-time-step int,
+        like-number int,
+        message BIGSERIAL, 
+        has_replies BIGSERIAL, 
+        root_rid BIGSERIAL, 
+        is_top BIGSERIAL
+        collect-time-step int 
+        };""") # TODO: Change into commit data format
+    cur.commit()
+    table_exists_flag = table_exists(con=cur, table_str=str(table_name))
+    if table_exists_flag == False :
+        print("尚未成功创建表格")
+        return False
+    print(table_name+" 创建成功")
+    return True
 
 def video_info_table_create(cur, video_bv_id):
     table_name = str(video_bv_id)+'_video_info'
@@ -31,13 +50,13 @@ def video_info_table_create(cur, video_bv_id):
         like-number int
         dilike-number int
         };""")
-        cur.commit()
-        table_exists_flag = table_exists(con=cur, table_str=str(table_name))
-        if table_exists_flag == False :
-            print("尚未成功创建表格")
-            return False
-        print(table_name+" 创建成功")
-        return True
+    cur.commit()
+    table_exists_flag = table_exists(con=cur, table_str=str(table_name))
+    if table_exists_flag == False :
+        print("尚未成功创建表格")
+        return False
+    print(table_name+" 创建成功")
+    return True
 
 def commit_exit(con, rid, table_name, post_time_step):
     commit_exists = False
@@ -134,7 +153,6 @@ def init_db(cur):
                         break
             cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
-             # TODO:创建表格
         else:
             print('我们将会创建一个全新的数据库')
             while retry:
