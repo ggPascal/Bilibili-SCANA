@@ -1448,3 +1448,6 @@ Current stack
 applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
 addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
 ]]
+1594784315794	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileHee313"
+1594784318326	Marionette	INFO	Listening on port 60843
+1594784318432	Marionette	WARN	TLS certificate errors will be ignored for this session

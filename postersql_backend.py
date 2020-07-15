@@ -1,22 +1,58 @@
 import psycopg2
 import getpass
 from error_handel import *
+def table_exists(con, table_str):
+    exists = False
+    try:
+        con.execute(
+            "select exists(select relname from pg_class where relname='" + table_str + "')")
+        exists = con.fetchone()[0]
+        print(exists)
+        con.close()
+    except psycopg2.Error as e:
+        print(e)
+    return exists
 
+def video_info_table_create(cur, video_bv_id):
+    table_name = str(video_bv_id)+'_video_info'
+    cur.execute('CREATE TABLE '+table_name+""" { 
+        video-av BIGSERIAL , 
+        copyright-type int , 
+        picture-add BIGSERIAL , 
+        post-time-step int ,
+        cite-time-step int , 
+        desctrion BIGSERIAL ,
+        owner-uid int , 
+        view-number int ,
+        favorite-number int , 
+        coin-number int ,
+        share-number int ,
+        daily-highest-rank int ,
+        like-number int
+        dilike-number int
+        };""")
+        cur.commit()
+        table_exists_flag = table_exists(con=cur, table_str=str(table_name))
+        if table_exists_flag == False :
+            print("尚未成功创建表格")
+            return False
+        print(table_name+" 创建成功")
+        return True
 
-def commit_exit(con, uid, post_time_step):
+def commit_exit(con, rid, table_name, post_time_step):
     commit_exists = False
     try:
         cur = con.cursor()
         cur.execute(
-            "select exists(select 1 from user_tablet where uid='" + str(uid) + "')")
+            "select exists(select rid from "+table_name+" where uid='" + str(rid) + "')")
         uid_exists = cur.fetchone()[0]
-        if uid_exists :
+        if uid_exists : # TODO: add a post time exists dected
             cur.execute(
-            "select exists(select 1 from user_tablet where uid='" + str(uid) + "')")
+            "select exists(select post_time from "+table_name+" where uid='" + str(post_time_step) + "')")
             post_time_exists = cur.fetchone()[0]
             if post_time_exists :
                 commit_exit = True
-        cur.close()
+        print(commit_exit)
     except psycopg2.Error as e:
         print(e)
     return commit_exists
@@ -26,7 +62,7 @@ def user_exit(cur, uid_str):
     exists = False
     try:
         cur.execute(
-            "select exists(select 1 from user_tablet where uid='" + str(uid_str) + "')")
+            "select exists(select uid from user_tablet where uid='" + str(uid_str) + "')")
         exists = cur.fetchone()[0]
         print(exists)
         cur.close()
@@ -36,18 +72,7 @@ def user_exit(cur, uid_str):
 
 # 用于检测表格是否存在
 # Orinal code from https://www.itranslater.com/qa/details/2583162923480777728
-def table_exists(con, table_str):
-    exists = False
-    try:
-        cur = con.cursor()
-        cur.execute(
-            "select exists(select relname from pg_class where relname='" + table_str + "')")
-        exists = cur.fetchone()[0]
-        print(exists)
-        cur.close()
-    except psycopg2.Error as e:
-        print(e)
-    return exists
+
 
 
 def connect_db(has_con_config):
@@ -79,6 +104,7 @@ def connect_db(has_con_config):
     conn = psycopg2.connect(database=str(db_name), user=str(
         db_user), password=str(db_pwd), host=str(db_host), port=str(db_port))
     cur = conn.cursor()
+    return cur 
 
 
 def init_db(cur):
@@ -108,36 +134,7 @@ def init_db(cur):
                         break
             cur.execute('\c '+str(db_name))
             print('现在已经切换到 '+str(db_name))
-            table_name = input('输入表名称（留空将使用默认名 bilcs ）: ')
-            if table_name == None :
-                table_name = 'bilcs'
-            cur.execute('CREATE TABLE '+table_name+""" { 
-                video-av BIGSERIAL , 
-                copyright-type int , 
-                picture-add BIGSERIAL , 
-                post-time-step int ,
-                cite-time-step int , 
-                desctrion BIGSERIAL ,
-                owner-uid int , 
-                view-number int ,
-                favorite-number int , 
-                coin-number int ,
-                share-number int ,
-                daily-highest-rank int ,
-                like-number int
-                dilike-number int
-                };""")
-            # TODO:创建表格
-            cur.commit()
-            cur.execute('\d')
-            list_all = cur.fetchall()
-            list_all = list_all[1]
-            if table_name not in list_all :
-                pass
-                # error_check_out() 
-                #TODO:错误码检查
-
-            
+             # TODO:创建表格
         else:
             print('我们将会创建一个全新的数据库')
             while retry:

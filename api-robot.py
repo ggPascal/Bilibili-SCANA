@@ -53,7 +53,7 @@ print("开始爬取")
 
 while page < max_page or page == max_page:
     try:
-        print("正在爬取" + str(page) + "/"+str(max_page) +"页")
+        print("正在爬取" + str(page) + "/"+str(max_page) + "页")
         json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
         requests.get(json_get_url)
         oid_dire = requests.get(json_get_url)
@@ -68,7 +68,7 @@ while page < max_page or page == max_page:
         # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
         json_path = str(page)+'.json'
         video_commits_data = requests.get(json_get_url).text
-        time.sleep(15)
+
         video_commits_data_byte = video_commits_data.encode('utf-8')
         video_commits_data = json.loads(video_commits_data)
         # TODO:一体化入库函数
@@ -76,7 +76,7 @@ while page < max_page or page == max_page:
             all_user_dict, all_commit_direct = init()
             video_info_dire = video_info(oid_dire)
             all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
+                                                               all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
             # 写入数据库
 
         if write_copy:
@@ -99,14 +99,15 @@ while page < max_page or page == max_page:
         print("正在跳转至" + str(page) + "页")
         browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
         time.sleep(5)
-    except :
+    except:
         print("发生了错误，终止爬取")
-        print("目前截止页数："+ str(page) + "页")
+        print("目前截止页数：" + str(page) + "页")
         break
 
 if write_copy_dict:
-    user_dict_file = open(file="user_dict.json", mode="w")
-    commit_dict_file = open(file="commits_dict.json", mode="w")
+    user_dict_file = open(file="user_dict.json", mode="w", encoding="utf-8")
+    commit_dict_file = open(file="commits_dict.json",
+                            mode="w", encoding="utf-8")
     json.dump(all_user_dict, user_dict_file)
     json.dump(all_commit_direct, commit_dict_file)
     user_dict_file.close()
