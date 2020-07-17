@@ -26,11 +26,7 @@ fp = webdriver.FirefoxProfile(broswer_profile)
 max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/span'
 page_input = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/input'
 js = "window.scrollTo(0, document.body.scrollHeight)"
-<<<<<<< Updated upstream
-flag_upper_done_element = '//*[@id="arc_toolbar_report"]/div[1]/span[4]/i'
-=======
 flag_upper_done_element = '/html/body/div[3]/div/div[1]/div[3]/div[1]/span[4]/i'
->>>>>>> Stashed changes
 flag_upper_not_done_str = '--'
 browser = webdriver.Firefox(fp)
 json_browser = webdriver.Firefox(fp)
@@ -49,10 +45,14 @@ while upper_not_done:  # 保证浏览器响应成功后再进行下一步操作
     except:
         upper_not_done = True
 
-browser.execute_script(js)
-time.sleep(10)
-browser.execute_script(js)
-max_page_string = browser.find_element_by_xpath(max_page_xpath).text
+
+input_not_reached = True
+while input_not_reached :
+    try:
+        max_page_string = browser.find_element_by_xpath(max_page_xpath).text
+        input_not_reached = False
+    except :
+        browser.execute_script(js)
 video_info_pipe = queue.Queue(0)
 
 

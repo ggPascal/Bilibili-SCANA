@@ -1696,3 +1696,10 @@ fdm_ffext2@freedownloadmanager.org.274877906944
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
 >>>>>>> Stashed changes
+1594968224511	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileHgyajC"
+1594968227323	Marionette	INFO	Listening on port 42730
+1594968227659	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+20363\\AppData\\Local\\Temp\\rust_mozprofilem885RG"
+1594968238217	Marionette	INFO	Listening on port 42779
+1594968238509	Marionette	WARN	TLS certificate errors will be ignored for this session
