@@ -13,11 +13,12 @@ import re
 import numba as nb
 
 
+
 broswer_profile = "C:\\Users\\20363\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\jpuqy65r.default-release"
 video_id = input("输入需要获取评论的BV号： ")
 url = "https://www.bilibili.com/video/" + video_id  # BV装载
 
-all_in_one = False
+all_in_one = True
 write_copy = False
 write_copy_dict = True
 root_dir = "E:/爬虫/test-data/"
@@ -66,68 +67,68 @@ def isElementExist(target_xpath):
         flag = False
 
 
-@nb.jit()
-def process():
-    max_page = int(max_page_string)
-    page = 1
-    print("共计有" + max_page_string + "页")
-    # 初始化结束
-    print("开始爬取")
-    while page < max_page or page == max_page:
-        try:
-            print("正在爬取" + str(page) + "/"+str(max_page) + "页")
-            json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
-            requests.get(json_get_url)
-            oid_dire = requests.get(json_get_url)
-            oid_dire = oid_dire.text
-            video_stat_data = oid_dire
-            oid_dire = json.loads(oid_dire)
-            oid_dire = oid_dire['data']
-            video_oid = int(oid_dire['aid'])
-            json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
-                str(page)+'&type=1&oid='+str(video_oid)
-            os.chdir(root_dir)
-            # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
-            json_path = str(page)+'.json'
-            video_commits_data = requests.get(json_get_url).text
 
-            video_commits_data_byte = video_commits_data.encode('utf-8')
-            video_commits_data = json.loads(video_commits_data)
-            # TODO:一体化入库函数
-            if all_in_one:
-                all_user_dict, all_commit_direct = init()
-                video_info_dire = video_info(oid_dire)
-                all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
-                # 写入数据库
 
-            if write_copy:
-                f = open(file=str(json_path), mode="wb")
-                json_data = video_commits_data_byte
-                f.write(json_data)
-                f.close()
-                print('写入成功')
-                # 关闭文件
-                f.close()
+max_page = int(max_page_string)
+page = 1
+print("共计有" + max_page_string + "页")
+# 初始化结束
+print("开始爬取")
+while page < max_page or page == max_page:
+    try:
+        print("正在爬取" + str(page) + "/"+str(max_page) + "页")
+        json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
+        requests.get(json_get_url)
+        oid_dire = requests.get(json_get_url)
+        oid_dire = oid_dire.text
+        video_stat_data = oid_dire
+        oid_dire = json.loads(oid_dire)
+        oid_dire = oid_dire['data']
+        video_oid = int(oid_dire['aid'])
+        json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
+            str(page)+'&type=1&oid='+str(video_oid)
+        os.chdir(root_dir)
+        # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
+        json_path = str(page)+'.json'
+        video_commits_data = requests.get(json_get_url).text
 
-            # ————————————————
-            # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-            # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
-            page = page + 1
-            browser.execute_script(js)  # 最下方确保获得所有元素
-            pass
-            # 下方代码作为保留性使用
-            browser.find_element_by_xpath(page_input).send_keys(page)  # 准备进入指定页
-            print("正在跳转至" + str(page) + "页")
-            browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
-            time.sleep(5)
-        except:
-            print("发生了错误，终止爬取")
-            print("目前截止页数：" + str(page) + "页")
-            break
-    return all_commit_direct, all_user_dict
+        video_commits_data_byte = video_commits_data.encode('utf-8')
+        video_commits_data = json.loads(video_commits_data)
+        # TODO:一体化入库函数
+        if all_in_one:
+            all_user_dict, all_commit_direct = init()
+            video_info_dire = video_info(oid_dire)
+            all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
+                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
+            # 写入数据库
 
-all_commit_direct, all_user_dict=process()
+        if write_copy:
+            f = open(file=str(json_path), mode="wb")
+            json_data = video_commits_data_byte
+            f.write(json_data)
+            f.close()
+            print('写入成功')
+            # 关闭文件
+            f.close()
+
+        # ————————————————
+        # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+        # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
+        page = page + 1
+        browser.execute_script(js)  # 最下方确保获得所有元素
+        pass
+        # 下方代码作为保留性使用
+        browser.find_element_by_xpath(page_input).send_keys(page)  # 准备进入指定页
+        print("正在跳转至" + str(page) + "页")
+        browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
+        time.sleep(5)
+    except:
+        print("发生了错误，终止爬取")
+        print("目前截止页数：" + str(page) + "页")
+        break
+    
+
+
 if write_copy_dict:
     user_dict_file = open(file="user_dict.json", mode="w", encoding="utf-8")
     commit_dict_file = open(file="commits_dict.json",
