@@ -1700,6 +1700,31 @@ fdm_ffext2@freedownloadmanager.org.274877906944
 1594968227323	Marionette	INFO	Listening on port 42730
 1594968227659	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
-20363\\AppData\\Local\\Temp\\rust_mozprofilem885RG"
-1594968238217	Marionette	INFO	Listening on port 42779
-1594968238509	Marionette	WARN	TLS certificate errors will be ignored for this session
+[Parent 23188, Gecko_IOThread] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc, line 166
+1594976816983	Marionette	INFO	Stopped listening on port 42730
+
+1594976823212	Marionette	INFO	Stopped listening on port 42779
+r: cannot send/recv
+
+1594976848219	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilemL7QiE"
+1594976850558	Marionette	INFO	Listening on port 55585
+1594976850883	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+20363\\AppData\\Local\\Temp\\rust_mozprofiles4s4Wr"
+1594976861723	Marionette	INFO	Listening on port 55633
+1594976862070	Marionette	WARN	TLS certificate errors will be ignored for this session
+1594976967014	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileE1Pmb5"
+1594976970180	Marionette	INFO	Listening on port 56007
+1594976970670	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+0363\\AppData\\Local\\Temp\\rust_mozprofileu63ZR8"
+1594976981170	Marionette	INFO	Listening on port 56063
+1594976981210	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+1595006454480	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile5Ksa28"
+1595006456977	Marionette	INFO	Listening on port 52617
+1595006457195	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+0363\\AppData\\Local\\Temp\\rust_mozprofile8emjZ6"
+1595006466751	Marionette	INFO	Listening on port 52664
+1595006466898	Marionette	WARN	TLS certificate errors will be ignored for this session
