@@ -26,7 +26,7 @@ fp = webdriver.FirefoxProfile(broswer_profile)
 max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/span'
 page_input = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/input'
 js = "window.scrollTo(0, document.body.scrollHeight)"
-flag_upper_done_element = '//*[@id="arc_toolbar_report"]/div[1]/span[4]/text()'
+flag_upper_done_element = '//*[@id="arc_toolbar_report"]/div[1]/span[4]/i'
 flag_upper_not_done_str = '--'
 browser = webdriver.Firefox(fp)
 json_browser = webdriver.Firefox(fp)
