@@ -65,7 +65,7 @@ def video_info_table_create(cur, video_bv_id):
     print(table_name+" 创建成功")
     return True
 
-
+def video_info_exit(cur, video_oid)
 def commit_exit(con, rid, table_name, post_time_step):
     commit_exists = False
     try:
@@ -185,47 +185,47 @@ def init_db(cur):
             # TODO:写入配置
 
 
-def update_data_video_info(cur, video_bv_id, video_info_dire, rid, overwrite_flag):
+def update_data_video_info(cur, video_bv_id, video_info_dire, overwrite_flag):
     table_name = str(video_bv_id)+'_video_info'
     if table_exists(con=cur, table_name=table_name) == False:
         is_create = video_info_table_create(cur, video_bv_id=video_bv_id)
         if is_create == False:
             print("操作失败，正在退出当前函数")
             return False
-    for rid in video_info_dire:
-        current_data = video_info_dire[str(rid)]
-        if commit_exit(con=cur, rid=rid, table_name=table_name, post_time_step=current_data['post_time_step']) and overwrite_flag == True:
-            cur.execute('UPDATE '+table_name+' SET video-av = ' + current_data['video_av'] +
-                        ', copyright-type = '+current_data['copyright_type'] +
-                        ', picture-add = ' + current_data['picture_add'] +
-                        ', post-time-step = '+current_data['post_time_step'] +
-                        ', cite-time-step = '+current_data['cite_time_step'] +
-                        ', desctrion = '+current_data['desctrion'] +
-                        ', owner-uid = '+current_data['owner_uid'] +
-                        ', view-number = '+current_data['view_number'] +
-                        ', favorite-number = '+current_data['favorite_number'] +
-                        ', coin-number = '+current_data['coin_number'] +
-                        ', share-number = '+current_data['share_number'] +
-                        ', daily-highest-rank = '+current_data['daily_highest_rank'] +
-                        ', like-number = '+current_data['like_number'] +
-                        ', dislike-number = '+current_data['dislike_number'] +
-                        ', collect-time-step = '+current_data['collect_time_step'] +
-                        ' WHERE video-av = '+current_data['video_av']+' AND post-time-step = '+current_data['post_time_step']+';')
-            cur.commit()
-        else:
-            cur.execute('INSERT INTO '+table_name +
-                        '(rid, video-av, copyright-type, post-time-step, cite-time-step, desctrion, owner-uid, view-number, favorite-number, coin-number, share-number, daily-highest-rank, like-number, dislike-number, collect-time-step'+
-                        'VALUES '+'('+rid+', '+current_data['video_av']+', '+current_data['copyright_type']+', '+current_data['post_time_step']+', '+current_data['cite_time_step']+', '+current_data['desctrion']+', '+current_data['owner_uid']+', '+current_data['view_number']+', '+current_data['coin_number']+', '+current_data['share_number']+', '+current_data['daily_highest_rank']+', '+current_data['like_number']+', '+current_data['dislike_number']+', '+current_data['collect_time_step']+');')
-            cur.commit()
-            if commit_exit(con = cur, rid=rid, table_name=table_name, post_time_step=current_data['post_time_step']) == False :
-                print("我们遇到了错误，正在退出此函数")
-                cur.rollback()
-                return False
 
-def update_data_commit_info(commit_dire):
+    if commit_exit(con=cur, rid=rid, table_name=table_name, post_time_step=current_data['post_time_step']) and overwrite_flag == True:
+        cur.execute('UPDATE '+table_name+' SET video-av = ' + current_data['video_av'] +
+                    ', copyright-type = '+current_data['copyright_type'] +
+                    ', picture-add = ' + current_data['picture_add'] +
+                    ', post-time-step = '+current_data['post_time_step'] +
+                    ', cite-time-step = '+current_data['cite_time_step'] +
+                    ', desctrion = '+current_data['desctrion'] +
+                    ', owner-uid = '+current_data['owner_uid'] +
+                    ', view-number = '+current_data['view_number'] +
+                    ', favorite-number = '+current_data['favorite_number'] +
+                    ', coin-number = '+current_data['coin_number'] +
+                    ', share-number = '+current_data['share_number'] +
+                    ', daily-highest-rank = '+current_data['daily_highest_rank'] +
+                    ', like-number = '+current_data['like_number'] +
+                    ', dislike-number = '+current_data['dislike_number'] +
+                    ', collect-time-step = '+current_data['collect_time_step'] +
+                    ' WHERE video-av = '+current_data['video_av']+' AND post-time-step = '+current_data['post_time_step']+';')
+        cur.commit()
+    else:
+        cur.execute('INSERT INTO '+table_name +
+                    '(rid, video-av, copyright-type, post-time-step, cite-time-step, desctrion, owner-uid, view-number, favorite-number, coin-number, share-number, daily-highest-rank, like-number, dislike-number, collect-time-step'+
+                    'VALUES '+'('+rid+', '+current_data['video_av']+', '+current_data['copyright_type']+', '+current_data['post_time_step']+', '+current_data['cite_time_step']+', '+current_data['desctrion']+', '+current_data['owner_uid']+', '+current_data['view_number']+', '+current_data['coin_number']+', '+current_data['share_number']+', '+current_data['daily_highest_rank']+', '+current_data['like_number']+', '+current_data['dislike_number']+', '+current_data['collect_time_step']+');')
+        cur.commit()
+        if commit_exit(con = cur, rid=rid, table_name=table_name, post_time_step=current_data['post_time_step']) == False :
+            print("我们遇到了错误，正在退出此函数")
+            cur.rollback()
+            return False
+
+def update_data_commit_info(commit_dire,cur, video_bv_id, overwrite_flag):
     # TODO:数据库数据更新
-    for uid in commit_dire.keys():
-        current_data = commit_dire[uid]
+    for reply_id in commit_dire.keys():
+        current_data = commit_dire[reply_id]
+
 
     # TODO:数据查询
     # pass

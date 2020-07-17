@@ -9,12 +9,13 @@ from selenium.webdriver.common.keys import Keys
 import time
 import queue
 import os
+import re
 
 broswer_profile = "C:\\Users\\20363\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\jpuqy65r.default-release"
 video_id = input("输入需要获取评论的BV号： ")
 url = "https://www.bilibili.com/video/" + video_id  # BV装载
 
-all_in_one = True
+all_in_one = False
 write_copy = False
 write_copy_dict = True
 root_dir = "E:/爬虫/test-data/"
@@ -23,11 +24,25 @@ fp = webdriver.FirefoxProfile(broswer_profile)
 max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/span'
 page_input = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/input'
 js = "window.scrollTo(0, document.body.scrollHeight)"
+flag_upper_done_element = '//*[@id="arc_toolbar_report"]/div[1]/span[4]/text()'
+flag_upper_not_done_str = '--'
 browser = webdriver.Firefox(fp)
 json_browser = webdriver.Firefox(fp)
 browser.get(url)
 print("已获取链接，等待20秒，确保浏览器完成操作")
-time.sleep(20)  # 保证浏览器响应成功后再进行下一步操作
+
+upper_not_done= True 
+while upper_not_done:# 保证浏览器响应成功后再进行下一步操作
+    time.sleep(2)
+    try:
+        upper_falg_str = browser.find_element_by_xpath(flag_upper_done_element).text
+        if re.search(flag_upper_not_done_str, upper_falg_str):
+            upper_not_done = False
+        else:
+            upper_not_done = True
+    except:
+        upper_not_done = True
+  
 browser.execute_script(js)
 time.sleep(10)
 browser.execute_script(js)

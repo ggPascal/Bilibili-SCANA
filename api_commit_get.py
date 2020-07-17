@@ -54,7 +54,7 @@ def video_info(video_data):  # 使用评论区数据工作
     return video_info_dire
 
 
-def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list):
+def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
     if is_list:
         current_commit = commit_all[commit_index]
     else:
@@ -80,6 +80,18 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
     sex = member_data['sex']  # 获取性别
     sign = member_data['sign']  # 获取个人签名
     avatar_adress = member_data['avatar']  # 获取头像地址
+    if 'offcial_verify' in member_data.keys() :
+        offical_data = member_data['offcial_verify']
+        offical_type = member_data['type']
+        if 'desc' in offical_data.keys() :
+            offical_desctrion = offical_data['desc']
+            if offical_desctrion == None :
+                offical_desctrion = 'N/A'
+        else :
+            offical_desctrion = 'N/A'
+    else :
+        offical_type = 'N/A'
+        offical_desctrion = 'N/A'
 
     level_data = member_data['level_info']
     user_level = level_data['current_level']  # 获取等级
@@ -127,6 +139,7 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'user_name': user_name,
             'sign': sign,
             'avatar_image_address': avatar_adress,
+            'sex':sex,
             'user_level': user_level,
             'has_nameplate': has_nameplate,
             'nameplate_kind': nameplate_kind,
@@ -137,6 +150,10 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'nameplate_condition': nameplate_condition,
             'has_vip': has_vip,
             'vip_type': vip_type,
+            'fans_detail': fans_detail,
+            'fans_level': fans_level,
+            'offical_type': offical_type,
+            'offical_desctrion': offical_desctrion,
             'vip_due_timestep': vip_due_timestep,
         }
         all_user_dict[member_id] = commit_user_info  # uid作为键
@@ -149,6 +166,7 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'has_replies': has_replies,
             'root_rid': root_rid,
             'is_top': is_top,
+            'is_hot': is_hot,
             'collect_time': collect_time_step
         }
         all_commit_direct[reply_id] = commit_info
@@ -169,7 +187,7 @@ def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_us
     reply_ana_flag = True
     while reply_index in commit_data.keys():
         commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
-                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True)
+                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot = 'N')
         reply_index = reply_index + 1
 
 
@@ -186,7 +204,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
     commit_index = 0
     for commit_index in range(0, len(commit_all)-1):
         commit_info(commit_all, commit_index,
-                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True)
+                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N')
         # 建立当前评论的字典数据
         # commit_index = commit_index + 1
     # 顶置评论获取与标记
@@ -196,6 +214,12 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_all = upper_data['top']
         if commit_all != None:
             is_top = 'Y'
-            commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=is_top, is_list=False)
+            commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=is_top, is_list=False, is_hot = 'N')
+    
+    if 'hots' in commit_data.keys() :
+        commit_index = 0
+        commit_all = commit_data['hots']
+        if commit_all != None :
+            commit_info(commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=False, is_list=True, is_hot='Y')
 
     return all_commit_direct, all_user_dict
