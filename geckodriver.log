@@ -334,8 +334,7 @@ S_ERROR_UNEXPECTED:
 1594399902969	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
-_create_dc_and_bitmap: ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½É¡ï¿½
-
+_create_dc_and_bitmap: ²Ù×÷³É¹¦Íê³É¡£
 1594399940005	Marionette	INFO	Stopped listening on port 52493
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
@@ -357,8 +356,7 @@ JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sen
 1594399975218	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
-_create_dc_and_bitmap: ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½É¡ï¿½
-
+_create_dc_and_bitmap: ²Ù×÷³É¹¦Íê³É¡£
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
 JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
 JavaScript war1594435025386	Marionette	INFO	Stopped listening on port 52990
@@ -406,16 +404,14 @@ Local\\Temp\\rust_mozprofilePjgXuv"
 1594400580425	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
-_create_dc_and_bitmap: ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½É¡ï¿½
-
+_create_dc_and_bitmap: ²Ù×÷³É¹¦Íê³É¡£
 1594435023933	Marionette	INFO	Stopped listening on port 54207
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
 RemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
-_create_dc_and_bitmap: ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½É¡ï¿½
-
+_create_dc_and_bitmap: ²Ù×÷³É¹¦Íê³É¡£
 1594435010844	Marionette	INFO	Stopped listening on port 54280
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
@@ -427,8 +423,7 @@ JavaScript error: resource://gre/modules/XULStore.jsm, line 66: Error: Can't fin
 1594414851258	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
 [GFX1-]: [D2D1.1] 4CreateBitmap failure Size(162,20732) Code: 0x80070057 format 0
-_create_dc_and_bitmap: ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½É¡ï¿½
-
+_create_dc_and_bitmap: ²Ù×÷³É¹¦Íê³É¡£
 JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.412316860419
 1594434541324	Marionette	INFO	Stopped listening on port 4566
 
@@ -1510,8 +1505,7 @@ JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
 1594960345547	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-maJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
 JavaScript error: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 183: SyntaxError: "" literal not terminated before end of script
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js?cache-bust=true&retry-attempt=1, line 0: S1594961207208	Marionette	INFO	Stopped listening on port 29661
-
-1594961207292	Marionette	INFO	Stopped listening on port 29615
+1594961207292	Marionette	INFO	Stopped listening on port 29615
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
@@ -1532,8 +1526,7 @@ JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: Inv
 1594961712964	Marionette	INFO	Listening on port 31860
 1594961713364	Marionette	WARN	TLS certificate errors will be ignored for this session
 1594961721769	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilejkd89y"
-1594961725063	Marionette	INFO	Listening on port 31924
-JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+1594961725063	Marionette	INFO	Listening on port 31924JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
 1594961797152	Marionette	INFO	Stopped listening on port 31860
 
 ###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
@@ -1573,6 +1566,7 @@ JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
 ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKFimnG"
+<<<<<<< Updated upstream
 1594963905766	Marionette	INFO	Listening on port 35806
 1594963906253	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
@@ -1586,3 +1580,126 @@ JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-play
 1594963978147	Marionette	INFO	Stopped listening on port 35806
 ror: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
 1594963978123	Marionette	INFO	Stopped listening on port 35871
+=======
+1594963905766	Marionette	INFO	Listening on port 35806
+1594963906253	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594963978147	Marionette	INFO	Stopped listening on port 35806
+ror: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594963978123	Marionette	INFO	Stopped listening on port 35871
+1594967365431	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilekY37WM"
+1594967367785	Marionette	INFO	Listening on port 40794
+1594967368179	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+console.error: "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers."
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1594967720821	Marionette	INFO	Stopped listening on port 40794
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 41252
+1594967580702	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+1594967588789	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1594967720753	Marionette	INFO	Stopped listening on port 41252
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+fdm_ffext2@freedownloadmanager.org.274877906944
+1594967720694	Marionette	INFO	Stopped listening on port 41304
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileKFimnG"
+1594963905766	Marionette	INFO	Listening on port 35806
+1594963906253	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1594963978147	Marionette	INFO	Stopped listening on port 35806
+ror: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+1594963978123	Marionette	INFO	Stopped listening on port 35871
+1594967365431	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilekY37WM"
+1594967367785	Marionette	INFO	Listening on port 40794
+1594967368179	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+console.error: "Store does not have a valid reducer. Make sure the argument passed to combineReducers is an object whose values are reducers."
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1594967720821	Marionette	INFO	Stopped listening on port 40794
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 41252
+1594967580702	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+1594967588789	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\UsJavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1594967720753	Marionette	INFO	Stopped listening on port 41252
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+fdm_ffext2@freedownloadmanager.org.274877906944
+1594967720694	Marionette	INFO	Stopped listening on port 41304
+
+###!!! [Parent][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+>>>>>>> Stashed changes
+1594968224511	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileHgyajC"
+1594968227323	Marionette	INFO	Listening on port 42730
+1594968227659	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.f8c91519.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+20363\\AppData\\Local\\Temp\\rust_mozprofilem885RG"
+1594968238217	Marionette	INFO	Listening on port 42779
+1594968238509	Marionette	WARN	TLS certificate errors will be ignored for this session
