@@ -11,7 +11,7 @@ def init():
     return all_user_dict, all_commit_direct
 
 
-def video_info(video_data):  # 使用评论区数据工作
+def video_info(video_data):  # BV查看页数据工作
     video_basic_data = video_data
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
@@ -34,7 +34,7 @@ def video_info(video_data):  # 使用评论区数据工作
     dislike_number = state_data['dislike']
 
     video_info_dire = {
-        'video_av': video_oid,
+        'video_oid': video_oid,
         'copyright_type': copyright_type,
         'picture_add': picture_add,
         'post_time_step': post_time_step,
@@ -54,7 +54,57 @@ def video_info(video_data):  # 使用评论区数据工作
     return video_info_dire
 
 
-def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
+def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct):
+    # example replies address: https://api.bilibili.com/x/v2/reply/reply?jsonp=jsonp&pn=1&type=1&oid=841277747&ps=10&root=3168291096&_=1595026441853
+    # Example BV： BV1w54y1q7XQ
+    replies_get_not_done = True
+    replay_page_now = 0
+    replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
+        str(1)+'&type=1&oid='+str(video_oid) + \
+        '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
+
+    replies = requests.get(replies_full_url)
+    replies.encoding = 'utf-8'
+    replies_json = replies.text
+    commit_data = json.loads(replies_json)
+    commit_data = commit_data['data']
+    page_data = commit_data['page']
+    replies_number = page_data['count']
+    # Get the data that calculates count of pages
+    replies_show_size = page_data['size']
+    if replies_number == 0:
+        return False
+    else:
+        if replies_number < replies_show_size:
+            page_count = 1
+        else:
+            if replies_number % replies_show_size != 0:
+                page_count = (replies_number // replies_show_size) + 1
+            else:
+                page_count = replies_number // replies_show_size
+
+    for replay_page_now in range(1, page_count):
+        replay_page_now = replay_page_now + 1
+        replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
+            str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
+            '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
+
+        replies = requests.get(replies_full_url)
+        replies.encoding = 'utf-8'
+        replies_json = replies.text
+        commit_data = json.loads(replies_json)
+        replies_data = commit_data['replies']
+
+        reply_index = 0
+        reply_ana_flag = True
+        for reply_index in range(0, len(replies_data)-1):
+            commit_info(commit_all=commit_data, commit_index=reply_index, reply_ana_flag=reply_ana_flag, root_rid=root_rid,
+                        all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=None)
+            reply_index = reply_index + 1
+        replies_get_not_done = True
+
+
+def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
     if is_list:
         current_commit = commit_all[commit_index]
     else:
@@ -80,16 +130,16 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
     sex = member_data['sex']  # 获取性别
     sign = member_data['sign']  # 获取个人签名
     avatar_adress = member_data['avatar']  # 获取头像地址
-    if 'offcial_verify' in member_data.keys() :
+    if 'offcial_verify' in member_data.keys():
         offical_data = member_data['offcial_verify']
         offical_type = member_data['type']
-        if 'desc' in offical_data.keys() :
+        if 'desc' in offical_data.keys():
             offical_desctrion = offical_data['desc']
-            if offical_desctrion == None :
+            if offical_desctrion == None:
                 offical_desctrion = 'N/A'
-        else :
+        else:
             offical_desctrion = 'N/A'
-    else :
+    else:
         offical_type = 'N/A'
         offical_desctrion = 'N/A'
 
@@ -139,7 +189,7 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'user_name': user_name,
             'sign': sign,
             'avatar_image_address': avatar_adress,
-            'sex':sex,
+            'sex': sex,
             'user_level': user_level,
             'has_nameplate': has_nameplate,
             'nameplate_kind': nameplate_kind,
@@ -157,6 +207,12 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'vip_due_timestep': vip_due_timestep,
         }
         all_user_dict[member_id] = commit_user_info  # uid作为键
+
+    if reply_ana_flag== False and video_oid == None:
+        pass
+    else:
+        reply_get_online(video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
+                         all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
     if reply_id not in all_commit_direct.keys():
         commit_info = {
             'uid': member_id,
@@ -170,43 +226,25 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'collect_time': collect_time_step
         }
         all_commit_direct[reply_id] = commit_info
+
     return all_commit_direct, all_user_dict
 
 
-def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct):
-    # example replies address: https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=9&type=1&oid=796031275&ps=10&root=3070784970&_=1592802523767
-    replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
-        str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
-        '&ps=10&root='+str(root_rid)+'_='+str(root_timestep)
-
-    replies = requests.get(replies_full_url)
-    replies.encoding = 'utf-8'
-    replies_json = replies.text
-    commit_data = json.loads(replies_json)
-    reply_index = 0
-    reply_ana_flag = True
-    while reply_index in commit_data.keys():
-        commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
-                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot = 'N')
-        reply_index = reply_index + 1
-
-
-def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict):
+def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict, video_oid):
     if is_file:
         json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
+    page_data = commit_data['page']  # 获取页数据
+    page_now = int(page_data['num'])
     if page_init == True:
-        page_data = commit_data['page']  # 获取页数据
-        page_now = int(page_data['num'])
         commit_size = int(page_data['size'])
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
     commit_index = 0
     for commit_index in range(0, len(commit_all)-1):
-        commit_info(commit_all, commit_index,
-                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N')
+        all_commit_direct, all_user_dict = commit_info(commit_all=commit_all, commit_index=commit_index,
+                                                       reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
         # 建立当前评论的字典数据
-        # commit_index = commit_index + 1
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
     if 'top' in upper_data.keys():
@@ -214,12 +252,14 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_all = upper_data['top']
         if commit_all != None:
             is_top = 'Y'
-            commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=is_top, is_list=False, is_hot = 'N')
-    
-    if 'hots' in commit_data.keys() :
+            all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict,
+                                                           all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=False, is_hot='N')
+
+    if 'hots' in commit_data.keys():
         commit_index = 0
         commit_all = commit_data['hots']
-        if commit_all != None :
-            commit_info(commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=False, is_list=True, is_hot='Y')
+        if commit_all != None:
+            all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None,
+                                                           all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
 
     return all_commit_direct, all_user_dict

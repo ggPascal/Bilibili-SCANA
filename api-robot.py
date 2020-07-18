@@ -78,13 +78,13 @@ while page < max_page or page == max_page:
     try:
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")
         json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
-        requests.get(json_get_url)
         oid_dire = requests.get(json_get_url)
         oid_dire = oid_dire.text
         video_stat_data = oid_dire
         oid_dire = json.loads(oid_dire)
         oid_dire = oid_dire['data']
-        video_oid = int(oid_dire['aid'])
+        video_info_dire=video_info(video_data=oid_dire)
+        video_oid = video_info_dire['video_oid']
         json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
             str(page)+'&type=1&oid='+str(video_oid)
         os.chdir(root_dir)
@@ -99,7 +99,7 @@ while page < max_page or page == max_page:
             all_user_dict, all_commit_direct = init()
             video_info_dire = video_info(oid_dire)
             all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
+                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
             # 写入数据库
 
         if write_copy:
@@ -122,10 +122,11 @@ while page < max_page or page == max_page:
         print("正在跳转至" + str(page) + "页")
         browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
         time.sleep(5)
-    except:
+    except Exception as err:
         print("发生了错误，终止爬取")
         print("目前截止页数：" + str(page) + "页")
-        break
+        print("错误原因："+err)
+
     
 
 
@@ -133,10 +134,13 @@ if write_copy_dict:
     user_dict_file = open(file="user_dict.json", mode="w", encoding="utf-8")
     commit_dict_file = open(file="commits_dict.json",
                             mode="w", encoding="utf-8")
+    video_info_dict_file = open(file="video_info.json", mode="w", encoding="utf-8")
     json.dump(all_user_dict, user_dict_file)
     json.dump(all_commit_direct, commit_dict_file)
+    json.dump(video_info_dire,video_info_dict_file)
     user_dict_file.close()
     commit_dict_file.close()
+    video_info_dict_file.close()
 
 
 print("爬取结束")
