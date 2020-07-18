@@ -74,6 +74,7 @@ page = 1
 print("共计有" + max_page_string + "页")
 # 初始化结束
 print("开始爬取")
+# Thru all page to get data
 while page < max_page or page == max_page:
     try:
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")
@@ -114,18 +115,18 @@ while page < max_page or page == max_page:
         # ————————————————
         # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
         # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
-        page = page + 1
         browser.execute_script(js)  # 最下方确保获得所有元素
-        pass
+        page = page + 1
         # 下方代码作为保留性使用
         browser.find_element_by_xpath(page_input).send_keys(page)  # 准备进入指定页
         print("正在跳转至" + str(page) + "页")
         browser.find_element_by_xpath(page_input).send_keys(Keys.ENTER)  # 执行跳转
         time.sleep(5)
-    except Exception as err:
+        
+    except :
         print("发生了错误，终止爬取")
         print("目前截止页数：" + str(page) + "页")
-        print("错误原因："+err)
+        break
 
     
 

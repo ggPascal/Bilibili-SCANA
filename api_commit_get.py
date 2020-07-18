@@ -3,9 +3,11 @@ import json
 import requests
 
 import time
+import numba as nb
 
 
 def init():
+    print("Initializing sum dicts")
     all_user_dict = {}
     all_commit_direct = {}
     return all_user_dict, all_commit_direct
@@ -13,6 +15,7 @@ def init():
 
 def video_info(video_data):  # BV查看页数据工作
     video_basic_data = video_data
+    print("Geting video info")
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
     picture_add = video_basic_data['pic']
@@ -33,6 +36,7 @@ def video_info(video_data):  # BV查看页数据工作
     like_number = state_data['like']
     dislike_number = state_data['dislike']
 
+    print("building video_info")
     video_info_dire = {
         'video_oid': video_oid,
         'copyright_type': copyright_type,
@@ -75,6 +79,7 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
     if replies_number == 0:
         return False
     else:
+        print("Found replies")
         if replies_number < replies_show_size:
             page_count = 1
         else:
@@ -82,9 +87,10 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
                 page_count = (replies_number // replies_show_size) + 1
             else:
                 page_count = replies_number // replies_show_size
-
+    print('Total pages : '+str(page_count))
     for replay_page_now in range(1, page_count):
         replay_page_now = replay_page_now + 1
+        print('Collecting on : '+str(replay_page_now)+'/'+str(page_count))
         replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
             str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
             '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
@@ -97,7 +103,8 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
 
         reply_index = 0
         reply_ana_flag = True
-        for reply_index in range(0, len(replies_data)-1):
+        for reply_index in range(0, len(replies_data)):
+            print('collecting '+str(reply_index)+'/'+str(len(replies_data)+1))
             commit_info(commit_all=commit_data, commit_index=reply_index, reply_ana_flag=reply_ana_flag, root_rid=root_rid,
                         all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=None)
             reply_index = reply_index + 1
@@ -208,7 +215,7 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
         }
         all_user_dict[member_id] = commit_user_info  # uid作为键
 
-    if reply_ana_flag== False and video_oid == None:
+    if reply_ana_flag == False and video_oid == None:
         pass
     else:
         reply_get_online(video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
@@ -248,6 +255,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
     if 'top' in upper_data.keys():
+        print('found upper conment, start collecting')
         commit_index = 0
         commit_all = upper_data['top']
         if commit_all != None:
@@ -259,7 +267,10 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_index = 0
         commit_all = commit_data['hots']
         if commit_all != None:
-            all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None,
-                                                           all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
+            total_number = len(commit_all)
+            for commit_index in range(0, total_number):
+                print('collecting '+str(commit_index) +'/' + str(total_number))
+                all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None,
+                                                               all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
 
     return all_commit_direct, all_user_dict
