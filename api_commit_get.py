@@ -248,7 +248,8 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         all_commit = int(page_data['acount'])
     commit_all = commit_data['replies']
     commit_index = 0
-    for commit_index in range(0, len(commit_all)-1):
+    for commit_index in range(0, len(commit_all)):
+        print("collecting commit "+str(commit_index)+'/'+str(len(commit_all)-1))
         all_commit_direct, all_user_dict = commit_info(commit_all=commit_all, commit_index=commit_index,
                                                        reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
         # 建立当前评论的字典数据
@@ -268,8 +269,9 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_all = commit_data['hots']
         if commit_all != None:
             total_number = len(commit_all)
+            print("Found hot comments")
             for commit_index in range(0, total_number):
-                print('collecting '+str(commit_index) +'/' + str(total_number))
+                print('collecting hot comments '+str(commit_index) +'/' + str(total_number))
                 all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None,
                                                                all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
 

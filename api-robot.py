@@ -67,7 +67,14 @@ def isElementExist(target_xpath):
         flag = False
 
 
-
+json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
+oid_dire = requests.get(json_get_url)
+oid_dire = oid_dire.text
+video_stat_data = oid_dire
+oid_dire = json.loads(oid_dire)
+oid_dire = oid_dire['data']
+video_info_dire=video_info(video_data=oid_dire)
+video_oid = video_info_dire['video_oid']
 
 max_page = int(max_page_string)
 page = 1
@@ -75,17 +82,11 @@ print("共计有" + max_page_string + "页")
 # 初始化结束
 print("开始爬取")
 # Thru all page to get data
+all_user_dict, all_commit_direct = init()
 while page < max_page or page == max_page:
     try:
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")
-        json_get_url = 'https://api.bilibili.com/x/web-interface/view?bvid=' + video_id
-        oid_dire = requests.get(json_get_url)
-        oid_dire = oid_dire.text
-        video_stat_data = oid_dire
-        oid_dire = json.loads(oid_dire)
-        oid_dire = oid_dire['data']
-        video_info_dire=video_info(video_data=oid_dire)
-        video_oid = video_info_dire['video_oid']
+        
         json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
             str(page)+'&type=1&oid='+str(video_oid)
         os.chdir(root_dir)
@@ -97,8 +98,6 @@ while page < max_page or page == max_page:
         video_commits_data = json.loads(video_commits_data)
         # TODO:一体化入库函数
         if all_in_one:
-            all_user_dict, all_commit_direct = init()
-            video_info_dire = video_info(oid_dire)
             all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
                                                             all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
             # 写入数据库

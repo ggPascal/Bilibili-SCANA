@@ -2147,3 +2147,107 @@ IPDL protocol error: Handler returned error code!
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1595107947665	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileuJ07h0"
+1595107950370	Marionette	INFO	Listening on port 65529
+1595107950812	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1595113680804	Marionette	INFO	Stopped listening on port 65529
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+errors will be ignored for this session
+Extension error: Error: An unexpected error occurred undefined 127
+[[Exception stack
+FdmNativeHostManager.prototype.initializeLegacy@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:127:33
+FdmNativeHostManager.prototype.onPortDisconnect@moz-extension://3f8fdea3-2a5d-4dfb-848f-93382483b687/nativehostmgr.js:105:14
+Current stack
+applySafeWithoutClone@resource://gre/modules/ExtensionCommon.jsm:620:13
+addListener/asyncWithoutClone/<@resource://gre/modules/ExtensionCommon.jsm:2428:39
+]]
+1595113680537	Marionette	INFO	Stopped listening on port 1058
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+file" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileZ7XoKs"
+1595108296194	Marionette	INFO	Listening on port 1454
+1595108296548	Marionette	WARN	TLS certificate errors will be ignored for this session
+1595108304393	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileUkSaSv"
+1595108306336	Marionette	INFO	Listening on port 1501
+1595108306427	Marionette	WARN	TLS certificate errors will be ignored for this session
+1595113680285	Marionette	INFO	Stopped listening on port 1501
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+]]
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x6A0029,name=PNecko::Msg_RemoveRequestContext) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1595113680414	Marionette	INFO	Stopped listening on port 1454
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+JavaScript error: resource://gre/actors/BrowserElementParent.jsm, line 314: TypeError: state is undefined
+JavaScript error: resource://gre/actors/BrowserElementParent.jsm, line 314: TypeError: state is undefined
+1595113681309	Marionette	INFO	Stopped listening on port 1697
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+[Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+istening on port 2324
+1595109021802	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+1595113680912	Marionette	INFO	Stopped listening on port 2324
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+9
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+istening on port 5463
+1595112490402	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser:1595113680054	Marionette	INFO	Stopped listening on port 5522
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+g = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:�[�n
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+1595113680163	Marionette	INFO	Stopped listening on port 5463
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+istening on port 6346
+1595113062224	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handle1595113680096	Marionette	INFO	Stopped listening on port 6390
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+e to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
