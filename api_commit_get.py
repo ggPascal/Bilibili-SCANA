@@ -80,6 +80,7 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
         return False
     else:
         print("Found replies")
+        has_replies = 'Y'
         if replies_number < replies_show_size:
             page_count = 1
         else:
@@ -107,7 +108,7 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
         for reply_index in range(0, len(replies_data)):
             print('collecting '+str(reply_index+1)+'/'+str(len(replies_data)))
             commit_info(commit_all=replies_data, commit_index=reply_index, reply_ana_flag=False, root_rid=root_rid,
-                        all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
+                        all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid, )
 
         replies_get_not_done = True
 
@@ -188,11 +189,8 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
     message_data_keys = member_data.keys()
     message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
     if reply_ana_flag == False:
+
         root_rid = 'N/A'
-        if 'replies' not in message_data_keys:
-            has_replies = 'N'
-        else:
-            has_replies = 'Y'
     if member_id not in all_user_dict.keys():
         commit_user_info = {
             'user_name': user_name,
@@ -217,11 +215,7 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
         }
         all_user_dict[member_id] = commit_user_info  # uid作为键
 
-    if reply_ana_flag == False:
-        pass
-    else:
-        reply_get_online(video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
-                         all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
+   
     if reply_id not in all_commit_direct.keys():
         commit_info = {
             'uid': member_id,
@@ -235,11 +229,18 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
             'collect_time': collect_time_step
         }
         all_commit_direct[reply_id] = commit_info
+    if reply_ana_flag == False:
+        pass
+    else:
+        reply_get_online(video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
+                         all_commit_direct=all_commit_direct, all_user_dict=all_user_dict)
 
     return all_commit_direct, all_user_dict
 
 
 def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict, video_oid):
+    hot_collect_flag = None
+
     if is_file:
         json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据

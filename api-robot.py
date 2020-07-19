@@ -125,7 +125,7 @@ while page < max_page or page == max_page:
     except Exception as e:
         print("发生了错误，终止爬取")
         print("目前截止页数：" + str(page) + "页")
-        print('Error: ' + e)
+        tb.print_exc()
         break
     
 
