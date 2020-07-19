@@ -88,8 +88,9 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
             else:
                 page_count = replies_number // replies_show_size
     print('Total pages : '+str(page_count))
-    for replay_page_now in range(1, page_count):
-        replay_page_now = replay_page_now + 1
+    for replay_page_now in range(0, page_count):
+        # 2020/07/18 Special vaule rpid : 3199917477
+        
         print('Collecting on : '+str(replay_page_now)+'/'+str(page_count))
         replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
             str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
@@ -99,19 +100,20 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
         replies.encoding = 'utf-8'
         replies_json = replies.text
         commit_data = json.loads(replies_json)
+        commit_data = commit_data['data']
         replies_data = commit_data['replies']
 
         reply_index = 0
-        reply_ana_flag = True
         for reply_index in range(0, len(replies_data)):
-            print('collecting '+str(reply_index)+'/'+str(len(replies_data)+1))
-            commit_info(commit_all=commit_data, commit_index=reply_index, reply_ana_flag=reply_ana_flag, root_rid=root_rid,
-                        all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=None)
-            reply_index = reply_index + 1
+            print('collecting '+str(reply_index+1)+'/'+str(len(replies_data)))
+            commit_info(commit_all=replies_data, commit_index=reply_index, reply_ana_flag=False, root_rid=root_rid,
+                        all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
+
         replies_get_not_done = True
 
 
 def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
+    has_replies = None
     if is_list:
         current_commit = commit_all[commit_index]
     else:
@@ -215,7 +217,7 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
         }
         all_user_dict[member_id] = commit_user_info  # uid作为键
 
-    if reply_ana_flag == False and video_oid == None:
+    if reply_ana_flag == False:
         pass
     else:
         reply_get_online(video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
@@ -251,7 +253,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
     for commit_index in range(0, len(commit_all)):
         print("collecting commit "+str(commit_index)+'/'+str(len(commit_all)-1))
         all_commit_direct, all_user_dict = commit_info(commit_all=commit_all, commit_index=commit_index,
-                                                       reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
+                                                       reply_ana_flag=True, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
         # 建立当前评论的字典数据
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
@@ -261,7 +263,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_all = upper_data['top']
         if commit_all != None:
             is_top = 'Y'
-            all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict,
+            all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index=0, reply_ana_flag=True, root_rid=None, all_user_dict=all_user_dict,
                                                            all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=False, is_hot='N')
 
     if 'hots' in commit_data.keys():
@@ -271,8 +273,9 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
             total_number = len(commit_all)
             print("Found hot comments")
             for commit_index in range(0, total_number):
-                print('collecting hot comments '+str(commit_index) +'/' + str(total_number))
-                all_commit_direct, all_user_dict = commit_info(video_oid=None, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None,
+                print('collecting hot comments ' +
+                      str(commit_index) + '/' + str(total_number))
+                all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=True, root_rid=None,
                                                                all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
 
     return all_commit_direct, all_user_dict
