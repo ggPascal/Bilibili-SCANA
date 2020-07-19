@@ -248,6 +248,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
     if page_init == True:
         commit_size = int(page_data['size'])
         all_commit = int(page_data['acount'])
+        hot_collect_flag = True
     commit_all = commit_data['replies']
     commit_index = 0
     for commit_index in range(0, len(commit_all)):
@@ -266,7 +267,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
             all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index=0, reply_ana_flag=True, root_rid=None, all_user_dict=all_user_dict,
                                                            all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=False, is_hot='N')
 
-    if 'hots' in commit_data.keys():
+    if 'hots' in commit_data.keys() and hot_collect_flag == True:
         commit_index = 0
         commit_all = commit_data['hots']
         if commit_all != None:
@@ -277,5 +278,6 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
                       str(commit_index) + '/' + str(total_number))
                 all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=True, root_rid=None,
                                                                all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
+            hot_collect_flag = False
 
     return all_commit_direct, all_user_dict

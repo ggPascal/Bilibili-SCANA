@@ -11,6 +11,7 @@ import queue
 import os
 import re
 import numba as nb
+import traceback as tb
 
 
 
@@ -96,10 +97,15 @@ while page < max_page or page == max_page:
         video_commits_data_byte = video_commits_data.encode('utf-8')
         video_commits_data = json.loads(video_commits_data)
         # TODO:一体化入库函数
-        if all_in_one:
+        if all_in_one and page == 1 :
             all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
                                                             all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
             # 写入数据库
+        if all_in_one and page > 1 :
+            all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=False, json_data=video_commits_data,
+                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
+            # 写入数据库
+
 
         if write_copy:
             f = open(file=str(json_path), mode="wb")
@@ -115,9 +121,11 @@ while page < max_page or page == max_page:
         # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
         page = page + 1
     
-    except :
+
+    except Exception as e:
         print("发生了错误，终止爬取")
         print("目前截止页数：" + str(page) + "页")
+        print('Error: ' + e)
         break
     
 
