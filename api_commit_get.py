@@ -3,16 +3,19 @@ import json
 import requests
 
 import time
+import numba as nb
 
 
 def init():
+    print("Initializing sum dicts")
     all_user_dict = {}
     all_commit_direct = {}
     return all_user_dict, all_commit_direct
 
 
-def video_info(video_data):  # 使用评论区数据工作
+def video_info(video_data):  # BV查看页数据工作
     video_basic_data = video_data
+    print("Geting video info")
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
     picture_add = video_basic_data['pic']
@@ -33,8 +36,9 @@ def video_info(video_data):  # 使用评论区数据工作
     like_number = state_data['like']
     dislike_number = state_data['dislike']
 
+    print("building video_info")
     video_info_dire = {
-        'video_av': video_oid,
+        'video_oid': video_oid,
         'copyright_type': copyright_type,
         'picture_add': picture_add,
         'post_time_step': post_time_step,
@@ -54,20 +58,88 @@ def video_info(video_data):  # 使用评论区数据工作
     return video_info_dire
 
 
-def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
-    if is_list:
-        current_commit = commit_all[commit_index]
+def detect_replies(video_oid, root_rid, root_timestep):
+    page_count = 0
+    replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
+        str(1)+'&type=1&oid='+str(video_oid) + \
+        '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
+    replies = requests.get(replies_full_url)
+    replies.encoding = 'utf-8'
+    replies_json = replies.text
+    commit_data = json.loads(replies_json)
+    commit_data = commit_data['data']
+    page_data = commit_data['page']
+    replies_number = page_data['count']
+    replies_show_size = page_data['size']
+    if replies_number == 0:
+        replies_found = False
     else:
-        current_commit = commit_all[str(commit_index)]
+        print("Found replies")
+        replies_found = True
+        if replies_number < replies_show_size:
+            page_count = 1
+        else:
+            if replies_number % replies_show_size != 0:
+                page_count = (replies_number // replies_show_size) + 1
+            else:
+                page_count = replies_number // replies_show_size
+        print('Total pages : '+str(page_count))
+    return replies_found, commit_data, page_count
+
+
+def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct, commit_data, page_count):
+    # example replies address: https://api.bilibili.com/x/v2/reply/reply?jsonp=jsonp&pn=1&type=1&oid=841277747&ps=10&root=3168291096&_=1595026441853
+    # Example BV： BV1w54y1q7XQ
+    replay_page_now = 0
+
+    # Get the data that calculates count of pages
+
+    for replay_page_now in range(0, page_count):
+        # 2020/07/18 Special vaule rpid : 3199917477
+
+        print('Collecting on : '+str(replay_page_now)+'/'+str(page_count))
+        replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
+            str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
+            '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
+
+        replies = requests.get(replies_full_url)
+        replies.encoding = 'utf-8'
+        replies_json = replies.text
+        commit_data = json.loads(replies_json)
+        commit_data = commit_data['data']
+        replies_data = commit_data['replies']
+
+        reply_index = 0
+        for reply_index in range(0, len(replies_data)):
+            print('collecting '+str(reply_index+1)+'/'+str(len(replies_data)))
+            all_commit_direct, all_user_dict = commit_info(commit_all=replies_data, commit_index=reply_index, reply_ana_flag=False, root_rid=root_rid,
+                                                           all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
+
+        return all_commit_direct, all_user_dict
+
+
+def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
+    has_replies = None
+    if commit_index == 'N/A':
+        current_commit = commit_all
+    else:
+        if is_list:
+            current_commit = commit_all[commit_index]
+        else:
+            current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])  # 获取评论ID
+    if reply_ana_flag == False:
+        root_rid = int(current_commit['parent'])
+    else:
+        root_rid = 'N/A'
 
     if reply_ana_flag and root_rid == reply_id:  # 用于回复分析模式下跳过主评论
         pass
 
     member_id = int(current_commit['mid'])  # 获取UID
     like_number = int(current_commit['like'])  # 获取点赞数
-    if 'fans_detail' in current_commit_keys:
+    if 'fans_detail' in current_commit.keys():
         fans_detail = current_commit['fans_detail']
         fans_level = int(current_commit['fans_grade'])
     else:
@@ -80,31 +152,41 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
     sex = member_data['sex']  # 获取性别
     sign = member_data['sign']  # 获取个人签名
     avatar_adress = member_data['avatar']  # 获取头像地址
-    if 'offcial_verify' in member_data.keys() :
-        offical_data = member_data['offcial_verify']
-        offical_type = member_data['type']
-        if 'desc' in offical_data.keys() :
+    member_data_keys = member_data.keys()
+    if 'official_verify' in member_data.keys():
+        offical_data = member_data['official_verify']
+        offical_type = offical_data['type']
+        if 'desc' in offical_data.keys():
             offical_desctrion = offical_data['desc']
-            if offical_desctrion == None :
+            if offical_desctrion == '':
                 offical_desctrion = 'N/A'
-        else :
+        else:
             offical_desctrion = 'N/A'
-    else :
+    else:
         offical_type = 'N/A'
         offical_desctrion = 'N/A'
 
     level_data = member_data['level_info']
     user_level = level_data['current_level']  # 获取等级
 
-    if 'nameplate' in current_commit_keys:  # 判断是否有名牌
+    if 'nameplate' in member_data.keys():  # 判断是否有名牌
         nameplate_data = member_data['nameplate']
         nameplate_kind = nameplate_data['nid']  # 获取名牌ID
-        nameplate_name = nameplate_data['name']  # 获取名称
-        nameplate_image = nameplate_data['image']  # 获取此名牌对应的图片
-        nameplate_image_small = nameplate_data['image_small']  # 获取缩小版图片
-        nameplate_level = nameplate_data['level']  # 获取等级
-        nameplate_condition = nameplate_data['condition']  # 获取对应名牌简介
-        has_nameplate = 'Y'
+        if nameplate_kind != 0:
+            nameplate_name = nameplate_data['name']  # 获取名称
+            nameplate_image = nameplate_data['image']  # 获取此名牌对应的图片
+            nameplate_image_small = nameplate_data['image_small']  # 获取缩小版图片
+            nameplate_level = nameplate_data['level']  # 获取等级
+            nameplate_condition = nameplate_data['condition']  # 获取对应名牌简介
+            has_nameplate = 'Y'
+        else:
+            has_nameplate = 'N'
+            nameplate_kind = 'N/A'
+            nameplate_name = 'N/A'
+            nameplate_image = 'N/A'
+            nameplate_image_small = 'N/A'
+            nameplate_level = 'N/A'
+            nameplate_condition = 'N/A'
     else:
         # 处理没有徽章的情况，全部替换为N/A
         has_nameplate = 'N'
@@ -114,7 +196,7 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
         nameplate_image_small = 'N/A'
         nameplate_level = 'N/A'
         nameplate_condition = 'N/A'
-    if 'vip' in current_commit_keys:  # 检测是否有VIP
+    if 'vip' in member_data.keys():  # 检测是否有VIP
         vip_data = member_data['vip']
         vip_type = int(vip_data['vipType'])  # 获取VIP种类
         vip_due_timestep = int(vip_data['vipDueDate'])  # 获取该VIP的截止时间
@@ -128,18 +210,13 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
     message_data = current_commit['content']
     message_data_keys = member_data.keys()
     message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
-    if reply_ana_flag == False:
-        root_rid = 'N/A'
-        if 'replies' not in message_data_keys:
-            has_replies = 'N'
-        else:
-            has_replies = 'Y'
+
     if member_id not in all_user_dict.keys():
         commit_user_info = {
             'user_name': user_name,
             'sign': sign,
             'avatar_image_address': avatar_adress,
-            'sex':sex,
+            'sex': sex,
             'user_level': user_level,
             'has_nameplate': has_nameplate,
             'nameplate_kind': nameplate_kind,
@@ -157,6 +234,16 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'vip_due_timestep': vip_due_timestep,
         }
         all_user_dict[member_id] = commit_user_info  # uid作为键
+
+    if reply_ana_flag == True:
+        has_replies, replies_data, page_count = detect_replies(
+            video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step)
+
+    if has_replies:
+        has_replies = 'Y'
+    else:
+        has_replies = 'N'
+
     if reply_id not in all_commit_direct.keys():
         commit_info = {
             'uid': member_id,
@@ -169,57 +256,57 @@ def commit_info(commit_all, commit_index, reply_ana_flag, root_rid, all_user_dic
             'is_hot': is_hot,
             'collect_time': collect_time_step
         }
+        
         all_commit_direct[reply_id] = commit_info
+    if reply_ana_flag == False:
+        pass
+    else:
+        reply_get_online(video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
+                         all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, commit_data=replies_data, page_count=page_count)
+
     return all_commit_direct, all_user_dict
 
 
-def reply_get_online(replay_page_now, video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct):
-    # example replies address: https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=9&type=1&oid=796031275&ps=10&root=3070784970&_=1592802523767
-    replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
-        str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
-        '&ps=10&root='+str(root_rid)+'_='+str(root_timestep)
+def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict, video_oid):
+    hot_collect_flag = None
 
-    replies = requests.get(replies_full_url)
-    replies.encoding = 'utf-8'
-    replies_json = replies.text
-    commit_data = json.loads(replies_json)
-    reply_index = 0
-    reply_ana_flag = True
-    while reply_index in commit_data.keys():
-        commit_info(commit_data, reply_index, reply_ana_flag, root_rid,
-                    all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot = 'N')
-        reply_index = reply_index + 1
-
-
-def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_user_dict):
     if is_file:
         json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
+    page_data = commit_data['page']  # 获取页数据
+    page_now = int(page_data['num'])
     if page_init == True:
-        page_data = commit_data['page']  # 获取页数据
-        page_now = int(page_data['num'])
         commit_size = int(page_data['size'])
         all_commit = int(page_data['acount'])
+        hot_collect_flag = True
     commit_all = commit_data['replies']
     commit_index = 0
-    for commit_index in range(0, len(commit_all)-1):
-        commit_info(commit_all, commit_index,
-                    reply_ana_flag=False, root_rid=None, all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N')
+    for commit_index in range(0, len(commit_all)):
+        print("collecting commit "+str(commit_index)+'/'+str(len(commit_all)-1))
+        all_commit_direct, all_user_dict = commit_info(commit_all=commit_all, commit_index=commit_index,
+                                                       reply_ana_flag=True, root_rid='N/A', all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid)
         # 建立当前评论的字典数据
-        # commit_index = commit_index + 1
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
     if 'top' in upper_data.keys():
-        commit_index = 0
+        print('found upper conment, start collecting')
         commit_all = upper_data['top']
         if commit_all != None:
             is_top = 'Y'
-            commit_info(commit_all, 0, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=is_top, is_list=False, is_hot = 'N')
-    
-    if 'hots' in commit_data.keys() :
+            all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index='N/A',reply_ana_flag=True, root_rid='N/A', all_user_dict=all_user_dict,
+                                                           all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=True, is_hot='N')
+
+    if 'hots' in commit_data.keys() and hot_collect_flag == True:
         commit_index = 0
         commit_all = commit_data['hots']
-        if commit_all != None :
-            commit_info(commit_all=commit_all, commit_index=commit_index, reply_ana_flag=False, root_rid=None, all_user_dict=all_user_dict, all_commit_direct= all_commit_direct, collect_time_step= time.time(), is_top=False, is_list=True, is_hot='Y')
+        if commit_all != None:
+            total_number = len(commit_all)
+            print("Found hot comments")
+            for commit_index in range(0, total_number):
+                print('collecting hot comments ' +
+                      str(commit_index) + '/' + str(total_number))
+                all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=True, root_rid='N/A',
+                                                               all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y')
+            hot_collect_flag = False
 
     return all_commit_direct, all_user_dict
