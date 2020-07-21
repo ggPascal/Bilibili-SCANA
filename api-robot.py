@@ -36,6 +36,7 @@ url = "https://www.bilibili.com/video/" + video_id  # BV装载
 all_in_one = True
 write_copy = False
 write_copy_dict = True
+continue_mode_enable = True
 root_dir = "E:/爬虫/test-data/"
 fp = webdriver.FirefoxProfile(broswer_profile)
 
@@ -96,7 +97,15 @@ print("共计有" + max_page_string + "页")
 # 初始化结束
 print("开始爬取")
 # Thru all page to get data
-all_user_dict, all_commit_direct = init()
+if continue_mode_enable :
+    user_dict_file = open(file="user_dict.json", mode="r", encoding="utf-8")
+    commit_dict_file = open(file="commits_dict.json",
+                            mode="r", encoding="utf-8")
+    all_user_dict = json.load(user_dict_file)
+    all_commit_direct = json.load(commit_dict_file)
+else:
+    all_user_dict, all_commit_direct = init()
+    
 while page < max_page or page == max_page:
     try:
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")
@@ -112,11 +121,11 @@ while page < max_page or page == max_page:
         video_commits_data = json.loads(video_commits_data)
         # TODO:一体化入库函数
         if all_in_one and page == 1 :
-            all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=True, json_data=video_commits_data,
+            all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=True, json_data=video_commits_data,
                                                             all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
             # 写入数据库
         if all_in_one and page > 1 :
-            all_commit_direct, all_user_dict = commit_json_ana(f=None, is_file=False, page_init=False, json_data=video_commits_data,
+            all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=False, json_data=video_commits_data,
                                                             all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
             # 写入数据库
 
