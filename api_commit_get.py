@@ -120,8 +120,8 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
 
 def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot):
     has_replies = None
-    if commit_index == None:
-        pass
+    if commit_index == 'N/A':
+        current_commit = commit_all
     else:
         if is_list:
             current_commit = commit_all[commit_index]
@@ -129,6 +129,10 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
             current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
     reply_id = int(current_commit['rpid'])  # 获取评论ID
+    if reply_ana_flag == False:
+        root_rid = int(current_commit['parent'])
+    else:
+        root_rid = 'N/A'
 
     if reply_ana_flag and root_rid == reply_id:  # 用于回复分析模式下跳过主评论
         pass
@@ -206,8 +210,6 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
     message_data = current_commit['content']
     message_data_keys = member_data.keys()
     message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
-    if reply_ana_flag == False:
-        root_rid = 'N/A'
 
     if member_id not in all_user_dict.keys():
         commit_user_info = {
@@ -254,8 +256,7 @@ def commit_info(video_oid, commit_all, commit_index, reply_ana_flag, root_rid, a
             'is_hot': is_hot,
             'collect_time': collect_time_step
         }
-        if reply_ana_flag ==False:
-            commit_info['root_rid'] = root_rid
+        
         all_commit_direct[reply_id] = commit_info
     if reply_ana_flag == False:
         pass
@@ -292,7 +293,7 @@ def commit_json_ana(f, page_init, is_file, json_data, all_commit_direct, all_use
         commit_all = upper_data['top']
         if commit_all != None:
             is_top = 'Y'
-            all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index=None, reply_ana_flag=True, root_rid='N/A', all_user_dict=all_user_dict,
+            all_commit_direct, all_user_dict = commit_info(video_oid=video_oid, commit_all=commit_all, commit_index='N/A',reply_ana_flag=True, root_rid='N/A', all_user_dict=all_user_dict,
                                                            all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=True, is_hot='N')
 
     if 'hots' in commit_data.keys() and hot_collect_flag == True:
