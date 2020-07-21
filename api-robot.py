@@ -38,6 +38,7 @@ write_copy = False
 write_copy_dict = True
 continue_mode_enable = True
 root_dir = "E:/爬虫/test-data/"
+os.chdir(root_dir)
 fp = webdriver.FirefoxProfile(broswer_profile)
 
 max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/span'
@@ -91,21 +92,72 @@ oid_dire = oid_dire['data']
 video_info_dire=video_info(video_data=oid_dire)
 video_oid = video_info_dire['video_oid']
 
+if continue_mode_enable :
+    try:
+        user_dict_file = open(file="user_dict.json", mode="r", encoding="utf-8")
+        all_user_dict = json.load(user_dict_file)
+    except :
+        retry_flag = True
+        while retry_flag :
+            retry_input=input("Could not read user dictionary file, retry or use overwrite mode to collect user information? (R)etry/(O)ver-write:")
+            if retry_input.upper() == "R" :
+                retry_flag=True
+            elif  retry_input.upper() == "O":
+                all_user_dict = {}
+                over_write_user = True
+                retry_falg = False
+            else :
+                print("Please check your input, 'R' for retry, 'O' for overwrite-mode")
+                retry_flag = True
+    try:
+        commit_dict_file = open(file="commits_dict.json",
+                                mode="r", encoding="utf-8")
+        all_commit_direct = json.load(commit_dict_file)
+    except:
+        retry_flag =True
+        while retry_flag:
+            retry_input=input("Could not read comments dictionary file, retry or use overwrite mode to collect comments information? (R)etry/(O)ver-write:")
+            if retry_input.upper() == "R":
+                retry_flag = True
+            elif retry_input.upper() == "O":
+                over_write_comment = True
+                all_commit_direct = {}
+            else:
+                print("Please check your input, 'R' for retry, 'O' for overwrite-mode")
+                retry_flag = True
+    try:
+        video_info_dict_file = open(file="video_info.json", mode="r", encoding="utf-8")
+        last_video_info_dire = json.load(video_info_dict_file)
+    except :
+        retry_flag = True 
+        while retry_flag:
+            retry_input=input("Could not read video info file for verify , retry or use coutine mode without check video object id? (R)etry/(W)ith-out-verify:")
+            if retry_input.upper() == "R" :
+                retry_flag = True
+            elif retry_input.upper() == "O" :
+                last_video_info_dire = None
+                retry_flag = False
+            else:
+                print("Please check your input, 'R' for retry, 'W' for without verify")
+                retry_flag = True
+else:
+    all_user_dict, all_commit_direct = init()
+
+if continue_mode_enable and last_video_info_dire != None:
+    if continue_mode_enable and video_oid != last_video_info_dire['video_oid'] :
+        print("Video oject id not match , switch into overwrite mode")
+        continue_mode_enable = False
+else:
+    continue_mode_enable = False
+
 max_page = int(max_page_string)
 page = 1
 print("共计有" + max_page_string + "页")
 # 初始化结束
 print("开始爬取")
 # Thru all page to get data
-if continue_mode_enable :
-    user_dict_file = open(file="user_dict.json", mode="r", encoding="utf-8")
-    commit_dict_file = open(file="commits_dict.json",
-                            mode="r", encoding="utf-8")
-    all_user_dict = json.load(user_dict_file)
-    all_commit_direct = json.load(commit_dict_file)
-else:
-    all_user_dict, all_commit_direct = init()
-    
+
+
 while page < max_page or page == max_page:
     try:
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")

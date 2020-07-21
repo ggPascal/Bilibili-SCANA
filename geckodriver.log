@@ -3203,3 +3203,11 @@ JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, 
 JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
 JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
 JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 34ms)
+1595357971338	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileutYF9D"
+1595357974177	Marionette	INFO	Listening on port 1943
+1595357974549	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 13ms)
+1595358252890	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile840BX6"
+1595358255091	Marionette	INFO	Listening on port 2254
+1595358255606	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
