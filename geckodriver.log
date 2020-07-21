@@ -2696,3 +2696,417 @@ JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
 
 ###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
 
+1595191095567	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileJVkvvI"
+1595191097527	Marionette	INFO	Listening on port 13007
+1595191097612	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 9ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595200006997	Marionette	INFO	Stopped listening on port 13007
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595200007091	Marionette	INFO	Stopped listening on port 13256
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 15454
+1595193144295	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595200004315	Marionette	INFO	Stopped listening on port 15454
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+c-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595200006576	Marionette	INFO	Stopped listening on port 15642
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xB40006,name=PWebSocket::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1595200005334	Marionette	INFO	Stopped listening on port 15856
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+rning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595200006618	Marionette	INFO	Stopped listening on port 16999
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+age] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595200005588	Marionette	INFO	Stopped listening on port 17213
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+gets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595200006339	Marionette	INFO	Stopped listening on port 17468
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ozprofileJ94TYH"
+1595194619050	Marionette	INFO	Listening on port 17630
+1595194619493	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595200006344	Marionette	INFO	Stopped listening on port 17630
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+e 0: NS_ERROR_NOT_AVAILABLE
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+1595200005950	Marionette	INFO	Stopped listening on port 18116
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+s/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595200004207	Marionette	INFO	Stopped listening on port 18361
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+t
+
+1595200003988	Marionette	INFO	Stopped listening on port 18613
+
+###!!! [Child][RunMessage] Error: Channel erro
+###!!! [Child][MessageChannel] Error: (msgtype=0x5A000D,name=PHttpChannel::Msg_DeletingChannel) Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xB40006,name=PWebSocket::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+1595200005944	Marionette	INFO	Stopped listening on port 19170
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1595200920500	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileXohD6Y"
+1595200923153	Marionette	INFO	Listening on port 29291
+1595200923658	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 18ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595210505779	Marionette	INFO	Stopped listening on port 29291
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595210505675	Marionette	INFO	Stopped listening on port 29500
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595210505712	Marionette	INFO	Stopped listening on port 29954
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+stening on port 32698
+1595205673705	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js?cache-bust=true&retry-attempt=1, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: , line 0: NS_ERROR_NOT_AVAILABLE
+1595210505596	Marionette	INFO	Stopped listening on port 32698
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1595210573055	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilemrO88z"
+1595210575146	Marionette	INFO	Listening on port 40209
+1595210575203	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:�[�n
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:�[�n
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595210686928	Marionette	INFO	Stopped listening on port 40209
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1595210795463	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile6Xrzsl"
+1595210797992	Marionette	INFO	Listening on port 40724
+1595210798204	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.0aa1a050.js?v=20200720, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.0aa1a050.js?v=20200720, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+IPDL protocol error: HandJavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+(indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+ssage was deserialized, but the handler returned false (indicating failure)
+
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595218126965	Mari[Parent 19872, Gecko_IOThread] WARNING: file /builds/worker/checkouts/gecko/ipc/chromium/src/base/process_util_win.cc, line 166
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+or: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/video.e4c7c160.js?v=20200717, line 80: This error message will be blank when privacy.resistFingerprinting = true.  If it is really necessary, please add it to the whitelist in MediaError::GetMessage: NS_ERROR_FAILURE (0x80004005) - virtual mozilla::MediaResult __cdecl mozilla::MP4ContainerParser::IsInitSegmentPresent(const mozilla::MediaSpan &): Invalid Top-Level Box:��d�
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.d289764d.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+1595220860962	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileU9UbRU"
+1595220863462	Marionette	INFO	Listening on port 51798
+1595220863601	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+n.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 14ms)
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x390108,name=PContent::Msg_UnstoreAndBroadcastBlobURLUnregistration) Closed channel: cannot send/recv
+
+1595281038532	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileRNJZeE"
+1595281042003	Marionette	INFO	Listening on port 55917
+1595281042424	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1595281558503	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilesfLMq4"
+1595281560688	Marionette	INFO	Listening on port 58930
+1595281562143	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+
+###!!! [Child][MessageChannel] Error: (msgtype=0xB40006,name=PWebSocket::Msg_DeleteSelf) Channel closing: too late to send/recv, messages will be lost
+
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+ will be ignored for this session
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+JavaScript error: resource://gre/actors/PictureInPictureChild.jsm, line 114: InvalidStateError: An attempt was made to use an object that is not, or is no longer, usable
+JavaScript error: resource:///actors/AboutReaderChild.jsm, line 95: NS_ERROR_UNEXPECTED: 
+ port 64545
+1595282845027	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+1595297379188	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileBuFYHl"
+1595297382240	Marionette	INFO	Listening on port 51315
+1595297382384	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 18ms)
+1595299201487	Marionette	INFO	Stopped listening on port 51315
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+ile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileN6vcOD"
+1595298210689	Marionette	INFO	Listening on port 52300
+1595298211101	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js?cache-bust=true&retry-attempt=1, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+IPDL protocol error: Handler returned error code!
+
+###!!! [Parent][DispatchAsyncMessage] Error: PLayerTransaction::Msg_ReleaseLayer Processing error: message was deserialized, but the handler returned false (indicating failure)
+
+1595299197642	Marionette	INFO	Stopped listening on port 52300
+
+###!!! [Child][RunMessage] Error: Channel closing: too late to send/recv, messages will be lost
+
+
+###!!! [Child][MessageChannel::SendAndWait] Error: Channel error: cannot send/recv
+
+1595300910369	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilee6QSrk"
+1595300912909	Marionette	INFO	Listening on port 2113
+1595300913065	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.0b0d86e7.js, line 0: Successfully compiled asm.js code (total compilation time 17ms)
+1595302773832	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilenOONhn"
+1595302776275	Marionette	INFO	Listening on port 3653
+1595302776555	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 12ms)
+1595302876176	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileDH9PKt"
+1595302878056	Marionette	INFO	Listening on port 3928
+1595302878356	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 8ms)
+1595302938149	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofile14bWUj"
+1595302940259	Marionette	INFO	Listening on port 4138
+1595302940392	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1595303866628	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofilesIpaLF"
+1595303868907	Marionette	INFO	Listening on port 4953
+JavaScript error: resource://gre/modules/ExtensionCommon.jsm, line 2340: Error: listener not re-registered
+1595303869315	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 10ms)
+1595304046997	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "-marionette" "-foreground" "-no-remote" "-profile" "C:\\Users\\20363\\AppData\\Local\\Temp\\rust_mozprofileW4pmS7"
+1595304049315	Marionette	INFO	Listening on port 5196
+1595304049684	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript error: resource://gre/modules/ConduitsChild.jsm, line 108: Error: sendRemoveListener on closed conduit fdm_ffext2@freedownloadmanager.org.274877906944
+JavaScript warning: https://www.lacie.com/ww/universal/js/library-min.js?v=153, line 2: Using //@ to indicate sourceMappingURL pragmas is deprecated. Use //# instead
+JavaScript error: https://www.lacie.com/lacie-content/_shared/js/formLocale.js, line 54: TypeError: document.getElementsByName(...)[0] is undefined
+JavaScript error: https://www.lacie.com/, line 1886: TypeError: document.getElementById(...) is null
+JavaScript warning: https://s1.hdslb.com/bfs/static/player/main/widgets/jsc-player.cca1b795.js, line 0: Successfully compiled asm.js code (total compilation time 11ms)

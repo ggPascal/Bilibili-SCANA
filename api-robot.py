@@ -13,6 +13,20 @@ import re
 import numba as nb
 import traceback as tb
 
+proxy_enable = True
+requests = requests.session()
+if proxy_enable:
+    requests.verify = True
+    proxies = {'http':'socks5://127.0.0.1:9150', 'https':'socks5://127.0.0.1:9150'}  
+
+tor_proxy = False
+if tor_proxy :
+    import socket
+    import socks
+    import requests
+
+    socks.set_default_proxy(socks.SOCKS5, "127.0.0.1", 9150)
+    socket.socket = socks.socksocket
 
 
 broswer_profile = "C:\\Users\\20363\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\jpuqy65r.default-release"
