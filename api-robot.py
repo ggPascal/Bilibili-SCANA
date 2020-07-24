@@ -13,6 +13,10 @@ import re
 import numba as nb
 import traceback as tb
 
+timestep_file = False
+timestep_add_mode = False
+timestep_key_dire = False
+
 proxy_enable = True
 requests = requests.session()
 if proxy_enable:
@@ -208,6 +212,7 @@ while page < max_page or page == max_page:
 
 
 if write_copy_dict:
+    # TODO: add a way to write file using bvid+timestep as name to sprate time step
     user_dict_file = open(file="user_dict.json", mode="w", encoding="utf-8")
     commit_dict_file = open(file="commits_dict.json",
                             mode="w", encoding="utf-8")

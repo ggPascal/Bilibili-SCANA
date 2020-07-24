@@ -235,7 +235,32 @@ def commit_info(continue_mode_enable,video_oid, commit_all, commit_index, reply_
                 'offical_type': offical_type,
                 'offical_desctrion': offical_desctrion,
                 'vip_due_timestep': vip_due_timestep,
+                'last-same' : 'N'
             }
+            # TODO:  Finish up the time add mode for user info, same as to comments
+            if timestep_add_mode:
+                for key in commit_info.keys():
+                    if key == 'collect_time' :
+                        continue
+                    last_time_step_found = False
+                    try:
+                        last_time_step_user_dire = last_commit_dire[key]
+                        last_time_step = last_time_step_user_dire['last_time_step_pointer']
+                        last_time_step_found = True
+                    except KeyError:
+                        last_time_step_found = False
+                        pass 
+                    if last_time_step_found :
+                        if timestep_file :
+                            last_all_dire_file_name = str(last_time_step)+'_all_user_dire.json'
+                            last_all_dire_file = open(last_all_dire_file_name, 'r', encoding = 'utf-8')
+                            last_commit_dire = json.loads(last_all_dire_file)
+                        if timestep_key_dire:
+                            last_commit_dire = all_commit_direct[str(last_time_step)]
+                        last_commit_dire = last_commit_dire[reply_id]
+                        if last_commit_dire[key] == commit_info[key] :
+                            commit_info[key] = {'last_time_step_pointer' :last_time_step } 
+
             all_user_dict[member_id] = commit_user_info  # uid作为键
 
         if reply_ana_flag == True:
@@ -259,7 +284,35 @@ def commit_info(continue_mode_enable,video_oid, commit_all, commit_index, reply_
                 'is_hot': is_hot,
                 'collect_time': collect_time_step
             }
+            # TODO: change the name of vaule and file name
+            if timestep_add_mode:
+                for key in commit_info.keys():
+                    if key == collect_time :
+                        continue
+                    last_time_step_found = False
+                    try:
+                        last_time_step_dire = last_commit_dire[key]
+                        last_time_step = last_time_step_dire['last_time_step_pointer']
+                        last_time_step_found = True
+                    except KeyError:
+                        last_time_step_found = False
+                        pass 
+                    if last_time_step_found :
+                        if timestep_file :
+                            last_all_dire_file_name = str(last_time_step)
+                            last_all_dire_file = open(last_all_dire_file_name, 'r', encoding = 'utf-8')
+                            last_commit_dire = json.loads(last_all_dire_file)
+                        if timestep_key_dire:
+                            last_commit_dire = all_commit_direct[str(last_time_step)]
+                        last_commit_dire = last_commit_dire[reply_id]
+                        if last_commit_dire[key] == commit_info[key] :
+                            commit_info[key] = {'last_time_step_pointer' :last_time_step } 
+
+                         
             
+            if last_commit_different == False :
+                commit_info = {'last_same' : 'Y', 'last_time_step': last_time_step}
+
             all_commit_direct[reply_id] = commit_info
         if reply_ana_flag == False:
             pass
