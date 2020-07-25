@@ -17,14 +17,31 @@ timestep_file = False
 timestep_add_mode = False
 timestep_key_dire = False
 
+if timestep_key_dire or timestep_add_mode:
+    try:
+        all_user_full_timestep_dict_file = open(
+            'user_dict_all_timestep.json', 'r', encoding='utf-8')
+        all_commit_full_timestep_dict_file = open(
+            'commit_dict_all_timestep.json', 'r', encoding='utf-8')
+        video_info_full_timestep_dire_file = open(
+            'video_info_all_timestep.json', 'r', encoding='utf-8')
+        video_info_full_timestep_dire = json.loads(
+            video_info_full_timestep_dire_file)
+        all_user_full_timestep_dict = json.load(
+            all_user_full_timestep_dict_file)
+        all_commit_full_timestep_dict = json.load(
+            all_commit_full_timestep_dict_file)
+    except:
+        print("Could not read dictory that contain full timestep")
 proxy_enable = True
 requests = requests.session()
 if proxy_enable:
     requests.verify = True
-    proxies = {'http':'socks5://127.0.0.1:9150', 'https':'socks5://127.0.0.1:9150'}  
+    proxies = {'http': 'socks5://127.0.0.1:9150',
+               'https': 'socks5://127.0.0.1:9150'}
 
 tor_proxy = False
-if tor_proxy :
+if tor_proxy:
     import socket
     import socks
     import requests
@@ -68,11 +85,11 @@ while upper_not_done:  # 保证浏览器响应成功后再进行下一步操作
 
 
 input_not_reached = True
-while input_not_reached :
+while input_not_reached:
     try:
         max_page_string = browser.find_element_by_xpath(max_page_xpath).text
         input_not_reached = False
-    except :
+    except:
         browser.execute_script(js)
 video_info_pipe = queue.Queue(0)
 
@@ -93,24 +110,26 @@ oid_dire = oid_dire.text
 video_stat_data = oid_dire
 oid_dire = json.loads(oid_dire)
 oid_dire = oid_dire['data']
-video_info_dire=video_info(video_data=oid_dire)
+video_info_dire = video_info(video_data=oid_dire)
 video_oid = video_info_dire['video_oid']
 
-if continue_mode_enable :
+if continue_mode_enable:
     try:
-        user_dict_file = open(file="user_dict.json", mode="r", encoding="utf-8")
+        user_dict_file = open(file="user_dict.json",
+                              mode="r", encoding="utf-8")
         all_user_dict = json.load(user_dict_file)
-    except :
+    except:
         retry_flag = True
-        while retry_flag :
-            retry_input=input("Could not read user dictionary file, retry or use overwrite mode to collect user information? (R)etry/(O)ver-write:")
-            if retry_input.upper() == "R" :
-                retry_flag=True
-            elif  retry_input.upper() == "O":
+        while retry_flag:
+            retry_input = input(
+                "Could not read user dictionary file, retry or use overwrite mode to collect user information? (R)etry/(O)ver-write:")
+            if retry_input.upper() == "R":
+                retry_flag = True
+            elif retry_input.upper() == "O":
                 all_user_dict = {}
                 over_write_user = True
                 retry_falg = False
-            else :
+            else:
                 print("Please check your input, 'R' for retry, 'O' for overwrite-mode")
                 retry_flag = True
     try:
@@ -118,9 +137,10 @@ if continue_mode_enable :
                                 mode="r", encoding="utf-8")
         all_commit_direct = json.load(commit_dict_file)
     except:
-        retry_flag =True
+        retry_flag = True
         while retry_flag:
-            retry_input=input("Could not read comments dictionary file, retry or use overwrite mode to collect comments information? (R)etry/(O)ver-write:")
+            retry_input = input(
+                "Could not read comments dictionary file, retry or use overwrite mode to collect comments information? (R)etry/(O)ver-write:")
             if retry_input.upper() == "R":
                 retry_flag = True
             elif retry_input.upper() == "O":
@@ -130,15 +150,17 @@ if continue_mode_enable :
                 print("Please check your input, 'R' for retry, 'O' for overwrite-mode")
                 retry_flag = True
     try:
-        video_info_dict_file = open(file="video_info.json", mode="r", encoding="utf-8")
+        video_info_dict_file = open(
+            file="video_info.json", mode="r", encoding="utf-8")
         last_video_info_dire = json.load(video_info_dict_file)
-    except :
-        retry_flag = True 
+    except:
+        retry_flag = True
         while retry_flag:
-            retry_input=input("Could not read video info file for verify , retry or use coutine mode without check video object id? (R)etry/(W)ith-out-verify:")
-            if retry_input.upper() == "R" :
+            retry_input = input(
+                "Could not read video info file for verify , retry or use coutine mode without check video object id? (R)etry/(W)ith-out-verify:")
+            if retry_input.upper() == "R":
                 retry_flag = True
-            elif retry_input.upper() == "O" :
+            elif retry_input.upper() == "O":
                 last_video_info_dire = None
                 retry_flag = False
             else:
@@ -148,7 +170,7 @@ else:
     all_user_dict, all_commit_direct = init()
 
 if continue_mode_enable and last_video_info_dire != None:
-    if continue_mode_enable and video_oid != last_video_info_dire['video_oid'] :
+    if continue_mode_enable and video_oid != last_video_info_dire['video_oid']:
         print("Video oject id not match , switch into overwrite mode")
         continue_mode_enable = False
 else:
@@ -165,26 +187,28 @@ print("开始爬取")
 while page < max_page or page == max_page:
     try:
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")
-        
+
         json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
             str(page)+'&type=1&oid='+str(video_oid)
         os.chdir(root_dir)
         # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
-        json_path = str(page)+'.json'
+        if timestep_file:
+            json_path = str(page)+'_'+str(time.time() * 10000000)+'.json'
+        else:
+            json_path = str(page)+'.json'
         video_commits_data = requests.get(json_get_url).text
 
         video_commits_data_byte = video_commits_data.encode('utf-8')
         video_commits_data = json.loads(video_commits_data)
         # TODO:一体化入库函数
-        if all_in_one and page == 1 :
+        if all_in_one and page == 1:
             all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
+                                                               all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
             # 写入数据库
-        if all_in_one and page > 1 :
+        if all_in_one and page > 1:
             all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=False, json_data=video_commits_data,
-                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid)
+                                                               all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
             # 写入数据库
-
 
         if write_copy:
             f = open(file=str(json_path), mode="wb")
@@ -199,16 +223,12 @@ while page < max_page or page == max_page:
         # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
         # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
         page = page + 1
-    
 
     except Exception as e:
         print("发生了错误，终止爬取")
         print("目前截止页数：" + str(page) + "页")
         tb.print_exc()
         break
-    
-
-    
 
 
 if write_copy_dict:
@@ -216,10 +236,28 @@ if write_copy_dict:
     user_dict_file = open(file="user_dict.json", mode="w", encoding="utf-8")
     commit_dict_file = open(file="commits_dict.json",
                             mode="w", encoding="utf-8")
-    video_info_dict_file = open(file="video_info.json", mode="w", encoding="utf-8")
-    json.dump(all_user_dict, user_dict_file)
-    json.dump(all_commit_direct, commit_dict_file)
-    json.dump(video_info_dire,video_info_dict_file)
+    video_info_dict_file = open(
+        file="video_info.json", mode="w", encoding="utf-8")
+    if timestep_key_dire:
+        user_dict_file = open(file="user_dict_all_timestep.json",
+                              mode="w", encoding="utf-8")
+        commit_dict_file = open(file="commits_dict_all_timestep.json",
+                                mode="w", encoding="utf-8")
+        video_info_dict_file = open(
+            file="video_info_all_timestep.json", mode="w", encoding="utf-8")
+        all_user_full_timestep_dict[str(
+            time.time() * 10000000)] = all_user_dict
+        all_commit_full_timestep_dict[str(
+            time.time() * 10000000)] = all_commit_direct
+        video_info_full_timestep_dire[str(
+            time.time() * 10000000)] = video_info_dire
+        json.dump(all_user_dict, user_dict_file)
+        json.dump(all_commit_direct, commit_dict_file)
+        json.dump(video_info_dire, video_info_dict_file)
+    else:
+        json.dump(all_user_dict, user_dict_file)
+        json.dump(all_commit_direct, commit_dict_file)
+        json.dump(video_info_dire, video_info_dict_file)
     user_dict_file.close()
     commit_dict_file.close()
     video_info_dict_file.close()

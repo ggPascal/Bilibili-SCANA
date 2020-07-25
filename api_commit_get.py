@@ -87,7 +87,7 @@ def detect_replies(video_oid, root_rid, root_timestep):
     return replies_found, commit_data, page_count
 
 
-def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct, commit_data, page_count, continue_mode_enable, timestep_file, timestep_add_mode, timestep_key_dire):
+def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct, commit_data, page_count, continue_mode_enable, timestep_file, timestep_add_mode, timestep_key_dire, all_user_full_timestep_dict, all_commit_full_timestep_dict):
     # example replies address: https://api.bilibili.com/x/v2/reply/reply?jsonp=jsonp&pn=1&type=1&oid=841277747&ps=10&root=3168291096&_=1595026441853
     # Example BV： BV1w54y1q7XQ
     replay_page_now = 0
@@ -113,12 +113,12 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
         for reply_index in range(0, len(replies_data)):
             print('collecting '+str(reply_index+1)+'/'+str(len(replies_data)))
             all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, commit_all=replies_data, commit_index=reply_index, reply_ana_flag=False, root_rid=root_rid,
-                                                           all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid, timestep_file = timestep_file , timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire)
+                                                           all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid, timestep_file = timestep_file , timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire , all_user_full_timestep_dict = all_user_full_timestep_dict, all_commit_full_timestep_dict =all_commit_full_timestep_dict)
 
         return all_commit_direct, all_user_dict
 
 
-def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot, timestep_file,timestep_add_mode,timestep_key_dire):
+def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot, timestep_file,timestep_add_mode,timestep_key_dire, all_user_full_timestep_dict, all_commit_full_timestep_dict):
     has_replies = None
     if commit_index == 'N/A':
         current_commit = commit_all
@@ -245,7 +245,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         continue
                     last_time_step_found = False
                     try:
-                        last_time_step_user_dire = last_commit_dire[key]
+                        last_user_dire_timestep_list = all_user_full_timestep_dict.keys()
+                        target_timestep = last_user_dire_timestep_list[len(last_user_dire_timestep_list) - 1]
+                        last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
+                        last_time_step_user_dire = last_time_step_user_dire[member_id]
+                        last_time_step_user_dire = last_time_step_user_dire[key]
                         last_time_step = last_time_step_user_dire['last_time_step_pointer']
                         last_time_step_found = True
                     except KeyError:
@@ -260,9 +264,9 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                             last_commit_dire = json.loads(
                                 last_all_user_dire_file)
                         if timestep_key_dire:
-                            last_commit_dire = all_commit_direct[str(
+                            last_commit_dire = all_user_full_timestep_dict[str(
                                 last_time_step)]
-                        last_commit_dire = last_commit_dire[reply_id]
+                        last_commit_dire = last_commit_dire[member_id]
                         if last_commit_dire[key] == commit_user_info[key]:
                             commit_user_info[key] = {
                                 'last_time_step_pointer': last_time_step}
@@ -297,8 +301,12 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         continue
                     last_time_step_found = False
                     try:
-                        last_time_step_dire = last_commit_dire[key]
-                        last_time_step = last_time_step_dire['last_time_step_pointer']
+                        last_commect_dire_timestep_list = all_commit_full_timestep_dict.keys()
+                        target_timestep = last_user_dire_timestep_list[len(last_user_dire_timestep_list) - 1]
+                        last_time_step_comment_dire = all_commit_full_timestep_dict[target_timestep]
+                        last_time_step_comment_dire = last_time_step_comment_dire[member_id]
+                        last_time_step_comment_dire = last_time_step_comment_dire[key]
+                        last_time_step = last_time_step_comment_dire['last_time_step_pointer']
                         last_time_step_found = True
                     except KeyError:
                         last_time_step_found = False
@@ -310,7 +318,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_all_dire_file_name, 'r', encoding='utf-8')
                             last_commit_dire = json.loads(last_all_dire_file)
                         if timestep_key_dire:
-                            last_commit_dire = all_commit_direct[str(
+                            last_commit_dire = all_commit_full_timestep_dict[str(
                                 last_time_step)]
                         last_commit_dire = last_commit_dire[reply_id]
                         if last_commit_dire[key] == commit_info[key]:
@@ -322,12 +330,12 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
             pass
         else:
             reply_get_online(continue_mode_enable=continue_mode_enable, video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step,
-                             all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, commit_data=replies_data, page_count=page_count, timestep_file = timestep_file, timestep_add_mode = timestep_add_mode, timestep_key_dire = timestep_key_dire)
+                             all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, commit_data=replies_data, page_count=page_count, timestep_file = timestep_file, timestep_add_mode = timestep_add_mode, timestep_key_dire = timestep_key_dire, all_user_full_timestep_dict = all_user_full_timestep_dict, all_commit_full_timestep_dict = all_commit_full_timestep_dict)
 
     return all_commit_direct, all_user_dict
 
 
-def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_commit_direct, all_user_dict, video_oid, timestep_file , timestep_add_mode , timestep_key_dire ):
+def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_commit_direct, all_user_dict, video_oid, timestep_file , timestep_add_mode , timestep_key_dire , all_user_full_timestep_dict, all_commit_full_timestep_dict):
     hot_collect_flag = None
 
     if is_file:
@@ -344,7 +352,7 @@ def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_
     for commit_index in range(0, len(commit_all)):
         print("collecting commit "+str(commit_index)+'/'+str(len(commit_all)-1))
         all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, commit_all=commit_all, commit_index=commit_index,
-                                                       reply_ana_flag=True, root_rid='N/A', all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid, timestep_file = timestep_file, timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire)
+                                                       reply_ana_flag=True, root_rid='N/A', all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid, timestep_file = timestep_file, timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire, all_user_full_timestep_dict = all_user_full_timestep_dict, all_commit_full_timestep_dict = all_commit_full_timestep_dict)
         # 建立当前评论的字典数据
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
@@ -354,7 +362,7 @@ def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_
         if commit_all != None:
             is_top = 'Y'
             all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, video_oid=video_oid, commit_all=commit_all, commit_index='N/A', reply_ana_flag=True, root_rid='N/A', all_user_dict=all_user_dict,
-                                                           all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=True, is_hot='N', timestep_file = timestep_file, timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire)
+                                                           all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=True, is_hot='N', timestep_file = timestep_file, timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire, all_user_full_timestep_dict = all_user_full_timestep_dict, all_commit_full_timestep_dict = all_commit_full_timestep_dict)
 
     if 'hots' in commit_data.keys() and hot_collect_flag == True:
         commit_index = 0
@@ -366,7 +374,7 @@ def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_
                 print('collecting hot comments ' +
                       str(commit_index) + '/' + str(total_number))
                 all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, video_oid=video_oid, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=True, root_rid='N/A',
-                                                               all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y', timestep_file = timestep_file, timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire)
+                                                               all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y', timestep_file = timestep_file, timestep_add_mode = timestep_add_mode , timestep_key_dire = timestep_key_dire, all_user_full_timestep_dict = all_user_full_timestep_dict, all_commit_full_timestep_dict = all_commit_full_timestep_dict)
             hot_collect_flag = False
 
     return all_commit_direct, all_user_dict
