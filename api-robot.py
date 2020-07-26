@@ -14,8 +14,11 @@ import numba as nb
 import traceback as tb
 
 timestep_file = False
-timestep_add_mode = False
-timestep_key_dire = False
+timestep_add_mode = True
+timestep_key_dire = True
+
+root_dir = "E:/爬虫/test-data/"
+os.chdir(root_dir)
 
 if timestep_key_dire or timestep_add_mode:
     try:
@@ -33,6 +36,11 @@ if timestep_key_dire or timestep_add_mode:
             all_commit_full_timestep_dict_file)
     except:
         print("Could not read dictory that contain full timestep")
+        print('Disabling timestep add mode ')
+        video_info_full_timestep_dire = {}
+        all_user_full_timestep_dict = {}
+        all_commit_full_timestep_dict = {}
+        timestep_add_mode = False
 proxy_enable = True
 requests = requests.session()
 if proxy_enable:
@@ -58,8 +66,11 @@ all_in_one = True
 write_copy = False
 write_copy_dict = True
 continue_mode_enable = True
-root_dir = "E:/爬虫/test-data/"
-os.chdir(root_dir)
+
+if timestep_key_dire :
+    continue_mode_enable = False
+
+
 fp = webdriver.FirefoxProfile(broswer_profile)
 
 max_page_xpath = '//*[@id="comment"]/div[@class="common"]/div[@class="comment"]/div[@class="bb-comment "]/div[@class="bottom-page paging-box-big"]/div[@class="page-jump"]/span'
@@ -128,7 +139,7 @@ if continue_mode_enable:
             elif retry_input.upper() == "O":
                 all_user_dict = {}
                 over_write_user = True
-                retry_falg = False
+                retry_flag = False
             else:
                 print("Please check your input, 'R' for retry, 'O' for overwrite-mode")
                 retry_flag = True
@@ -185,7 +196,7 @@ print("开始爬取")
 
 
 while page < max_page or page == max_page:
-    try:
+    try: 
         print("正在爬取" + str(page) + "/"+str(max_page) + "页")
 
         json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
@@ -203,11 +214,11 @@ while page < max_page or page == max_page:
         # TODO:一体化入库函数
         if all_in_one and page == 1:
             all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                               all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
+                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
             # 写入数据库
         if all_in_one and page > 1:
             all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=False, json_data=video_commits_data,
-                                                               all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
+                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
             # 写入数据库
 
         if write_copy:
@@ -223,12 +234,10 @@ while page < max_page or page == max_page:
         # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
         # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
         page = page + 1
+    except :
+        print("An error occurred, quitting")
 
-    except Exception as e:
-        print("发生了错误，终止爬取")
-        print("目前截止页数：" + str(page) + "页")
-        tb.print_exc()
-        break
+
 
 
 if write_copy_dict:
@@ -245,15 +254,14 @@ if write_copy_dict:
                                 mode="w", encoding="utf-8")
         video_info_dict_file = open(
             file="video_info_all_timestep.json", mode="w", encoding="utf-8")
-        all_user_full_timestep_dict[str(
-            time.time() * 10000000)] = all_user_dict
-        all_commit_full_timestep_dict[str(
-            time.time() * 10000000)] = all_commit_direct
-        video_info_full_timestep_dire[str(
-            time.time() * 10000000)] = video_info_dire
-        json.dump(all_user_dict, user_dict_file)
-        json.dump(all_commit_direct, commit_dict_file)
-        json.dump(video_info_dire, video_info_dict_file)
+        # bilibil timestep example : 1595802663523
+        save_time_step = int(round(time.time() * 1000))
+        all_user_full_timestep_dict[save_time_step] = all_user_dict
+        all_commit_full_timestep_dict[save_time_step] = all_commit_direct
+        video_info_full_timestep_dire[save_time_step] = video_info_dire
+        json.dump(all_user_full_timestep_dict, user_dict_file)
+        json.dump(all_commit_full_timestep_dict, commit_dict_file)
+        json.dump( video_info_full_timestep_dire, video_info_dict_file)
     else:
         json.dump(all_user_dict, user_dict_file)
         json.dump(all_commit_direct, commit_dict_file)
@@ -261,6 +269,7 @@ if write_copy_dict:
     user_dict_file.close()
     commit_dict_file.close()
     video_info_dict_file.close()
+    print("Write completed")
 
 
 print("爬取结束")
