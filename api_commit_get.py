@@ -255,6 +255,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         last_time_step_found = True
                     except KeyError:
                         last_time_step_found = False
+                        print('Can found old data for '+key+' data in user_dict, skipping current data')
                         pass
                     if last_time_step_found:
                         if timestep_file:
@@ -303,7 +304,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     last_time_step_found = False
                     try:
                         last_comment_dire_timestep_list = list(all_commit_full_timestep_dict.keys())
-                        target_timestep = last_comment_dire_timestep_list[len(last_user_dire_timestep_list) - 1]
+                        target_timestep = last_comment_dire_timestep_list[len(last_comment_dire_timestep_list) - 1]
                         last_time_step_comment_dire = all_commit_full_timestep_dict[target_timestep]
                         last_time_step_comment_dire = last_time_step_comment_dire[member_id]
                         last_time_step_comment_dire = last_time_step_comment_dire[key]
@@ -311,6 +312,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         last_time_step_found = True
                     except KeyError:
                         last_time_step_found = False
+                        print('Can found old data for '+key+' data in comment_dict, skipping current data')
                         pass
                     if last_time_step_found:
                         if timestep_file:
