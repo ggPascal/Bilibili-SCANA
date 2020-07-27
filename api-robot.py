@@ -25,10 +25,10 @@ if timestep_key_dire or timestep_add_mode:
         all_user_full_timestep_dict_file = open(
             'user_dict_all_timestep.json', 'r', encoding='utf-8')
         all_commit_full_timestep_dict_file = open(
-            'commit_dict_all_timestep.json', 'r', encoding='utf-8')
+            'commits_dict_all_timestep.json', 'r', encoding='utf-8')
         video_info_full_timestep_dire_file = open(
             'video_info_all_timestep.json', 'r', encoding='utf-8')
-        video_info_full_timestep_dire = json.loads(
+        video_info_full_timestep_dire = json.load(
             video_info_full_timestep_dire_file)
         all_user_full_timestep_dict = json.load(
             all_user_full_timestep_dict_file)
@@ -196,46 +196,47 @@ print("开始爬取")
 
 
 while page < max_page or page == max_page:
-    try: 
-        print("正在爬取" + str(page) + "/"+str(max_page) + "页")
+   
+    print("正在爬取" + str(page) + "/"+str(max_page) + "页")
 
-        json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
-            str(page)+'&type=1&oid='+str(video_oid)
-        os.chdir(root_dir)
-        # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
-        if timestep_file:
-            json_path = str(page)+'_'+str(time.time() * 10000000)+'.json'
-        else:
-            json_path = str(page)+'.json'
-        video_commits_data = requests.get(json_get_url).text
+    json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
+        str(page)+'&type=1&oid='+str(video_oid)
+    os.chdir(root_dir)
+    # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
+    if timestep_file:
+        json_path = str(page)+'_'+str(time.time() * 10000000)+'.json'
+    else:
+        json_path = str(page)+'.json'
+    video_commits_data = requests.get(json_get_url).text
 
-        video_commits_data_byte = video_commits_data.encode('utf-8')
-        video_commits_data = json.loads(video_commits_data)
-        # TODO:一体化入库函数
-        if all_in_one and page == 1:
-            all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
-            # 写入数据库
-        if all_in_one and page > 1:
-            all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=False, json_data=video_commits_data,
-                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
-            # 写入数据库
+    video_commits_data_byte = video_commits_data.encode('utf-8')
+    video_commits_data = json.loads(video_commits_data)
+    # TODO:一体化入库函数
+    if all_in_one and page == 1:
+        all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=True, json_data=video_commits_data,
+                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
+        # 写入数据库
+    if all_in_one and page > 1:
+        all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=False, json_data=video_commits_data,
+                                                            all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
+        # 写入数据库
 
-        if write_copy:
-            f = open(file=str(json_path), mode="wb")
-            json_data = video_commits_data_byte
-            f.write(json_data)
-            f.close()
-            print('写入成功')
-            # 关闭文件
-            f.close()
+    if write_copy:
+        f = open(file=str(json_path), mode="wb")
+        json_data = video_commits_data_byte
+        f.write(json_data)
+        f.close()
+        print('写入成功')
+        # 关闭文件
+        f.close()
 
-        # ————————————————
-        # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
-        # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
-        page = page + 1
-    except :
-        print("An error occurred, quitting")
+    # ————————————————
+    # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
+    # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
+    page = page + 1
+    #except :
+        #print("An error occurred, quitting")
+        #break
 
 
 

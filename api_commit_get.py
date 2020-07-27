@@ -240,13 +240,14 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
             }
             # TODO:  Finish up the time add mode for user info, same as to comments
             if timestep_add_mode:
-                for key in commit_info.keys():
+                for key in commit_user_info.keys():
                     if key == 'collect_time':
                         continue
                     last_time_step_found = False
                     try:
-                        last_user_dire_timestep_list = all_user_full_timestep_dict.keys()
-                        target_timestep = last_user_dire_timestep_list[len(last_user_dire_timestep_list) - 1]
+                        last_user_dire_timestep_list = list(all_user_full_timestep_dict.keys())
+                        target_timestep_index = len(last_user_dire_timestep_list) - 1
+                        target_timestep = last_user_dire_timestep_list[target_timestep_index]
                         last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
                         last_time_step_user_dire = last_time_step_user_dire[member_id]
                         last_time_step_user_dire = last_time_step_user_dire[key]
@@ -301,8 +302,8 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         continue
                     last_time_step_found = False
                     try:
-                        last_commect_dire_timestep_list = all_commit_full_timestep_dict.keys()
-                        target_timestep = last_user_dire_timestep_list[len(last_user_dire_timestep_list) - 1]
+                        last_comment_dire_timestep_list = list(all_commit_full_timestep_dict.keys())
+                        target_timestep = last_comment_dire_timestep_list[len(last_user_dire_timestep_list) - 1]
                         last_time_step_comment_dire = all_commit_full_timestep_dict[target_timestep]
                         last_time_step_comment_dire = last_time_step_comment_dire[member_id]
                         last_time_step_comment_dire = last_time_step_comment_dire[key]
