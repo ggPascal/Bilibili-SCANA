@@ -256,7 +256,7 @@ if write_copy_dict:
         video_info_dict_file = open(
             file="video_info_all_timestep.json", mode="w", encoding="utf-8")
         # bilibil timestep example : 1595802663523
-        save_time_step = int(round(time.time() * 1000))
+        save_time_step = str(int(round(time.time() * 1000)))
         all_user_full_timestep_dict[save_time_step] = all_user_dict
         all_commit_full_timestep_dict[save_time_step] = all_commit_direct
         video_info_full_timestep_dire[save_time_step] = video_info_dire

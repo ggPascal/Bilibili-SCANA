@@ -244,19 +244,25 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     if key == 'collect_time':
                         continue
                     last_time_step_found = False
-                    try:
-                        last_user_dire_timestep_list = list(all_user_full_timestep_dict.keys())
-                        target_timestep_index = len(last_user_dire_timestep_list) - 1
-                        target_timestep = last_user_dire_timestep_list[target_timestep_index]
-                        last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
-                        last_time_step_user_dire = last_time_step_user_dire[member_id]
+                    #try:
+                    last_user_dire_timestep_list = list(all_user_full_timestep_dict.keys())
+                    target_timestep_index = len(last_user_dire_timestep_list) - 1
+                    target_timestep = last_user_dire_timestep_list[target_timestep_index]
+                    last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
+                    if str(member_id) in last_time_step_user_dire.keys():
+                        last_time_step_user_dire = last_time_step_user_dire[str(member_id)]
                         last_time_step_user_dire = last_time_step_user_dire[key]
-                        last_time_step = last_time_step_user_dire['last_time_step_pointer']
-                        last_time_step_found = True
-                    except KeyError:
-                        last_time_step_found = False
-                        print('Can found old data for '+key+' data in user_dict, skipping current data')
-                        pass
+                        if 'last_time_step_pointer' in last_time_step_user_dire.keys():
+                            last_time_step = last_time_step_user_dire['last_time_step_pointer']
+                            last_time_step_found = True
+                        else:
+                            print('Can not found old data for '+key+' data in user_dict, skipping current data')
+                    else:
+                        print('Can not found old data for '+key+' data in user_dict, skipping current data')
+                    #except KeyError:
+                        #last_time_step_found = False
+                        #print('Can not found old data for '+key+' data in user_dict, skipping current data')
+                        #pass
                     if last_time_step_found:
                         if timestep_file:
                             last_all_user_dire_file_name = str(
@@ -302,18 +308,24 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     if key == 'collect_time':
                         continue
                     last_time_step_found = False
-                    try:
-                        last_comment_dire_timestep_list = list(all_commit_full_timestep_dict.keys())
-                        target_timestep = last_comment_dire_timestep_list[len(last_comment_dire_timestep_list) - 1]
-                        last_time_step_comment_dire = all_commit_full_timestep_dict[target_timestep]
-                        last_time_step_comment_dire = last_time_step_comment_dire[member_id]
+                    #try:
+                    last_comment_dire_timestep_list = list(all_commit_full_timestep_dict.keys())
+                    target_timestep = last_comment_dire_timestep_list[len(last_comment_dire_timestep_list) - 1]
+                    last_time_step_comment_dire = all_commit_full_timestep_dict[target_timestep]
+                    if str(reply_id) in last_time_step_comment_dire.keys():
+                        last_time_step_comment_dire = last_time_step_comment_dire[str(reply_id)]
                         last_time_step_comment_dire = last_time_step_comment_dire[key]
-                        last_time_step = last_time_step_comment_dire['last_time_step_pointer']
-                        last_time_step_found = True
-                    except KeyError:
-                        last_time_step_found = False
-                        print('Can found old data for '+key+' data in comment_dict, skipping current data')
-                        pass
+                        if 'last_time_step_pointer' in last_time_step_comment_dire.keys():
+                            last_time_step = last_time_step_comment_dire['last_time_step_pointer']
+                            last_time_step_found = True
+                        else:
+                            print('Can not found old data for '+key+' data in comment_dict, skipping current data')
+                    else:
+                        print('Can not found old data for '+key+' data in comment_dict, skipping current data')
+                    #except KeyError:
+                        #last_time_step_found = False
+                        #print('Can not found old data for '+key+' data in comment_dict, skipping current data')
+                        #pass
                     if last_time_step_found:
                         if timestep_file:
                             last_all_dire_file_name = str(last_time_step)
