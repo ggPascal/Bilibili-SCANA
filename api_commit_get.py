@@ -250,9 +250,9 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     target_timestep = last_user_dire_timestep_list[target_timestep_index]
                     last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
                     if str(member_id) in last_time_step_user_dire.keys():
-                        test_last_time_step_user_dire = test_last_time_step_user_dire[str(member_id)]
+                        test_last_time_step_user_dire = last_time_step_user_dire[str(member_id)]
                         test_last_time_step_user_dire = test_last_time_step_user_dire[key]
-                        if type(last_time_step_user_dire) == dict:
+                        if type(test_last_time_step_user_dire) == dict:
                             if 'last_time_step_pointer' in test_last_time_step_user_dire.keys():
                                 last_time_step = test_last_time_step_user_dire['last_time_step_pointer']
                                 last_time_step_found = True
@@ -287,6 +287,9 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                             found_old_data = False
                     if found_old_data:
                         if last_time_step_user_dire[key] == commit_user_info[key] :
+                            print('Find same data for '+key+' , wrting pointer to it.')
+                            if last_time_step_found == False:
+                                last_time_step = target_timestep
                             commit_user_info[key] = {
                                 'last_time_step_pointer': last_time_step}
 
@@ -324,11 +327,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     target_timestep = last_comment_dire_timestep_list[len(last_comment_dire_timestep_list) - 1]
                     last_time_step_comment_dire = all_commit_full_timestep_dict[target_timestep]
                     if str(reply_id) in last_time_step_comment_dire.keys():
-                        last_time_step_comment_dire = last_time_step_comment_dire[str(reply_id)]
-                        last_time_step_comment_dire = last_time_step_comment_dire[key]
-                        if type(last_time_step_comment_dire) == dict:
-                            if 'last_time_step_pointer' in last_time_step_comment_dire.keys():
-                                last_time_step = last_time_step_comment_dire['last_time_step_pointer']
+                        test_last_time_step_comment_dire = last_time_step_comment_dire[str(reply_id)]
+                        test_last_time_step_comment_dire = test_last_time_step_comment_dire[key]
+                        if type(test_last_time_step_comment_dire) == dict:
+                            if 'last_time_step_pointer' in test_last_time_step_comment_dire.keys():
+                                last_time_step = test_last_time_step_comment_dire['last_time_step_pointer']
                                 last_time_step_found = True
                             else:
                                  print('Can not found pointer for '+key+' data in comment_dict, Ignore current pointer')
@@ -351,7 +354,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_time_step)]
                         last_commit_dire = last_commit_dire[reply_id]
                     else:
-                        if reply_id in last_time_step_comment_dire.keys():
+                        if str(reply_id) in last_time_step_comment_dire.keys():
                             last_commit_dire = last_time_step_comment_dire[str(reply_id)]
                             found_old_data = True
                         else:
@@ -360,6 +363,8 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     if found_old_data:
                         if last_commit_dire[key] == commit_info[key]:
                             print('Find same data for '+key+' , wrting pointer to it.')
+                            if last_time_step_found == False:
+                                last_time_step = target_timestep
                             commit_info[key] = {
                                 'last_time_step_pointer': last_time_step}
                         
