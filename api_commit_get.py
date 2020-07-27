@@ -285,9 +285,10 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         else:
                             print('Can not found old data for '+key+' data in user_dict, creating new record')
                             found_old_data = False
-                    if last_time_step_user_dire[key] == commit_user_info[key] and found_old_data:
-                        commit_user_info[key] = {
-                            'last_time_step_pointer': last_time_step}
+                    if found_old_data:
+                        if last_time_step_user_dire[key] == commit_user_info[key] :
+                            commit_user_info[key] = {
+                                'last_time_step_pointer': last_time_step}
 
             all_user_dict[member_id] = commit_user_info  # uid作为键
 
@@ -356,10 +357,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         else:
                             found_old_data = False
                             print('Can not found old data for '+key+' data in commit_dict, creating new record')
-                    if last_commit_dire[key] == commit_info[key]:
-                        print('Find same data for '+key+' , wrting pointer to it.')
-                        commit_info[key] = {
-                            'last_time_step_pointer': last_time_step}
+                    if found_old_data:
+                        if last_commit_dire[key] == commit_info[key]:
+                            print('Find same data for '+key+' , wrting pointer to it.')
+                            commit_info[key] = {
+                                'last_time_step_pointer': last_time_step}
                         
 
             all_commit_direct[reply_id] = commit_info
