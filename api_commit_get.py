@@ -250,11 +250,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                     target_timestep = last_user_dire_timestep_list[target_timestep_index]
                     last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
                     if str(member_id) in last_time_step_user_dire.keys():
-                        last_time_step_user_dire = last_time_step_user_dire[str(member_id)]
-                        last_time_step_user_dire = last_time_step_user_dire[key]
+                        test_last_time_step_user_dire = test_last_time_step_user_dire[str(member_id)]
+                        test_last_time_step_user_dire = test_last_time_step_user_dire[key]
                         if type(last_time_step_user_dire) == dict:
-                            if 'last_time_step_pointer' in last_time_step_user_dire.keys():
-                                last_time_step = last_time_step_user_dire['last_time_step_pointer']
+                            if 'last_time_step_pointer' in test_last_time_step_user_dire.keys():
+                                last_time_step = test_last_time_step_user_dire['last_time_step_pointer']
                                 last_time_step_found = True
                             else:
                                 print('Can not found old data for '+key+' data in user_dict, skipping current data')
@@ -279,7 +279,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_time_step)]
                         last_time_step_user_dire = last_time_step_user_dire[str(member_id)]
                     else:
-                        if str(member_id) in last_time_step_user_dire.keys():
+                        if member_id in last_time_step_user_dire.keys():
                             last_time_step_user_dire = last_time_step_user_dire[str(member_id)]
                             found_old_data = True
                         else:
@@ -351,7 +351,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_time_step)]
                         last_commit_dire = last_commit_dire[reply_id]
                     else:
-                        if str(reply_id) in last_time_step_comment_dire.keys():
+                        if reply_id in last_time_step_comment_dire.keys():
                             last_commit_dire = last_time_step_comment_dire[str(reply_id)]
                             found_old_data = True
                         else:
