@@ -272,15 +272,17 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_time_step)+'_all_user_dire.json'
                             last_all_user_dire_file = open(
                                 last_all_user_dire_file_name, 'r', encoding='utf-8')
-                            last_commit_dire = json.loads(
+                            last_time_step_user_dire = json.loads(
                                 last_all_user_dire_file)
                         if timestep_key_dire:
-                            last_commit_dire = all_user_full_timestep_dict[str(
+                            last_time_step_user_dire = all_user_full_timestep_dict[str(
                                 last_time_step)]
-                        last_commit_dire = last_commit_dire[member_id]
-                        if last_commit_dire[key] == commit_user_info[key]:
-                            commit_user_info[key] = {
-                                'last_time_step_pointer': last_time_step}
+                        last_time_step_user_dire = last_time_step_user_dire[member_id]
+                    else:
+                        last_time_step_user_dire = last_time_step_user_dire[member_id]
+                    if last_time_step_user_dire[key] == commit_user_info[key]:
+                        commit_user_info[key] = {
+                            'last_time_step_pointer': last_time_step}
 
             all_user_dict[member_id] = commit_user_info  # uid作为键
 
@@ -323,11 +325,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_time_step = last_time_step_comment_dire['last_time_step_pointer']
                                 last_time_step_found = True
                             else:
-                                 print('Can not found old data for '+key+' data in comment_dict, skipping current data')
+                                 print('Can not found pointer for '+key+' data in comment_dict, Ignore current pointer')
                         else:
-                             print('Can not found old data for '+key+' data in comment_dict, skipping current data')
+                             print('Can not found pointer for '+key+' data in comment_dict, skipping current pointer')
                     else:
-                        print('Can not found old data for '+key+' data in comment_dict, skipping current data')
+                        print('Can not found pointer for '+key+' data in comment_dict, skipping current pointer')
                     #except KeyError:
                         #last_time_step_found = False
                         #print('Can not found old data for '+key+' data in comment_dict, skipping current data')
@@ -342,9 +344,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                             last_commit_dire = all_commit_full_timestep_dict[str(
                                 last_time_step)]
                         last_commit_dire = last_commit_dire[reply_id]
-                        if last_commit_dire[key] == commit_info[key]:
-                            commit_info[key] = {
-                                'last_time_step_pointer': last_time_step}
+                    if last_commit_dire[key] == commit_info[key]:
+                        print('Find same data for '+key+' , wrting pointer to it.')
+                        commit_info[key] = {
+                            'last_time_step_pointer': last_time_step}
+                        
 
             all_commit_direct[reply_id] = commit_info
         if reply_ana_flag == False:
