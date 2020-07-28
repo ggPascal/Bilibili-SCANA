@@ -13,8 +13,10 @@ def comment_all_time_step_collect(all_timestep_comment_dict, timestep_key_add_mo
             comment_data_dict = {}
             result_key_commect_data_dict = {}
         for reply_id in current_timestep_dict.keys():
-            if reply_id not in comment_data_dict.keys():
+            if str(reply_id) not in comment_data_dict.keys():
                 key_commect_data_dict = current_timestep_dict[str(reply_id)]
+                comment_data_dict[str(reply_id)] = {}
+                result_key_commect_data_dict = {}
                 for key in data_collect_keys_list:
                     if timestep_key_add_mode:
                         time_pointer_dict = key_commect_data_dict[key]
@@ -26,11 +28,15 @@ def comment_all_time_step_collect(all_timestep_comment_dict, timestep_key_add_mo
                                 result_key_commect_data_dict[key] = old_key_commect_data_dict[key]
                             else:
                                 result_key_commect_data_dict[key] = key_commect_data_dict[key]
+                                comment_data_dict[str(reply_id)] = result_key_commect_data_dict
                         else:
                             result_key_commect_data_dict[key] = key_commect_data_dict[key]
+                            comment_data_dict[str(reply_id)] = result_key_commect_data_dict
                     else:
                         result_key_commect_data_dict[key] = key_commect_data_dict[key]
-                comment_data_dict[str(reply_id)] = result_key_commect_data_dict
+                        comment_data_dict[str(reply_id)] = result_key_commect_data_dict
+            result_key_commect_data_dict = result_key_commect_data_dict
+            
     return comment_data_dict
 
 def init_dec_enc_dict():
@@ -65,7 +71,7 @@ timestep_key_dire = True
 timestep_add_mode = True
 update_dict = True 
 data_save_local = True
-data_collect_keys_list = ['message']
+data_collect_keys_list = ['message', 'root_rid']
 os.chdir(root_dir)
 if timestep_key_dire:
     all_time_step_comment_dict_file= open('commits_dict_all_timestep.json', encoding='utf-8')
