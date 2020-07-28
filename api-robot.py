@@ -13,8 +13,9 @@ import re
 import numba as nb
 import traceback as tb
 
-timestep_file = False
-timestep_add_mode = True
+# Time step file is waiting for develoap done. 
+timestep_file = True
+timestep_add_mode = False
 timestep_key_dire = True
 
 root_dir = "E:/爬虫/test-data/"
