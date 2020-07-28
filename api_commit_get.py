@@ -285,6 +285,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_time_step)]
                         last_time_step_user_dire = last_time_step_user_dire[str(
                             member_id)]
+                        found_old_data = True
                     else:
                         if str(member_id) in last_time_step_user_dire.keys():
                             last_time_step_user_dire = last_time_step_user_dire[str(
@@ -300,8 +301,11 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                   ' , wrting pointer to it.')
                             if last_time_step_found == False:
                                 last_time_step = target_timestep
-                            commit_user_info[key] = {
-                                'last_time_step_pointer': last_time_step}
+                                commit_user_info[key] = {
+                                    'last_time_step_pointer': last_time_step}
+                            else:
+                                commit_user_info[key] = {
+                                    'last_time_step_pointer': last_time_step}
 
             all_user_dict[member_id] = commit_user_info  # uid作为键
 
