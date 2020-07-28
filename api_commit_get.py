@@ -286,7 +286,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         last_time_step_user_dire = last_time_step_user_dire[str(
                             member_id)]
                     else:
-                        if member_id in last_time_step_user_dire.keys():
+                        if str(member_id) in last_time_step_user_dire.keys():
                             last_time_step_user_dire = last_time_step_user_dire[str(
                                 member_id)]
                             found_old_data = True
