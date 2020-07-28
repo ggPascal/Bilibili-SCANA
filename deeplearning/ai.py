@@ -1,50 +1,82 @@
 import keras
 import json
+import os
 
 
 def dire_save():
     json.dump(enc, f)
 
+def comment_all_time_step_collect(all_timestep_comment_dict, timestep_key_add_mode, data_collect_keys_list,comment_data_dict):
+    for timestep in all_timestep_comment_dict.keys():
+        current_timestep_dict = all_timestep_comment_dict[str(timestep)]
+        if comment_data_dict == None:
+            comment_data_dict = {}
+            result_key_commect_data_dict = {}
+        for reply_id in current_timestep_dict.keys():
+            if reply_id not in comment_data_dict.keys():
+                key_commect_data_dict = current_timestep_dict[str(reply_id)]
+                for key in data_collect_keys_list:
+                    if timestep_key_add_mode:
+                        time_pointer_dict = key_commect_data_dict[key]
+                        if type(time_pointer_dict) == dict:
+                            if 'last_time_step_pointer' in time_pointer_dict.keys():
+                                target_timestep = time_pointer_dict['last_time_step_pointer']
+                                old_key_commect_data_dict = all_timestep_comment_dict[str(target_timestep)]
+                                old_key_commect_data_dict = old_key_commect_data_dict[str(reply_id)]
+                                result_key_commect_data_dict[key] = old_key_commect_data_dict[key]
+                            else:
+                                result_key_commect_data_dict[key] = key_commect_data_dict[key]
+                        else:
+                            result_key_commect_data_dict[key] = key_commect_data_dict[key]
+                    else:
+                        result_key_commect_data_dict[key] = key_commect_data_dict[key]
+                comment_data_dict[str(reply_id)] = result_key_commect_data_dict
+    return comment_data_dict
 
-def update_dire(text):
+def init_dec_enc_dict():
+    # 0 is for data not found
+    dec_dict = {0: 'N/A'}
+    enc_dict = {'N/A': 0}
+    return dec_dict, enc_dict
+
+def message_encode_comment_dict(comment_data_dict,auto_update, enc_dict, dec_dict, encode_comment_dict):
     # 管理编码字典
-    for charater in text:
-        if charater not in enc.keys():
-            new_index = len(enc)
-            enc[str(charater)] = new_index
-            dec[str(new_index)] = charater
+    if encode_comment_dict == None:
+        encode_comment_dict = {}
+    for reply_id in comment_data_dict:
+        encode_result = []
+        encoding_message = comment_data_dict[reply_id]
+        if str(reply_id) not in encode_comment_dict.keys() and overwrite_flag:
+            for charater in encoding_message:
+                if str(charater) not in enc_dict.keys():
+                    if auto_update:
+                        new_index = len(enc_dict)
+                        enc_dict[str(charater)] = new_index
+                        dec_dict[str(new_index)] = charater
+                    else:
+                        encode_result.append(0)
+                else:
+                    encode_result.append(enc_dict[str(charater)])
+            encode_comment_dict[str(reply_id)] = encode_result
+    return encode_comment_dict     
 
+root_dir = 'E:\\爬虫\\test-data'
+timestep_key_dire = True
+timestep_add_mode = True
+update_dict = True 
+data_save_local = True
+data_collect_keys_list = ['message']
+os.chdir(root_dir)
+if timestep_key_dire:
+    all_time_step_comment_dict_file= open('commits_dict_all_timestep.json', encoding='utf-8')
+    all_time_step_user_dict_file= open('user_dict_all_timestep.json', encoding='utf-8')
+    all_time_step_user_dict = json.load(all_time_step_user_dict_file)
+    all_time_step_comment_dict = json.load(all_time_step_comment_dict_file)
+    all_time_step_comment_dict_file.close()
+    all_time_step_user_dict_file.close()
+else:
+    comment_dict_file = open('commits_dict.json', encoding='utf-8')
+    user_dict_file = open('user_dict.json', encoding='utf-8')
+    comment_dict = json.load(comment_dict_file)
+comment_all_time_step_collect(all_timestep_comment_dict=all_time_step_comment_dict, timestep_key_add_mode=True, data_collect_keys_list=data_collect_keys_list, comment_data_dict=None)
 
-def build_commit_dictory(): #此函数内容正在被整合至commit_info，未来可能会完全删除
-    # 使用RID作为主键
-    if member_uid not in all_user_dict.keys():
-        commit_user_info = {
-            'user_name': user_name,
-            'sign': sign,
-            'avatar_image_address': avatar_adress,
-            'user_level': user_level,
-            'has_nameplate': has_nameplate,
-            'nameplate_kind': nameplate_kind,
-            'nameplate_name': nameplate_name,
-            'nameplate_image': nameplate_image,
-            'nameplate_image_small': nameplate_image_small,
-            'nameplate_level': nameplate_level,
-            'nameplate_condition': nameplate_condition,
-            'has_vip': has_vip,
-            'vip_type': vip_type,
-            'vip_due_timestep': vip_due_timestep,
-        }
-        all_user_dict[member_id] = commit_user_info  # uid作为键
-    if reply_id not in all_commit_direct.keys():
-        commit_info = {
-            'uid': member_id,
-            'time': post_time_step,
-            'like_number': like_number,
-            'message': message,
-            'has_replies': has_replies,
-            'root_rid': root_rid,
-            'is_top': is_top,
-            'collect_time': collect_time_step
-        }
-        all_commit_direct[reply_id] = commit_info
-    return all_commit_direct ,all_user_dict
