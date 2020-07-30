@@ -18,8 +18,9 @@ timestep_file = True
 timestep_add_mode = False
 timestep_key_dire = True
 root_dir = "E:/爬虫/test-data/"
-bvid_list = ['BV1JD4y1U72G', 'BV1ri4y1u7JR',
-             'BV1av411v7E1', 'BV1UC4y1b7eG', 'BV1DC4y1b7UA']
+# bvid_list = ['BV1JD4y1U72G', 'BV1ri4y1u7JR',
+#             'BV1av411v7E1', 'BV1UC4y1b7eG', 'BV1DC4y1b7UA']
+bvid_list = ['BV1UC4y1b7eG', 'BV1DC4y1b7UA']
 
 if bvid_list == None:
     bvid_list.append(input("输入需要获取评论的BV号： "))
@@ -55,8 +56,10 @@ if tor_proxy:
 for video_id in bvid_list:
     print('Now we are collecting information from '+video_id)
     try:
+        print("Found exit floder")
         os.chdir(root_dir + "/" + video_id)
     except:
+        print("Createing floder")
         os.mkdir(root_dir + "/" + video_id)
         os.chdir(root_dir + "/" + video_id)
 
@@ -212,7 +215,6 @@ for video_id in bvid_list:
 
             json_get_url = 'https://api.bilibili.com/x/v2/reply?&jsonp=jsonp&pn=' + \
                 str(page)+'&type=1&oid='+str(video_oid)
-            os.chdir(root_dir)
             # time.strftime("%Y-%m-%d %H:%M:%S %Z", time.localtime())+' '+
             if timestep_file:
                 json_path = str(page)+'_'+str(time.time() * 10000000)+'.json'
@@ -225,11 +227,11 @@ for video_id in bvid_list:
             # TODO:一体化入库函数
             if all_in_one and page == 1:
                 all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=True, json_data=video_commits_data,
-                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
+                                                                   all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
                 # 写入数据库
             if all_in_one and page > 1:
                 all_commit_direct, all_user_dict = commit_json_ana(continue_mode_enable=continue_mode_enable, f=None, is_file=False, page_init=False, json_data=video_commits_data,
-                                                                all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
+                                                                   all_commit_direct=all_commit_direct, all_user_dict=all_user_dict, video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
                 # 写入数据库
 
             if write_copy:
@@ -245,22 +247,17 @@ for video_id in bvid_list:
             # 版权声明：本文为CSDN博主「achiv」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
             # 原文链接：https://blog.csdn.net/qq_37088317/java/article/details/89363381
             page = page + 1
-        except KeyboardInterrupt :
+        except KeyboardInterrupt:
             print("recive siginal to quit")
             print("Saving data")
             break
-        except :
+        except:
             print("An error occurred, quitting")
             break
 
     if write_copy_dict:
         # TODO: add a way to write file using bvid+timestep as name to sprate time step
-        user_dict_file = open(file="user_dict.json",
-                              mode="w", encoding="utf-8")
-        commit_dict_file = open(file="commits_dict.json",
-                                mode="w", encoding="utf-8")
-        video_info_dict_file = open(
-            file="video_info.json", mode="w", encoding="utf-8")
+
         if timestep_key_dire:
             user_dict_file = open(file="user_dict_all_timestep.json",
                                   mode="w", encoding="utf-8")
@@ -277,6 +274,12 @@ for video_id in bvid_list:
             json.dump(all_commit_full_timestep_dict, commit_dict_file)
             json.dump(video_info_full_timestep_dire, video_info_dict_file)
         else:
+            user_dict_file = open(file="user_dict.json",
+                                  mode="w", encoding="utf-8")
+            commit_dict_file = open(file="commits_dict.json",
+                                    mode="w", encoding="utf-8")
+            video_info_dict_file = open(
+                file="video_info.json", mode="w", encoding="utf-8")
             json.dump(all_user_dict, user_dict_file)
             json.dump(all_commit_direct, commit_dict_file)
             json.dump(video_info_dire, video_info_dict_file)

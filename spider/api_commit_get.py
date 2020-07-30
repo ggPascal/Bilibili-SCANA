@@ -97,7 +97,7 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
     for replay_page_now in range(0, page_count):
         # 2020/07/18 Special vaule rpid : 3199917477
 
-        print('Collecting on : '+str(replay_page_now)+'/'+str(page_count))
+        print('Collecting on page : '+str(replay_page_now)+'/'+str(page_count))
         replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
             str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
             '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
@@ -115,7 +115,7 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
             all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, commit_all=replies_data, commit_index=reply_index, reply_ana_flag=False, root_rid=root_rid,
                                                            all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top='N', is_list=True, is_hot='N', video_oid=video_oid, timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
 
-        return all_commit_direct, all_user_dict
+    return all_commit_direct, all_user_dict
 
 
 def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot, timestep_file, timestep_add_mode, timestep_key_dire, all_user_full_timestep_dict, all_commit_full_timestep_dict):
