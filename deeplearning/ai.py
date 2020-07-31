@@ -210,6 +210,17 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
 
                         input_error = True
                         while input_error:
+                            admire = input(
+                                "How much admire is this message show ? (0/10): ")
+                            admire = int(admire)
+                            if (admire > 0 or admire == 0) and (admire < 10 or admire == 10):
+                                input_error = False
+                            else:
+                                print("Out of range, please check what you type")
+                                input_error = True
+
+                        input_error = True
+                        while input_error:
                             sadness = input(
                                 "How sad is this message? (0/10): ")
                             sadness = int(sadness)
@@ -232,6 +243,17 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
 
                         input_error = True
                         while input_error:
+                            ridicule = input(
+                                "How much ridicule is this message show? (0/10): ")
+                            ridicule = int(ridicule)
+                            if (ridicule > 0 or ridicule == 0) and (ridicule < 10 or ridicule == 10):
+                                input_error = False
+                            else:
+                                print("Out of range, please check what you type")
+                                input_error = True
+
+                        input_error = True
+                        while input_error:
                             ask = input(
                                 "Do you think this message wants ask a question? (0/10, 10 = 100%): ")
                             ask = int(ask)
@@ -245,8 +267,10 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                             'To socre on', 'Your socre']
                         view_socre_show.add_row(['postive', postive])
                         view_socre_show.add_row(['happiness', happiness])
+                        view_socre_show.add_row(['admire', admire])
                         view_socre_show.add_row(['sadness', sadness])
                         view_socre_show.add_row(['angry', angry])
+                        view_socre_show.add_row(['ridicule', ridicule])
                         view_socre_show.add_row(['is_ask', ask])
                         print("Please review the socre :")
                         print(view_socre_show)
@@ -265,7 +289,7 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                             input_retry = False
 
                         tag_coment_dict[reply_id] = {
-                            'happiness': happiness, 'sadness': sadness, 'angry': angry}
+                            'happiness': happiness, 'sadness': sadness, 'angry': angry, 'is_ask':ask, 'admire':admire}
         return tag_coment_dict
     except KeyboardInterrupt:
         print("Recive siginal to quit, please wait")
