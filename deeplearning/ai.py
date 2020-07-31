@@ -22,7 +22,7 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                         current_reply_id = reply_id
                         current_root_rid = message_dict['root_rid']
                         if current_reply_id != current_root_rid and current_root_rid != 'N/A':
-                            while current_root_rid != current_reply_id and current_root_rid != 'N/A':
+                            while current_root_rid != current_reply_id:
                                 current_upper_rid = current_root_rid
                                 upper_message_dict = comment_data_dict[str(
                                     current_upper_rid)]
@@ -30,16 +30,17 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                                 upper_tree_list.append(
                                     upper_message_dict['message'])
                                 current_root_rid = upper_message_dict['root_rid']
-                            print("Root Diaelog of current message:")
-                            upper_message_show = pt.PrettyTable()
-                            upper_message_show.field_names = ['#', 'message']
-                            show_index = 0
-                            for message_index in range(len(upper_tree_list), 0):
-                                show_index = show_index + 1
-                                upper_message_show.add_row(
-                                    [str(show_index), upper_tree_list[message_index]])
-                            print(upper_message_show)
-                            has_upper_message = True
+                                print("Root Diaelog of current message:")
+                                upper_message_show = pt.PrettyTable()
+                                upper_message_show.field_names = [
+                                    '#', 'message']
+                                show_index = 0
+                                for message_index in range(len(upper_tree_list), 0):
+                                    show_index = show_index + 1
+                                    upper_message_show.add_row(
+                                        [str(show_index), upper_tree_list[message_index]])
+                                print(upper_message_show)
+                                has_upper_message = True
                         else:
                             print(
                                 "This is the root message, does not have any root dialog.")
@@ -82,6 +83,17 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
 
                         input_error = True
                         while input_error:
+                            admire = input(
+                                "How much admire is this message show ? (0/10): ")
+                            admire = int(admire)
+                            if (admire > 0 or admire == 0) and (admire < 10 or admire == 10):
+                                input_error = False
+                            else:
+                                print("Out of range, please check what you type")
+                                input_error = True
+
+                        input_error = True
+                        while input_error:
                             sadness = input(
                                 "How sad is this message? (0/10): ")
                             sadness = int(sadness)
@@ -104,6 +116,17 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
 
                         input_error = True
                         while input_error:
+                            ridicule = input(
+                                "How much ridicule is this message show? (0/10): ")
+                            ridicule = int(ridicule)
+                            if (ridicule > 0 or ridicule == 0) and (ridicule < 10 or ridicule == 10):
+                                input_error = False
+                            else:
+                                print("Out of range, please check what you type")
+                                input_error = True
+
+                        input_error = True
+                        while input_error:
                             ask = input(
                                 "Do you think this message wants ask a question? (0/10, 10 = 100%): ")
                             ask = int(ask)
@@ -117,8 +140,10 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                             'To socre on', 'Your socre']
                         view_socre_show.add_row(['postive', postive])
                         view_socre_show.add_row(['happiness', happiness])
+                        view_socre_show.add_row(['admire', admire])
                         view_socre_show.add_row(['sadness', sadness])
                         view_socre_show.add_row(['angry', angry])
+                        view_socre_show.add_row(['ridicule', ridicule])
                         view_socre_show.add_row(['is_ask', ask])
                         print("Please review the socre :")
                         print(view_socre_show)
@@ -136,8 +161,8 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                                 input_retry = True
                             input_retry = False
 
-                    tag_coment_dict[str(reply_id)] = {
-                        'happiness': happiness, 'sadness': sadness, 'angry': angry}
+                        tag_coment_dict[reply_id] = {
+                            'happiness': happiness, 'sadness': sadness, 'angry': angry, 'is_ask':ask, 'admire':admire}
                 else:  # For normal mode
                     os.system('cls')
                     retry_flag = True
@@ -425,6 +450,17 @@ def message_encode_comment_dict(comment_data_dict, auto_update, enc_dict, dec_di
 
 
 try:
+    
+    root_dir = 'E:\\爬虫\\test-data\\BV1JD4y1U72G'
+    timestep_key_dire = True
+    timestep_add_mode = True
+    update_dict = True
+    data_save_local = True
+    tag_contune = True
+    encode_contuine = True
+    data_collect_keys_list = ['message', 'root_rid']
+    os.chdir(root_dir)
+    
     try:
         enc_dict_file = open('enc_dict.json', 'r', encoding='utf-8')
         dec_dict_file = open('dec_dict.json', 'r', encoding='utf-8')
@@ -448,15 +484,6 @@ try:
     except:
         tag_coment_dict = {}
         print("Could not read tag_coment_dict")
-    root_dir = 'E:\\爬虫\\test-data\\BV1JD4y1U72G'
-    timestep_key_dire = True
-    timestep_add_mode = True
-    update_dict = True
-    data_save_local = True
-    tag_contune = True
-    encode_contuine = True
-    data_collect_keys_list = ['message', 'root_rid']
-    os.chdir(root_dir)
     if timestep_key_dire:
         all_time_step_comment_dict_file = open(
             'commits_dict_all_timestep.json', 'r', encoding='utf-8')
