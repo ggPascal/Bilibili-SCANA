@@ -163,158 +163,158 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
 
                         tag_coment_dict[reply_id] = {
                             'happiness': happiness, 'sadness': sadness, 'angry': angry, 'is_ask':ask, 'admire':admire}
-                else:  # For normal mode
-                    os.system('cls')
-                    retry_flag = True
-                    while retry_flag:
-                        upper_tree_list = []
-                        deep_search_dict = {}
-                        message_dict = comment_data_dict[str(reply_id)]
-                        current_message = message_dict['message']
-                        current_reply_id = reply_id
-                        current_root_rid = message_dict['root_rid']
-                        if current_reply_id != current_root_rid and current_root_rid != 'N/A':
-                            while current_root_rid != current_reply_id:
-                                current_upper_rid = current_root_rid
-                                upper_message_dict = comment_data_dict[str(
-                                    current_upper_rid)]
-                                current_reply_id = current_upper_rid
-                                upper_tree_list.append(
-                                    upper_message_dict['message'])
-                                current_root_rid = upper_message_dict['root_rid']
-                                print("Root Diaelog of current message:")
-                                upper_message_show = pt.PrettyTable()
-                                upper_message_show.field_names = [
-                                    '#', 'message']
-                                show_index = 0
-                                for message_index in range(len(upper_tree_list), 0):
-                                    show_index = show_index + 1
-                                    upper_message_show.add_row(
-                                        [str(show_index), upper_tree_list[message_index]])
-                                print(upper_message_show)
-                                has_upper_message = True
+            else:  # For normal mode
+                os.system('cls')
+                retry_flag = True
+                while retry_flag:
+                    upper_tree_list = []
+                    deep_search_dict = {}
+                    message_dict = comment_data_dict[str(reply_id)]
+                    current_message = message_dict['message']
+                    current_reply_id = reply_id
+                    current_root_rid = message_dict['root_rid']
+                    if current_reply_id != current_root_rid and current_root_rid != 'N/A':
+                        while current_root_rid != current_reply_id:
+                            current_upper_rid = current_root_rid
+                            upper_message_dict = comment_data_dict[str(
+                                current_upper_rid)]
+                            current_reply_id = current_upper_rid
+                            upper_tree_list.append(
+                                upper_message_dict['message'])
+                            current_root_rid = upper_message_dict['root_rid']
+                            print("Root Diaelog of current message:")
+                            upper_message_show = pt.PrettyTable()
+                            upper_message_show.field_names = [
+                                '#', 'message']
+                            show_index = 0
+                            for message_index in range(len(upper_tree_list), 0):
+                                show_index = show_index + 1
+                                upper_message_show.add_row(
+                                    [str(show_index), upper_tree_list[message_index]])
+                            print(upper_message_show)
+                            has_upper_message = True
+                    else:
+                        print(
+                            "This is the root message, does not have any root dialog.")
+                        has_upper_message = False
+                    print('Current message :')
+                    print(current_message)
+                    deep_message_show = pt.PrettyTable()
+                    deep_message_show.field_names = ['#', 'message']
+                    for deep_search_rid in list(comment_data_dict.keys()):
+                        deep_search_dict = comment_data_dict[str(
+                            deep_search_rid)]
+                        if current_root_rid == str(reply_id):
+                            deep_index = deep_index + 1
+                            deep_message_show.add_row(
+                                [str(deep_index), deep_search_dict['message']])
+                    print("Following replies: ")
+                    print(deep_message_show)
+                    print('Socre feeling:')
+                    input_error = True
+                    while input_error:
+                        postive = input(
+                            "Is message positive?(-1/1 , 1 is postive): ")
+                        postive = int(postive)
+                        if (postive > -1 or postive == -1) and (postive < 1 or postive == 1):
+                            input_error = False
                         else:
-                            print(
-                                "This is the root message, does not have any root dialog.")
-                            has_upper_message = False
-                        print('Current message :')
-                        print(current_message)
-                        deep_message_show = pt.PrettyTable()
-                        deep_message_show.field_names = ['#', 'message']
-                        for deep_search_rid in list(comment_data_dict.keys()):
-                            deep_search_dict = comment_data_dict[str(
-                                deep_search_rid)]
-                            if current_root_rid == str(reply_id):
-                                deep_index = deep_index + 1
-                                deep_message_show.add_row(
-                                    [str(deep_index), deep_search_dict['message']])
-                        print("Following replies: ")
-                        print(deep_message_show)
-                        print('Socre feeling:')
-                        input_error = True
-                        while input_error:
-                            postive = input(
-                                "Is message positive?(-1/1 , 1 is postive): ")
-                            postive = int(postive)
-                            if (postive > -1 or postive == -1) and (postive < 1 or postive == 1):
-                                input_error = False
-                            else:
-                                print("Out of range, please check what you type")
-                                input_error = True
+                            print("Out of range, please check what you type")
+                            input_error = True
 
-                        input_error = True
-                        while input_error:
-                            happiness = input(
-                                "How happy is this message? (0/10): ")
-                            happiness = int(happiness)
-                            if (happiness > 0 or happiness == 0) and (happiness < 10 or happiness == 10):
-                                input_error = False
-                            else:
-                                print("Out of range, please check what you type")
-                                input_error = True
+                    input_error = True
+                    while input_error:
+                        happiness = input(
+                            "How happy is this message? (0/10): ")
+                        happiness = int(happiness)
+                        if (happiness > 0 or happiness == 0) and (happiness < 10 or happiness == 10):
+                            input_error = False
+                        else:
+                            print("Out of range, please check what you type")
+                            input_error = True
 
-                        input_error = True
-                        while input_error:
-                            admire = input(
-                                "How much admire is this message show ? (0/10): ")
-                            admire = int(admire)
-                            if (admire > 0 or admire == 0) and (admire < 10 or admire == 10):
-                                input_error = False
-                            else:
-                                print("Out of range, please check what you type")
-                                input_error = True
+                    input_error = True
+                    while input_error:
+                        admire = input(
+                            "How much admire is this message show ? (0/10): ")
+                        admire = int(admire)
+                        if (admire > 0 or admire == 0) and (admire < 10 or admire == 10):
+                            input_error = False
+                        else:
+                            print("Out of range, please check what you type")
+                            input_error = True
 
-                        input_error = True
-                        while input_error:
-                            sadness = input(
-                                "How sad is this message? (0/10): ")
-                            sadness = int(sadness)
-                            if (sadness > 0 or sadness == 0) and (sadness < 10 or sadness == 10):
-                                input_error = False
-                            else:
-                                print("Out of range, please check what you type")
-                                input_error = True
+                    input_error = True
+                    while input_error:
+                        sadness = input(
+                            "How sad is this message? (0/10): ")
+                        sadness = int(sadness)
+                        if (sadness > 0 or sadness == 0) and (sadness < 10 or sadness == 10):
+                            input_error = False
+                        else:
+                            print("Out of range, please check what you type")
+                            input_error = True
 
-                        input_error = True
-                        while input_error:
-                            angry = input(
-                                "How angry is this message? (0/10): ")
-                            angry = int(angry)
-                            if (angry > 0 or angry == 0) and (angry < 10 or angry == 10):
-                                input_error = False
-                            else:
-                                print("Out of range, please check what you type")
-                                input_error = True
+                    input_error = True
+                    while input_error:
+                        angry = input(
+                            "How angry is this message? (0/10): ")
+                        angry = int(angry)
+                        if (angry > 0 or angry == 0) and (angry < 10 or angry == 10):
+                            input_error = False
+                        else:
+                            print("Out of range, please check what you type")
+                            input_error = True
 
-                        input_error = True
-                        while input_error:
-                            ridicule = input(
-                                "How much ridicule is this message show? (0/10): ")
-                            ridicule = int(ridicule)
-                            if (ridicule > 0 or ridicule == 0) and (ridicule < 10 or ridicule == 10):
-                                input_error = False
-                            else:
-                                print("Out of range, please check what you type")
-                                input_error = True
+                    input_error = True
+                    while input_error:
+                        ridicule = input(
+                            "How much ridicule is this message show? (0/10): ")
+                        ridicule = int(ridicule)
+                        if (ridicule > 0 or ridicule == 0) and (ridicule < 10 or ridicule == 10):
+                            input_error = False
+                        else:
+                            print("Out of range, please check what you type")
+                            input_error = True
 
-                        input_error = True
-                        while input_error:
-                            ask = input(
-                                "Do you think this message wants ask a question? (0/10, 10 = 100%): ")
-                            ask = int(ask)
-                            if (ask == 0 or ask > 0) and (ask == 10 or ask < 10):
-                                input_error = False
+                    input_error = True
+                    while input_error:
+                        ask = input(
+                            "Do you think this message wants ask a question? (0/10, 10 = 100%): ")
+                        ask = int(ask)
+                        if (ask == 0 or ask > 0) and (ask == 10 or ask < 10):
+                            input_error = False
+                        else:
+                            print("Out of range, please check what you type")
+                            input_error = True
+                    view_socre_show = pt.PrettyTable()
+                    view_socre_show.field_names = [
+                        'To socre on', 'Your socre']
+                    view_socre_show.add_row(['postive', postive])
+                    view_socre_show.add_row(['happiness', happiness])
+                    view_socre_show.add_row(['admire', admire])
+                    view_socre_show.add_row(['sadness', sadness])
+                    view_socre_show.add_row(['angry', angry])
+                    view_socre_show.add_row(['ridicule', ridicule])
+                    view_socre_show.add_row(['is_ask', ask])
+                    print("Please review the socre :")
+                    print(view_socre_show)
+                    input_retry = True
+                    while input_retry:
+                        retry_socre_input = input(
+                            "Is your socre right? (y/n): ")
+                        if retry_socre_input == 'Y' or retry_socre_input == 'N' or retry_socre_input == 'y' or retry_socre_input == 'n':
+                            if retry_socre_input.upper() == "N":
+                                retry_flag = True
                             else:
-                                print("Out of range, please check what you type")
-                                input_error = True
-                        view_socre_show = pt.PrettyTable()
-                        view_socre_show.field_names = [
-                            'To socre on', 'Your socre']
-                        view_socre_show.add_row(['postive', postive])
-                        view_socre_show.add_row(['happiness', happiness])
-                        view_socre_show.add_row(['admire', admire])
-                        view_socre_show.add_row(['sadness', sadness])
-                        view_socre_show.add_row(['angry', angry])
-                        view_socre_show.add_row(['ridicule', ridicule])
-                        view_socre_show.add_row(['is_ask', ask])
-                        print("Please review the socre :")
-                        print(view_socre_show)
-                        input_retry = True
-                        while input_retry:
-                            retry_socre_input = input(
-                                "Is your socre right? (y/n): ")
-                            if retry_socre_input == 'Y' or retry_socre_input == 'N' or retry_socre_input == 'y' or retry_socre_input == 'n':
-                                if retry_socre_input.upper() == "N":
-                                    retry_flag = True
-                                else:
-                                    retry_flag = False
-                            else:
-                                print("Invalid input, Please type in y or n")
-                                input_retry = True
-                            input_retry = False
+                                retry_flag = False
+                        else:
+                            print("Invalid input, Please type in y or n")
+                            input_retry = True
+                        input_retry = False
 
-                        tag_coment_dict[reply_id] = {
-                            'happiness': happiness, 'sadness': sadness, 'angry': angry, 'is_ask':ask, 'admire':admire}
+                    tag_coment_dict[reply_id] = {
+                        'happiness': happiness, 'sadness': sadness, 'angry': angry, 'is_ask':ask, 'admire':admire}
         return tag_coment_dict
     except KeyboardInterrupt:
         print("Recive siginal to quit, please wait")
@@ -460,7 +460,7 @@ try:
     encode_contuine = True
     data_collect_keys_list = ['message', 'root_rid']
     os.chdir(root_dir)
-    
+
     try:
         enc_dict_file = open('enc_dict.json', 'r', encoding='utf-8')
         dec_dict_file = open('dec_dict.json', 'r', encoding='utf-8')
