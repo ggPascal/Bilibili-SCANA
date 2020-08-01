@@ -6,13 +6,50 @@ import os
 def dire_save():
     json.dump(enc, f)
 
+def build_upper_dict(comment_data_dict):
+    for reply_id in list(comment_data_dict.keys()):
+        upper_tree_list = []
+        while str(current_root_rid) != current_reply_id and current_root_rid != 'N/A':
+            current_upper_rid = current_root_rid
+            upper_message_dict = comment_data_dict[str(
+                current_upper_rid)]
+            current_reply_id = current_upper_rid
+            upper_tree_list.append(
+                upper_message_dict['message'])
+            current_root_rid = upper_message_dict['root_rid']
+        if upper_tree_list == None or upper_tree_list == []:
+            upper_message_dict[reply_id] = 'N/A'
+        else:
+            for message_index in range(0, len(upper_tree_list)):
+                result_upper_tree_list[message_index] = upper_tree_list[len(upper_tree_list)-1-message]
+                show_index = show_index + 1
+            upper_message_dict[reply_id] = result_upper_tree_list
+    return upper_message_dict
+
+def build_following_message_dict():
+    for reply_id in list(comment_data_dict.keys()):
+        for deep_search_rid in list(comment_data_dict.keys()):
+            deep_search_dict = comment_data_dict[str(
+                deep_search_rid)]
+            current_root_rid = deep_search_dict['root_rid']
+            if str(current_root_rid) == str(reply_id):
+                follow_message_list.append(deep_search_dict['message'])
+        if follow_message_list != None or follow_message_list == [] :
+            follow_message_dict[reply_id] = follow_message_list
+        else:
+            follow_message_dict[reply_id] = 'N/A'
+    return follow_message_dict
 
 def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
     try:
+        all_count = len(comment_data_dict.keys())
+        current_count = 1
         for reply_id in list(comment_data_dict.keys()):
+            current_count = current_count + 1
             if tag_contune:
                 if reply_id not in tag_coment_dict.keys():
                     os.system('cls')
+                    print('Progress : '+str(current_count)+'/'+str(all_count))
                     retry_flag = True
                     while retry_flag:
                         upper_tree_list = []
@@ -38,8 +75,8 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                             show_index = 1
                             for message_index in range(0, len(upper_tree_list)):
                                 upper_message_show.add_row(
-                                    [str(show_index), upper_tree_list[message_index]])
-                                message_index = message_index + 1
+                                    [str(show_index), upper_tree_list[len(upper_tree_list)-1-message_index]])
+                                
                                 show_index = show_index + 1
                             print(upper_message_show)
                             has_upper_message = True
@@ -167,8 +204,10 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
 
                         tag_coment_dict[reply_id] = {
                             'happiness': happiness, 'sadness': sadness, 'angry': angry, 'is_ask':ask, 'admire':admire}
+
             else:  # For normal mode
                 os.system('cls')
+                print('Progress : '+str(current_count)+'/'+str(all_count))
                 retry_flag = True
                 while retry_flag:
                     upper_tree_list = []
@@ -194,8 +233,8 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                         show_index = 1
                         for message_index in range(0, len(upper_tree_list)):
                             upper_message_show.add_row(
-                                [str(show_index), upper_tree_list[message_index]])
-                            message_index = message_index + 1
+                                [str(show_index), upper_tree_list[len(upper_tree_list)-1-message_index]])
+                            
                             show_index = show_index + 1
                         print(upper_message_show)
                         has_upper_message = True
