@@ -2,10 +2,12 @@
 ## 语言导航
 * English: Current writing  
 * 中文：本文档  
+## 项目主页
+https://pycms.tk/?page_id=104
 ## 简介
 一个不断在开发当中的bilibili站内数据分析工具集，目前只有评论区的爬取工具集可用（分析在做了在做了）  
 ## 开发状态
-所有代码已经除错完成，爬取数据并保存成JSON文件可以运行，但是数据库对接没弄好，AI模块自然要等上一会。  
+爬虫模块已经完成，可以根据文档使用。数据标记等AI工具正在开发中，演示模型正在开发中。数据库模块正在逐渐开发中。    
 具体进度可以去看一下两个地方：  
 分项目进度：https://github.com/ggPascal/Bilibili-SCANA/projects  
 阶段性进度：https://github.com/ggPascal/Bilibili-SCANA/milestones  
