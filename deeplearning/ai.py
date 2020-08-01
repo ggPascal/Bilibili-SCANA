@@ -21,8 +21,8 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                         current_message = message_dict['message']
                         current_reply_id = reply_id
                         current_root_rid = message_dict['root_rid']
-                        if current_reply_id != current_root_rid and current_root_rid != 'N/A':
-                            while current_root_rid != current_reply_id:
+                        if current_reply_id != str(current_root_rid) and str(current_root_rid) != 'N/A':
+                            while str(current_root_rid) != current_reply_id and current_root_rid != 'N/A':
                                 current_upper_rid = current_root_rid
                                 upper_message_dict = comment_data_dict[str(
                                     current_upper_rid)]
@@ -30,17 +30,19 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                                 upper_tree_list.append(
                                     upper_message_dict['message'])
                                 current_root_rid = upper_message_dict['root_rid']
-                                print("Root Diaelog of current message:")
-                                upper_message_show = pt.PrettyTable()
-                                upper_message_show.field_names = [
-                                    '#', 'message']
-                                show_index = 0
-                                for message_index in range(len(upper_tree_list), 0):
-                                    show_index = show_index + 1
-                                    upper_message_show.add_row(
-                                        [str(show_index), upper_tree_list[message_index]])
-                                print(upper_message_show)
-                                has_upper_message = True
+                            print("Root Diaelog of current message:")
+                            upper_message_show = pt.PrettyTable()
+                            upper_message_show.field_names = [
+                                '#', 'message']
+                            message_index = 0
+                            show_index = 1
+                            for message_index in range(0, len(upper_tree_list)):
+                                upper_message_show.add_row(
+                                    [str(show_index), upper_tree_list[message_index]])
+                                message_index = message_index + 1
+                                show_index = show_index + 1
+                            print(upper_message_show)
+                            has_upper_message = True
                         else:
                             print(
                                 "This is the root message, does not have any root dialog.")
@@ -49,10 +51,12 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                         print(current_message)
                         deep_message_show = pt.PrettyTable()
                         deep_message_show.field_names = ['#', 'message']
+                        deep_index = 0
                         for deep_search_rid in list(comment_data_dict.keys()):
                             deep_search_dict = comment_data_dict[str(
                                 deep_search_rid)]
-                            if current_root_rid == str(reply_id):
+                            current_root_rid = deep_search_dict['root_rid']
+                            if str(current_root_rid) == str(reply_id):
                                 deep_index = deep_index + 1
                                 deep_message_show.add_row(
                                     [str(deep_index), deep_search_dict['message']])
@@ -173,8 +177,8 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                     current_message = message_dict['message']
                     current_reply_id = reply_id
                     current_root_rid = message_dict['root_rid']
-                    if current_reply_id != current_root_rid and current_root_rid != 'N/A':
-                        while current_root_rid != current_reply_id:
+                    if current_reply_id != str(current_root_rid) and str(current_root_rid) != 'N/A':
+                        while str(current_root_rid) != current_reply_id and current_root_rid != 'N/A':
                             current_upper_rid = current_root_rid
                             upper_message_dict = comment_data_dict[str(
                                 current_upper_rid)]
@@ -182,17 +186,19 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                             upper_tree_list.append(
                                 upper_message_dict['message'])
                             current_root_rid = upper_message_dict['root_rid']
-                            print("Root Diaelog of current message:")
-                            upper_message_show = pt.PrettyTable()
-                            upper_message_show.field_names = [
-                                '#', 'message']
-                            show_index = 0
-                            for message_index in range(len(upper_tree_list), 0):
-                                show_index = show_index + 1
-                                upper_message_show.add_row(
-                                    [str(show_index), upper_tree_list[message_index]])
-                            print(upper_message_show)
-                            has_upper_message = True
+                        print("Root Diaelog of current message:")
+                        upper_message_show = pt.PrettyTable()
+                        upper_message_show.field_names = [
+                            '#', 'message']
+                        message_index = 0
+                        show_index = 1
+                        for message_index in range(0, len(upper_tree_list)):
+                            upper_message_show.add_row(
+                                [str(show_index), upper_tree_list[message_index]])
+                            message_index = message_index + 1
+                            show_index = show_index + 1
+                        print(upper_message_show)
+                        has_upper_message = True
                     else:
                         print(
                             "This is the root message, does not have any root dialog.")
@@ -201,10 +207,12 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
                     print(current_message)
                     deep_message_show = pt.PrettyTable()
                     deep_message_show.field_names = ['#', 'message']
+                    deep_index = 0
                     for deep_search_rid in list(comment_data_dict.keys()):
                         deep_search_dict = comment_data_dict[str(
                             deep_search_rid)]
-                        if current_root_rid == str(reply_id):
+                        current_root_rid = deep_search_dict['root_rid']
+                        if str(current_root_rid) == str(reply_id):
                             deep_index = deep_index + 1
                             deep_message_show.add_row(
                                 [str(deep_index), deep_search_dict['message']])
