@@ -426,7 +426,7 @@ def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_
         # 建立当前评论的字典数据
     # 顶置评论获取与标记
     upper_data = commit_data['upper']
-    if 'top' in upper_data.keys():
+    if 'top' in upper_data.keys() and page_init == True:
         print('found upper conment, start collecting')
         commit_all = upper_data['top']
         if commit_all != None:
@@ -434,7 +434,7 @@ def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_
             all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, video_oid=video_oid, commit_all=commit_all, commit_index='N/A', reply_ana_flag=True, root_rid='N/A', all_user_dict=all_user_dict,
                                                            all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=is_top, is_list=True, is_hot='N', timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
 
-    if 'hots' in commit_data.keys() and hot_collect_flag == True:
+    if 'hots' in commit_data.keys() and page_init == True :
         commit_index = 0
         commit_all = commit_data['hots']
         if commit_all != None:
