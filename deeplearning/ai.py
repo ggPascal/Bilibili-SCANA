@@ -498,7 +498,9 @@ def message_encode_comment_dict(comment_data_dict, auto_update, enc_dict, dec_di
 
 try:
     
-    root_dir = 'E:\\爬虫\\test-data\\BV1JD4y1U72G'
+    # root_dir = 'E:\\爬虫\\test-data\\BV1JD4y1U72G'
+    root_dir = 'E:\\爬虫\\test-data\\BV1UC4y1b7eG'
+    dec_enc_dict_path = 'E:\\爬虫\\test-data\\dec-enc-dict'
     timestep_key_dire = True
     timestep_add_mode = True
     update_dict = True
@@ -506,8 +508,8 @@ try:
     tag_contune = True
     encode_contuine = True
     data_collect_keys_list = ['message', 'root_rid']
-    os.chdir(root_dir)
-
+    
+    os.chdir(dec_enc_dict_path)
     try:
         enc_dict_file = open('enc_dict.json', 'r', encoding='utf-8')
         dec_dict_file = open('dec_dict.json', 'r', encoding='utf-8')
@@ -516,7 +518,7 @@ try:
     except:
         print("Could not read decode/encode dictionary")
         print("Create a new one")
-
+    os.chdir(root_dir)
     try:
         encode_comment_dict_file = open(
             'encode_comment_dict.json', 'r', encoding='utf-8')

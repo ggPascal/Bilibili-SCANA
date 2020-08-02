@@ -18,9 +18,11 @@ timestep_file = True
 timestep_add_mode = False
 timestep_key_dire = True
 root_dir = "E:/爬虫/test-data/"
-# bvid_list = ['BV1JD4y1U72G', 'BV1ri4y1u7JR',
-#             'BV1av411v7E1', 'BV1UC4y1b7eG', 'BV1DC4y1b7UA']
-bvid_list = ['BV1UC4y1b7eG', 'BV1DC4y1b7UA']
+bvid_list = ['BV1JD4y1U72G', 'BV1ri4y1u7JR',
+             'BV1av411v7E1', 'BV1UC4y1b7eG', 'BV1DC4y1b7UA']
+# 
+#bvid_list = ['BV1UC4y1b7eG', 'BV1DC4y1b7UA']
+sleep_seconds = 300
 
 if bvid_list == None:
     bvid_list.append(input("输入需要获取评论的BV号： "))
@@ -208,8 +210,8 @@ for video_id in bvid_list:
     # 初始化结束
     print("开始爬取")
     # Thru all page to get data
-
-    while page < max_page or page == max_page:
+    ssl_retry = True
+    while page < max_page or page == max_page and ssl_retry:
         try:
             print("正在爬取" + str(page) + "/"+str(max_page) + "页")
 
@@ -251,9 +253,13 @@ for video_id in bvid_list:
             print("recive siginal to quit")
             print("Saving data")
             break
+        except ConnectionError:
+            print("connection lost, waiting for "+sleep_seconds+" seconds")
+            time.sleep(sleep_seconds)
+            ssl_retry = True
         except:
             print("An error occurred, quitting")
-            break
+            exit()
 
     if write_copy_dict:
         # TODO: add a way to write file using bvid+timestep as name to sprate time step
