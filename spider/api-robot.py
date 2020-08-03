@@ -10,7 +10,6 @@ import time
 import queue
 import os
 import re
-import numba as nb
 import traceback as tb
 
 # Time step file is waiting for develoap done.
@@ -253,7 +252,7 @@ for video_id in bvid_list:
             print("recive siginal to quit")
             print("Saving data")
             break
-        except ConnectionError:
+        except ConnectionAbortedError:
             print("connection lost, waiting for "+sleep_seconds+" seconds")
             time.sleep(sleep_seconds)
             ssl_retry = True
