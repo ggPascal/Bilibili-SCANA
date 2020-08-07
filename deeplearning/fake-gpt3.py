@@ -123,22 +123,22 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
 
     up_text = Input(shape=(None, maxium_legth), name='up_text')
 
-    up_text_emb = layers.Embedding(max_index_up_text, 64)(up_text)
+    up_text_emb = layers.Embedding(max_index_up_text + 1, 64)(up_text)
 
     cnn_up_text_1 = layers.Conv1D(500, 1, padding='same')(up_text_emb)
     cnn_up_text_2 = layers.Conv1D(500, 2, padding='same')(up_text_emb)
     cnn_up_text_3 = layers.Conv1D(500, 4, padding='same')(up_text_emb)
 
     cnn_up_output = layers.add([cnn_up_text_1, cnn_up_text_2, cnn_up_text_3])
-    cnn_up_output = layers.Reshape((maxium_train_up_legth, 500))(cnn_up_output)
+    cnn_up_output = layers.Reshape((maxium_legth, 500))(cnn_up_output)
 
     lstm_up_output = layers.LSTM(600, return_sequences=True)(cnn_up_output)
    
     down_text_tensor = Input(
-        shape=(None, maxium_train_down_legth),  name='down_text')
+        shape=(None, maxium_legth),  name='down_text')
 
     down_text_tensor_emb = layers.Embedding(
-        max_index_up_text, 64)(down_text_tensor)
+        max_index_up_text + 1, 64)(down_text_tensor)
     cnn_down_output_1 = layers.Conv1D(
         500, 1, padding='same')(down_text_tensor_emb)
     cnn_down_output_2 = layers.Conv1D(
@@ -149,12 +149,13 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     cnn_down_output = layers.add(
         [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
     cnn_down_output = layers.Reshape(
-        (maxium_train_down_legth, 500))(cnn_down_output)
+        (maxium_legth, 500))(cnn_down_output)
 
     lstm_down_output = layers.LSTM(600, return_sequences=True)(cnn_down_output)
    
     
-    lstm_output = layers.add([lstm_up_output, lstm_down_output])
+    lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
+    lstm_output = layers.Flatten()(lstm_output)
 
     final_output = layers.Dense(200)(lstm_output)
 
@@ -218,7 +219,7 @@ test_up_count = len(test_up_list)
 test_down_count = len(test_down_list)
 test_target_count = len(test_target_list)
 
-maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth])
+maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
 
 print("building model")
 max_enc_index = len(list(enc_dict.keys())) - 1
@@ -307,6 +308,6 @@ down_trans_test_arrary()
 
 print("Starting fitting model...")
 tensor_callback = callbacks.TensorBoard(
-    log_dir='./tesorboard', histogram_freq=1, embeddings_freq=1)
+    log_dir='./tesorboard', histogram_freq=1, embeddings_freq=1, update_freq='batch')
 model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-          train_target_arry, verbose=1, callbacks=tensor_callback, epochs=100, validation_spl = 0.4)
+          train_target_arry, verbose=1, callbacks=tensor_callback, epochs=100, validation_split = 0.4, batch_size=3)
