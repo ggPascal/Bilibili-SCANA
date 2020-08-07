@@ -201,6 +201,7 @@ encode_comment_dict = json.load(encode_comment_dict_file)
 
 if load_arry_data:
     try:
+        os.chdir(data_root_dir)
         all_in_one_data=np.load('data_train_test_all_in_one')
     except:
         print("Could not read numpy data file")
@@ -251,6 +252,7 @@ if make_new_data:
     test_target_count = len(test_target_list)
 
     maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
+    max_enc_index = len(list(enc_dict.keys())) - 1
 
     
 
@@ -279,7 +281,7 @@ if make_new_data:
     def up_trans_train_arrary():
         for splet_index, train_spelt in tqdm(enumerate(train_up_list), total=len(train_up_list)):
             for charater_index, charater in enumerate(train_spelt):
-                train_up_arry[splet_index, charater_index] = charater
+                train_up_arry[splet_index, charater_index] = charater / max_enc_index
 
 
     up_trans_train_arrary()
@@ -289,7 +291,7 @@ if make_new_data:
     @nb.jit
     def target_trans_train_arrary():
         for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
-            train_target_arry[splet_index, 0] = train_spelt
+            train_target_arry[splet_index, 0] = train_spelt / max_enc_index
 
 
     target_trans_train_arrary()
@@ -299,7 +301,7 @@ if make_new_data:
     def down_trans_train_arrary():
         for splet_index, train_spelt in tqdm(enumerate(train_down_list), total=len(train_down_list)):
             for charater_index, charater in enumerate(train_spelt):
-                train_down_arry[splet_index, charater_index] = charater
+                train_down_arry[splet_index, charater_index] = charater / max_enc_index
 
 
     down_trans_train_arrary()
@@ -309,7 +311,7 @@ if make_new_data:
     def up_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_up_list), total=len(test_up_list)):
             for charater_index, charater in enumerate(test_spelt):
-                test_up_arry[splet_index, charater_index] = charater
+                test_up_arry[splet_index, charater_index] = charater / max_enc_index
 
 
     up_trans_test_arrary()
@@ -318,7 +320,7 @@ if make_new_data:
     @nb.jit
     def target_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
-            test_target_arry[splet_index, 0] = test_spelt
+            test_target_arry[splet_index, 0] = test_spelt / max_enc_index
 
 
     target_trans_test_arrary()
@@ -328,19 +330,19 @@ if make_new_data:
     def down_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_down_list), total=len(test_down_list)):
             for charater_index, charater in enumerate(test_spelt):
-                test_down_arry[splet_index, charater_index] = charater
+                test_down_arry[splet_index, charater_index] = charater / max_enc_index
 
 
     down_trans_test_arrary()
+    
     os.chdir(data_root_dir)
-
-    np.savez_compressed('data_train_test_all_in_one', train_up_arry = train_up_arry, train_down_arry = train_down_arry, train_target_arry = train_target_arry, test_up_arry = test_up_arry, test_down_arry = test_down_arry, test_target_arry = test_target_arry)
+    np.savez_compressed('data_train_test_all_in_one', train_up_arry = train_up_arry, train_down_arry = train_down_arry, train_target_arry = train_target_arry, test_up_arry = test_up_arry, test_down_arry = test_down_arry, test_target_arry = test_target_arry, max_enc_index = max_enc_index)
 
    
 
 if make_new_model:
     print("building model")
-    max_enc_index = len(list(enc_dict.keys())) - 1
+    
     model = build_reglaiour_model(max_enc_index, maxium_legth)
     model.save("E:\\爬虫\\Fake-GPT3\\models\\init.h5")
     print(model.summary())
@@ -350,5 +352,5 @@ tensor_callback = callbacks.TensorBoard(
 save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\best_val_loss.h5", monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 
 model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=100, validation_split = 0.4, batch_size=3)
+          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=100, validation_split = 0.4, batch_size=10)
 model.save("E:\\爬虫\\Fake-GPT3\\models\\result.h5")
