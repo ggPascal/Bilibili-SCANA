@@ -224,6 +224,7 @@ maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
 print("building model")
 max_enc_index = len(list(enc_dict.keys())) - 1
 model = build_reglaiour_model(max_enc_index, maxium_legth)
+model.save("E:\\爬虫\\Fake-GPT3\\models\\init.h5")
 print(model.summary())
 
 print("Initlazing up array...")
@@ -308,6 +309,9 @@ down_trans_test_arrary()
 
 print("Starting fitting model...")
 tensor_callback = callbacks.TensorBoard(
-    log_dir='./tesorboard', histogram_freq=1, embeddings_freq=1, update_freq='batch')
+    log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard', histogram_freq=1, embeddings_freq=1, update_freq='batch')
+save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point", monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
+
 model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
           train_target_arry, verbose=1, callbacks=tensor_callback, epochs=100, validation_split = 0.4, batch_size=3)
+model.save("E:\\爬虫\\Fake-GPT3\\models\\result.h5")
