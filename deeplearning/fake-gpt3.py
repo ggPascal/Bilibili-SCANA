@@ -4,7 +4,6 @@ from keras.models import load_model
 from keras import layers
 from keras import Input
 from keras import callbacks
-from keras import optimizers
 import os
 import json
 import numpy as np
@@ -159,10 +158,10 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     lstm_output = layers.Flatten()(lstm_output)
 
-    final_output = layers.Dense(200, activation='softmax')(lstm_output)
+    final_output = layers.Dense(200)(lstm_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='RMSprop', loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='Adadelta', loss='mean_squared_error')
 
     return model
 
@@ -253,7 +252,7 @@ if make_new_data:
     test_target_count = len(test_target_list)
 
     maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
-    max_enc_index = len(list(enc_dict.keys()))
+    max_enc_index = len(list(enc_dict.keys())) - 1
 
     
 
@@ -262,7 +261,7 @@ if make_new_data:
     train_up_arry = np.zeros(
         (train_up_count, maxium_legth), dtype=np.float32)
     print(train_up_arry)
-    train_target_arry = np.zeros((train_target_count, max_enc_index ,1), dtype=np.float32)
+    train_target_arry = np.zeros((train_target_count, 1), dtype=np.float32)
     print(train_target_arry)
     train_down_arry = np.zeros(
         (train_down_count, maxium_legth), dtype=np.float32)
@@ -270,7 +269,7 @@ if make_new_data:
     test_up_arry = np.zeros(
         (test_up_count, maxium_legth), dtype=np.float32)
     test_target_arry = np.zeros(
-        (train_target_count, max_enc_index ,1), dtype=np.float32)
+        (test_target_count, maxium_legth), dtype=np.float32)
     test_down_arry = np.zeros(
         (test_down_count, maxium_legth), dtype=np.float32)
 
@@ -292,11 +291,10 @@ if make_new_data:
     @nb.jit
     def target_trans_train_arrary():
         for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
-            train_target_arry[splet_index, train_spelt] = 1
+            train_target_arry[splet_index, 0] = train_spelt / max_enc_index
 
 
     target_trans_train_arrary()
-    print(train_target_arry)
 
 
     @nb.jit
@@ -322,7 +320,7 @@ if make_new_data:
     @nb.jit
     def target_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
-            test_target_arry[splet_index, test_spelt] = 1
+            test_target_arry[splet_index, 0] = test_spelt / max_enc_index
 
 
     target_trans_test_arrary()
@@ -352,7 +350,7 @@ print("Starting fitting model...")
 tensor_callback = callbacks.TensorBoard(
     log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard', histogram_freq=1, embeddings_freq=1, update_freq='batch')
 save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\best_val_loss.h5", monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
-
+auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=100, validation_split = 0.4, batch_size=10)
+          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=100, validation_split = 0.4, batch_size=10)
 model.save("E:\\爬虫\\Fake-GPT3\\models\\result.h5")
