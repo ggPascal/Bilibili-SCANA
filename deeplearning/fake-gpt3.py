@@ -347,5 +347,5 @@ auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0,
                                     verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 
 model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=100, validation_split=0.4, batch_size=10)
+          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=10)
 model.save("E:\\爬虫\\Fake-GPT3\\models\\result.h5")
