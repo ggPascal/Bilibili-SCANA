@@ -4,6 +4,7 @@ from keras.models import load_model
 from keras import layers
 from keras import Input
 from keras import callbacks
+from keras import optimizers
 import os
 import json
 import numpy as np
@@ -122,7 +123,7 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
 
     
 
-    up_text = Input(shape=(None, maxium_legth), name='up_text')
+    up_text = Input(shape=(None, maxium_legth), name='up_text', dtype='float32')
 
     up_text_emb = layers.Embedding(max_index_up_text + 1, 64)(up_text)
 
@@ -136,7 +137,7 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     lstm_up_output = layers.LSTM(600, return_sequences=True)(cnn_up_output)
    
     down_text_tensor = Input(
-        shape=(None, maxium_legth),  name='down_text')
+        shape=(None, maxium_legth),  name='down_text', dtype='float32')
 
     down_text_tensor_emb = layers.Embedding(
         max_index_up_text + 1, 64)(down_text_tensor)
@@ -158,10 +159,10 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     lstm_output = layers.Flatten()(lstm_output)
 
-    final_output = layers.Dense(200)(lstm_output)
+    final_output = layers.Dense(200, activation='softmax')(lstm_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy'])
+    model.compile(optimizer='RMSprop', loss='categorical_crossentropy', metrics=['accuracy'])
 
     return model
 
@@ -252,7 +253,7 @@ if make_new_data:
     test_target_count = len(test_target_list)
 
     maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
-    max_enc_index = len(list(enc_dict.keys())) - 1
+    max_enc_index = len(list(enc_dict.keys()))
 
     
 
@@ -261,7 +262,7 @@ if make_new_data:
     train_up_arry = np.zeros(
         (train_up_count, maxium_legth), dtype=np.float32)
     print(train_up_arry)
-    train_target_arry = np.zeros((train_target_count, 1), dtype=np.float32)
+    train_target_arry = np.zeros((train_target_count, max_enc_index ,1), dtype=np.float32)
     print(train_target_arry)
     train_down_arry = np.zeros(
         (train_down_count, maxium_legth), dtype=np.float32)
@@ -269,7 +270,7 @@ if make_new_data:
     test_up_arry = np.zeros(
         (test_up_count, maxium_legth), dtype=np.float32)
     test_target_arry = np.zeros(
-        (test_target_count, maxium_legth), dtype=np.float32)
+        (train_target_count, max_enc_index ,1), dtype=np.float32)
     test_down_arry = np.zeros(
         (test_down_count, maxium_legth), dtype=np.float32)
 
@@ -291,10 +292,11 @@ if make_new_data:
     @nb.jit
     def target_trans_train_arrary():
         for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
-            train_target_arry[splet_index, 0] = train_spelt / max_enc_index
+            train_target_arry[splet_index, train_spelt] = 1
 
 
     target_trans_train_arrary()
+    print(train_target_arry)
 
 
     @nb.jit
@@ -320,7 +322,7 @@ if make_new_data:
     @nb.jit
     def target_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
-            test_target_arry[splet_index, 0] = test_spelt / max_enc_index
+            test_target_arry[splet_index, test_spelt] = 1
 
 
     target_trans_test_arrary()
