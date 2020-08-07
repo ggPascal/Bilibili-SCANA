@@ -126,14 +126,14 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
 
     up_text_emb = layers.Embedding(max_index_up_text + 1, 64)(up_text)
 
-    cnn_up_text_1 = layers.Conv1D(500, 1, padding='same')(up_text_emb)
-    cnn_up_text_2 = layers.Conv1D(500, 2, padding='same')(up_text_emb)
-    cnn_up_text_3 = layers.Conv1D(500, 4, padding='same')(up_text_emb)
+    cnn_up_text_1 = layers.Conv1D(700, 1, padding='same')(up_text_emb)
+    cnn_up_text_2 = layers.Conv1D(700, 2, padding='same')(up_text_emb)
+    cnn_up_text_3 = layers.Conv1D(700, 4, padding='same')(up_text_emb)
 
     cnn_up_output = layers.add([cnn_up_text_1, cnn_up_text_2, cnn_up_text_3])
-    cnn_up_output = layers.Reshape((maxium_legth, 500))(cnn_up_output)
+    cnn_up_output = layers.Reshape((maxium_legth, 700))(cnn_up_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True)(cnn_up_output)
+    lstm_up_output = layers.LSTM(800, return_sequences=True)(cnn_up_output)
    
     down_text_tensor = Input(
         shape=(None, maxium_legth),  name='down_text', dtype='float32')
@@ -141,24 +141,24 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     down_text_tensor_emb = layers.Embedding(
         max_index_up_text + 1, 64)(down_text_tensor)
     cnn_down_output_1 = layers.Conv1D(
-        500, 1, padding='same')(down_text_tensor_emb)
+        700, 1, padding='same')(down_text_tensor_emb)
     cnn_down_output_2 = layers.Conv1D(
-        500, 2, padding='same')(down_text_tensor_emb)
+        700, 2, padding='same')(down_text_tensor_emb)
     cnn_down_output_3 = layers.Conv1D(
-        500, 3, padding='same')(down_text_tensor_emb)
+        700, 3, padding='same')(down_text_tensor_emb)
 
     cnn_down_output = layers.add(
         [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
     cnn_down_output = layers.Reshape(
-        (maxium_legth, 500))(cnn_down_output)
+        (maxium_legth, 700))(cnn_down_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True)(cnn_down_output)
+    lstm_down_output = layers.LSTM(800, return_sequences=True)(cnn_down_output)
    
     
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     lstm_output = layers.Flatten()(lstm_output)
 
-    final_output = layers.Dense(200)(lstm_output)
+    final_output = layers.Dense(400)(lstm_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
     model.compile(optimizer='Adadelta', loss='mean_squared_error')
@@ -170,11 +170,11 @@ data_root_dir = 'E:\\爬虫\\test-data\\BV1av411v7E1'
 enc_dict_root_dir = 'E:\\爬虫\\test-data\\dec-enc-dict'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models'
 
-make_new_data = True
+make_new_data = False
 make_new_model = True
 
 load_model_data = False
-load_arry_data = False
+load_arry_data = True
 
 model_file_name = None
 
@@ -202,7 +202,7 @@ encode_comment_dict = json.load(encode_comment_dict_file)
 if load_arry_data:
     try:
         os.chdir(data_root_dir)
-        all_in_one_data=np.load('data_train_test_all_in_one')
+        all_in_one_data=np.load('data_train_test_all_in_one.npz')
     except:
         print("Could not read numpy data file")
         make_new_data = True
