@@ -132,7 +132,7 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     cnn_up_output = layers.add([cnn_up_text_1, cnn_up_text_2, cnn_up_text_3])
     cnn_up_output = layers.Reshape((maxium_legth, 500))(cnn_up_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True)(cnn_up_output)
+    lstm_up_output = layers.LSTM(600)(cnn_up_output)
 
     down_text_tensor = Input(
         shape=(None, maxium_legth),  name='down_text', dtype='float32')
@@ -151,7 +151,7 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     cnn_down_output = layers.Reshape(
         (maxium_legth, 500))(cnn_down_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True)(cnn_down_output)
+    lstm_down_output = layers.LSTM(600)(cnn_down_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     lstm_output = layers.Flatten()(lstm_output)
@@ -168,13 +168,13 @@ data_root_dir = 'E:\\爬虫\\test-data\\BV1av411v7E1'
 enc_dict_root_dir = 'E:\\爬虫\\test-data\\dec-enc-dict'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models'
 
-make_new_data = True
+make_new_data = False
 make_new_model = True
 
 load_model_data = False
-load_arry_data = False
+load_arry_data = True
 
-model_file_name = None
+model_file_name = 'init.h5'
 
 percent_of_transet = 0.5
 testset_precent = 0.5
@@ -200,7 +200,7 @@ encode_comment_dict = json.load(encode_comment_dict_file)
 if load_arry_data:
     try:
         os.chdir(data_root_dir)
-        all_in_one_data = np.load('data_train_test_all_in_one')
+        all_in_one_data = np.load('data_train_test_all_in_one.npz')
     except:
         print("Could not read numpy data file")
         make_new_data = True
@@ -341,11 +341,11 @@ print("Starting fitting model...")
 tensor_callback = callbacks.TensorBoard(
     log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard', histogram_freq=1, embeddings_freq=1, update_freq='batch')
 save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\best_val_loss.h5",
-                                            monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
+                                            monitor='train_loss', verbose=1, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 
 auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0,
                                     verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 
 model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=10)
+          train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=10, validation_split=0.4, batch_size=10)
 model.save("E:\\爬虫\\Fake-GPT3\\models\\result.h5")
