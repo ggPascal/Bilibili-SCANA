@@ -409,7 +409,7 @@ if fit_model:
                                         verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 
     model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-            train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=10, validation_split=0.4, batch_size=100)
+            train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=100)
     model.save("E:\\爬虫\\Fake-GPT3\\models\\result_v1_1.h5")
 
 if r2_based_testing:
