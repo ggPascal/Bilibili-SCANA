@@ -163,7 +163,7 @@ def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     
-    lstm_output = layers.LSTM(600)
+    lstm_output = layers.LSTM(600)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
     final_output = layers.Dense(200)(lstm_output)
