@@ -140,7 +140,7 @@ def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
     cnn_up_output = layers.add([cnn_up_text_1, cnn_up_text_2, cnn_up_text_3])
     cnn_up_output = layers.Reshape((maxium_legth, 500))(cnn_up_output)
 
-    lstm_up_output = layers.LSTM(600)(cnn_up_output)
+    lstm_up_output = layers.LSTM(600, return_sequences=True)(cnn_up_output)
 
     down_text_tensor = Input(
         shape=(None, maxium_legth),  name='down_text', dtype='float32')
@@ -159,7 +159,7 @@ def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
     cnn_down_output = layers.Reshape(
         (maxium_legth, 500))(cnn_down_output)
 
-    lstm_down_output = layers.LSTM(600)(cnn_down_output)
+    lstm_down_output = layers.LSTM(600, return_sequences=True)(cnn_down_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     
