@@ -173,21 +173,22 @@ def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
     model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy', r2])
 
     return model
-def build_reglaiour_model_v1_2(max_index_up_text, maxium_legth):
+
+def build_reglaiour_model_v1_1_1(max_index_up_text, maxium_legth):
 
     up_text = Input(shape=(None, maxium_legth),
                     name='up_text', dtype='float32')
 
     up_text_emb = layers.Embedding(max_index_up_text + 1, 64)(up_text)
 
-    cnn_up_text_1 = layers.Conv1D(400, 1, padding='same')(up_text_emb)
-    cnn_up_text_2 = layers.Conv1D(400, 2, padding='same')(up_text_emb)
-    cnn_up_text_3 = layers.Conv1D(400, 4, padding='same')(up_text_emb)
+    cnn_up_text_1 = layers.Conv1D(500, 1, padding='same')(up_text_emb)
+    cnn_up_text_2 = layers.Conv1D(500, 2, padding='same')(up_text_emb)
+    cnn_up_text_3 = layers.Conv1D(500, 4, padding='same')(up_text_emb)
 
     cnn_up_output = layers.add([cnn_up_text_1, cnn_up_text_2, cnn_up_text_3])
-    cnn_up_output = layers.Reshape((maxium_legth, 400))(cnn_up_output)
+    cnn_up_output = layers.Reshape((maxium_legth, 500))(cnn_up_output)
 
-    lstm_up_output = layers.LSTM(500)(cnn_up_output)
+    lstm_up_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_up_output)
 
     down_text_tensor = Input(
         shape=(None, maxium_legth),  name='down_text', dtype='float32')
@@ -195,23 +196,25 @@ def build_reglaiour_model_v1_2(max_index_up_text, maxium_legth):
     down_text_tensor_emb = layers.Embedding(
         max_index_up_text + 1, 64)(down_text_tensor)
     cnn_down_output_1 = layers.Conv1D(
-        400, 1, padding='same')(down_text_tensor_emb)
+        500, 1, padding='same')(down_text_tensor_emb)
     cnn_down_output_2 = layers.Conv1D(
-        400, 2, padding='same')(down_text_tensor_emb)
+        500, 2, padding='same')(down_text_tensor_emb)
     cnn_down_output_3 = layers.Conv1D(
-        400, 3, padding='same')(down_text_tensor_emb)
+        500, 3, padding='same')(down_text_tensor_emb)
 
     cnn_down_output = layers.add(
         [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
     cnn_down_output = layers.Reshape(
         (maxium_legth, 500))(cnn_down_output)
 
-    lstm_down_output = layers.LSTM(500)(cnn_down_output)
+    lstm_down_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_down_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
+    
+    lstm_output = layers.LSTM(600)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
-    final_output = layers.Dense(100)(lstm_output)
+    final_output = layers.Dense(200)(lstm_output)
     final_output = layers.Dense(1)(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
@@ -276,10 +279,10 @@ make_new_model = True
 load_model_data = False
 load_arry_data = True
 
-fit_model = True
+fit_model = True 
 r2_based_testing = True
 
-model_file_name = 'result.h5'
+model_file_name = 'result_v1_2.h5'
 
 percent_of_transet = 0.5
 testset_precent = 0.5
@@ -327,7 +330,7 @@ if load_arry_data:
 if load_model_data:
     try:
         os.chdir(model_root_path)
-        model = load_model(model_file_name)
+        model = load_model(model_file_name, custom_objects={'r2': r2})
     except:
         print("Could not load model from " +
               model_file_name + "in " + model_root_path)
@@ -442,24 +445,25 @@ if make_new_model:
     print("building model")
 
     # model = build_reglaiour_model(max_enc_index, maxium_legth)
-    model = build_reglaiour_model_v1_2(max_enc_index, maxium_legth)
-    model.save("E:\\爬虫\\Fake-GPT3\\models\\init_v1_2.h5")
+    model = build_reglaiour_model(max_enc_index, maxium_legth)
+    model.save("E:\\爬虫\\Fake-GPT3\\models\\init.h5")
     print(model.summary())
 if fit_model:
     print("Starting fitting model...")
     tensor_callback = callbacks.TensorBoard(
         log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard', histogram_freq=1, embeddings_freq=1, update_freq='batch')
-    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\best_val_r2_v1_2.h5",
+    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\best_val.h5",
                                                 monitor='val_r2', verbose=1, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 
     auto_stop = callbacks.EarlyStopping(monitor='val_r2', min_delta=0, patience=0,
                                         verbose=0, mode='auto', baseline=None, restore_best_weights=False)
 
     model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-            train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=80)
-    model.save("E:\\爬虫\\Fake-GPT3\\models\\result_v1_2.h5")
+            train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=30)
+    model.save("E:\\爬虫\\Fake-GPT3\\models\\result.h5")
 
 if r2_based_testing:
+    from sklearn.metrics import r2_score
     model_output_array = model.predict({'up_text': test_up_arry, 'down_text': test_down_arry})
-    r2_ouput = r2(test_target_arry, model_output_array)
-    print('r2_socre : '+ r2_ouput)
+    r2_ouput = r2_score(test_target_arry, model_output_array)
+    print('r2_socre : '+ str(r2_ouput))
