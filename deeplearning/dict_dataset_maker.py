@@ -371,7 +371,6 @@ def comment_data_dict_tag(comment_data_dict, tag_contune, tag_coment_dict):
         return tag_coment_dict
 
 
-
 def comment_all_time_step_collect(all_timestep_comment_dict, timestep_key_add_mode, data_collect_keys_list, comment_data_dict):
     for timestep in all_timestep_comment_dict.keys():
         current_timestep_dict = all_timestep_comment_dict[str(timestep)]
@@ -499,7 +498,7 @@ def message_encode_comment_dict(comment_data_dict, auto_update, enc_dict, dec_di
 try:
     
     # root_dir = 'E:\\爬虫\\test-data\\BV1JD4y1U72G'
-    root_dir = 'E:\\爬虫\\test-data\\BV1UC4y1b7eG'
+    root_dir = 'E:\\爬虫\\test-data\\BV1av411v7E1'
     dec_enc_dict_path = 'E:\\爬虫\\test-data\\dec-enc-dict'
     timestep_key_dire = True
     timestep_add_mode = True
@@ -554,27 +553,40 @@ try:
     tag_coment_dict = comment_data_dict_tag(
         comment_data_dict, tag_contune, tag_coment_dict)
     tag_coment_dict_file = open('tag_coment_dict.json', 'w', encoding='utf-8')
+    encode_commecnt_dict_file = open('encode_comment_dict.json', 'w', encoding='utf-8')
+    json.dump(tag_coment_dict, tag_coment_dict_file)
+    json.dump(encode_comment_dict, encode_commecnt_dict_file)
+    tag_coment_dict_file.close()
+    encode_commecnt_dict_file.close()
+    
+    os.chdir(dec_enc_dict_path)
     enc_dict_file = open('enc_dict.json', 'w', encoding='utf-8')
     dec_dict_file = open('dec_dict.json', 'w', encoding='utf-8')
     json.dump(enc_dict, enc_dict_file)
     json.dump(dec_dict, dec_dict_file)
-    json.dump(tag_coment_dict, tag_coment_dict_file)
     enc_dict_file.close()
     dec_dict_file.close()
-    tag_coment_dict_file.close()
+    
     print("Write complete")
 except KeyboardInterrupt:
     print("Recive a singal to quit, please wait")
     tag_coment_dict_file = open('tag_coment_dict.json', 'w', encoding='utf-8')
+    encode_commecnt_dict_file = open('encode_comment_dict.json', 'w', encoding='utf-8')
+    json.dump(tag_coment_dict, tag_coment_dict_file)
+    json.dump(encode_comment_dict, encode_commecnt_dict_file)
+    tag_coment_dict_file.close()
+    encode_commecnt_dict_file.close()
+    
+    os.chdir(dec_enc_dict_path)
     enc_dict_file = open('enc_dict.json', 'w', encoding='utf-8')
     dec_dict_file = open('dec_dict.json', 'w', encoding='utf-8')
     json.dump(enc_dict, enc_dict_file)
     json.dump(dec_dict, dec_dict_file)
-    json.dump(tag_coment_dict, tag_coment_dict_file)
     enc_dict_file.close()
     dec_dict_file.close()
-    tag_coment_dict_file.close()
+    
     print("Write complete")
+    
 except:
     print("Unkown Error")
     tag_coment_dict_file = open('tag_coment_dict.json', 'w', encoding='utf-8')

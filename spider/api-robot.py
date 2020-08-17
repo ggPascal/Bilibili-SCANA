@@ -13,12 +13,12 @@ import re
 import traceback as tb
 
 # Time step file is waiting for develoap done.
-timestep_file = True
-timestep_add_mode = False
+timestep_file = False
+timestep_add_mode = True
 timestep_key_dire = True
 root_dir = "E:/爬虫/test-data/"
 bvid_list = ['BV1JD4y1U72G', 'BV1ri4y1u7JR',
-             'BV1av411v7E1', 'BV1UC4y1b7eG', 'BV1DC4y1b7UA']
+             'BV1av411v7E1', 'BV1UC4y1b7eG', 'BV1DC4y1b7UA', 'BV1Gf4y19773', 'BV15h411Z7N1', 'BV1Ht4y1D7QX', 'BV1vE411T7Xb', 'BV1ZE411E7P5']
 # 
 #bvid_list = ['BV1UC4y1b7eG', 'BV1DC4y1b7UA']
 sleep_seconds = 300
@@ -258,7 +258,8 @@ for video_id in bvid_list:
             ssl_retry = True
         except:
             print("An error occurred, quitting")
-            exit()
+            ssl_retry = True
+           
 
     if write_copy_dict:
         # TODO: add a way to write file using bvid+timestep as name to sprate time step
