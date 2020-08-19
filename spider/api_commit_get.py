@@ -3,19 +3,25 @@ import json
 import requests
 
 import time
-import numba as nb
 
+# The note will be comment the code at below one line
+# Example:
+# # SOME note
+# The code that note are saying
 
+# Initialize the dictionary that timestep_key_dire will be use
 def init():
     print("Initializing sum dicts")
     all_user_dict = {}
     all_commit_direct = {}
     return all_user_dict, all_commit_direct
 
-
+# Decode json information from video info API from bilibili
 def video_info(video_data):  # BV查看页数据工作
     video_basic_data = video_data
     print("Geting video info")
+    
+    # Basic video info
     video_oid = video_basic_data['aid']
     copyright_type = video_basic_data['copyright']
     picture_add = video_basic_data['pic']
@@ -23,9 +29,11 @@ def video_info(video_data):  # BV查看页数据工作
     cite_time_step = video_basic_data['ctime']
     desctrion = video_basic_data['desc']
 
+    # Owner info
     owner_data = video_data['owner']
     owner_mid = owner_data['mid']
 
+    # Status info
     state_data = video_data['stat']
     view_number = state_data['view']
     commit_number = state_data['reply']
@@ -57,9 +65,10 @@ def video_info(video_data):  # BV查看页数据工作
     }
     return video_info_dire
 
-
+# dectet if the comment has replies
 def detect_replies(video_oid, root_rid, root_timestep):
     page_count = 0
+    # Get the replies json information
     replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
         str(1)+'&type=1&oid='+str(video_oid) + \
         '&ps=10&root='+str(root_rid)+'&_='+str(root_timestep)
@@ -71,11 +80,15 @@ def detect_replies(video_oid, root_rid, root_timestep):
     page_data = commit_data['page']
     replies_number = page_data['count']
     replies_show_size = page_data['size']
+
+    # Dectet the replies
     if replies_number == 0:
         replies_found = False
     else:
         print("Found replies")
         replies_found = True
+        
+        # Calculatie the total page number
         if replies_number < replies_show_size:
             page_count = 1
         else:
@@ -86,17 +99,16 @@ def detect_replies(video_oid, root_rid, root_timestep):
         print('Total pages : '+str(page_count))
     return replies_found, commit_data, page_count
 
-
+# Get comments json information and decode to human-readable dictonary(include replies)
 def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_commit_direct, commit_data, page_count, continue_mode_enable, timestep_file, timestep_add_mode, timestep_key_dire, all_user_full_timestep_dict, all_commit_full_timestep_dict):
     # example replies address: https://api.bilibili.com/x/v2/reply/reply?jsonp=jsonp&pn=1&type=1&oid=841277747&ps=10&root=3168291096&_=1595026441853
     # Example BV： BV1w54y1q7XQ
     replay_page_now = 0
 
-    # Get the data that calculates count of pages
-
     for replay_page_now in range(0, page_count):
         # 2020/07/18 Special vaule rpid : 3199917477
 
+        # Get the comments data
         print('Collecting on page : '+str(replay_page_now)+'/'+str(page_count))
         replies_full_url = 'https://api.bilibili.com/x/v2/reply/reply?&jsonp=jsonp&pn=' + \
             str(replay_page_now)+'&type=1&oid='+str(video_oid) + \
@@ -109,6 +121,7 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
         commit_data = commit_data['data']
         replies_data = commit_data['replies']
 
+        # Call decode function
         reply_index = 0
         for reply_index in range(0, len(replies_data)):
             print('collecting '+str(reply_index+1)+'/'+str(len(replies_data)))
@@ -117,9 +130,11 @@ def reply_get_online(video_oid, root_rid, root_timestep, all_user_dict, all_comm
 
     return all_commit_direct, all_user_dict
 
-
+# Decode comments json data and get all replies
 def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply_ana_flag, root_rid, all_user_dict, all_commit_direct, collect_time_step, is_top, is_list, is_hot, timestep_file, timestep_add_mode, timestep_key_dire, all_user_full_timestep_dict, all_commit_full_timestep_dict):
     has_replies = None
+    
+    # Deal with the case that only have one comments 
     if commit_index == 'N/A':
         current_commit = commit_all
     else:
@@ -128,8 +143,12 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
         else:
             current_commit = commit_all[str(commit_index)]
     current_commit_keys = current_commit.keys()
-    reply_id = int(current_commit['rpid'])  # 获取评论ID
-    if continue_mode_enable and reply_id in all_commit_direct.keys():  # For continue mode pass exit reply
+
+    # Get reply ID
+    # 获取评论ID
+    reply_id = int(current_commit['rpid'])  
+    # For continue mode pass exit reply
+    if continue_mode_enable and reply_id in all_commit_direct.keys():  
         pass
     else:
         if reply_ana_flag == False:
@@ -137,24 +156,35 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
         else:
             root_rid = 'N/A'
 
-        if reply_ana_flag and root_rid == reply_id:  # 用于回复分析模式下跳过主评论
+        # Pass the root comment when collecting replies
+        # 用于回复分析模式下跳过主评论
+        if reply_ana_flag and root_rid == reply_id:  
             pass
-
+        # Get the user ID
         member_id = int(current_commit['mid'])  # 获取UID
-        like_number = int(current_commit['like'])  # 获取点赞数
+        like_number = int(current_commit['like'])
+
         if 'fans_detail' in current_commit.keys():
             fans_detail = current_commit['fans_detail']
             fans_level = int(current_commit['fans_grade'])
         else:
             fans_detail = 'N/A'
             fans_level = 'N/A'
-        post_time_step = current_commit['ctime']  # 注意使用的是UNIX时，贮存的是秒
 
+        # Notice that it use UNIX time 
+        # 注意使用的是UNIX时，贮存的是秒
+        post_time_step = current_commit['ctime']  
+
+        # Get the user data
         member_data = current_commit['member']
-        user_name = member_data['uname']  # 获取用户名
-        sex = member_data['sex']  # 获取性别
-        sign = member_data['sign']  # 获取个人签名
-        avatar_adress = member_data['avatar']  # 获取头像地址
+        # Get user name
+        # 获取用户名
+        user_name = member_data['uname']  
+        sex = member_data['sex']  
+        sign = member_data['sign']  
+        # Get the avatar image url
+        # 获取头像地址
+        avatar_adress = member_data['avatar']  
         member_data_keys = member_data.keys()
         if 'official_verify' in member_data.keys():
             offical_data = member_data['official_verify']
@@ -170,15 +200,20 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
             offical_desctrion = 'N/A'
 
         level_data = member_data['level_info']
-        user_level = level_data['current_level']  # 获取等级
+        user_level = level_data['current_level']  
 
-        if 'nameplate' in member_data.keys():  # 判断是否有名牌
+        if 'nameplate' in member_data.keys():  
             nameplate_data = member_data['nameplate']
-            nameplate_kind = nameplate_data['nid']  # 获取名牌ID
+            # Get the nameplate ID 
+            # 获取名牌ID
+            nameplate_kind = nameplate_data['nid']  
             if nameplate_kind != 0:
-                nameplate_name = nameplate_data['name']  # 获取名称
-                nameplate_image = nameplate_data['image']  # 获取此名牌对应的图片
-                # 获取缩小版图片
+                nameplate_name = nameplate_data['name']  
+                # Get the full size showing image url
+                # 获取此名牌对应的全尺寸展示图片URL
+                nameplate_image = nameplate_data['image']  
+                # Get the smaller size one url
+                # 获取缩小版图片URL
                 nameplate_image_small = nameplate_data['image_small']
                 nameplate_level = nameplate_data['level']  # 获取等级
                 nameplate_condition = nameplate_data['condition']  # 获取对应名牌简介
@@ -192,7 +227,6 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                 nameplate_level = 'N/A'
                 nameplate_condition = 'N/A'
         else:
-            # 处理没有徽章的情况，全部替换为N/A
             has_nameplate = 'N'
             nameplate_kind = 'N/A'
             nameplate_name = 'N/A'
@@ -200,20 +234,22 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
             nameplate_image_small = 'N/A'
             nameplate_level = 'N/A'
             nameplate_condition = 'N/A'
-        if 'vip' in member_data.keys():  # 检测是否有VIP
+
+        if 'vip' in member_data.keys():  
             vip_data = member_data['vip']
-            vip_type = int(vip_data['vipType'])  # 获取VIP种类
-            vip_due_timestep = int(vip_data['vipDueDate'])  # 获取该VIP的截止时间
+            vip_type = int(vip_data['vipType']) 
+            vip_due_timestep = int(vip_data['vipDueDate'])  
             has_vip = 'Y'
         else:
-            # 处理没有VIP的情况，全部替换为N/A
             has_vip = 'N'
             vip_type = 'N/A'
             vip_due_timestep = 'N/A'
 
         message_data = current_commit['content']
         message_data_keys = member_data.keys()
-        message = message_data['message']  # 获取评论/回复内容，表情包将换为对应字符表达
+        # Get the comments/replies text, meme image will be replace to text(Convert by bilibili API)
+        # 获取评论/回复内容，表情包将换为对应字符表达（此部分由Bilibili的API完成）
+        message = message_data['message']  
 
         if member_id not in all_user_dict.keys():
             commit_user_info = {
@@ -238,25 +274,36 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                 'vip_due_timestep': vip_due_timestep,
                 'last-same': 'N'
             }
-            # TODO:  Finish up the time add mode for user info, same as to comments
+           
+            # Pointer genete for timestep_add_mode
             if timestep_add_mode:
-                for key in commit_user_info.keys():
+                for key in list(commit_user_info.keys()):
+
+                    # Passed the key of comment collect time
                     if key == 'collect_time':
                         continue
                     last_time_step_found = False
+
                     # try:
+                    # Get the information of time step that exists from exits dictorary 
                     last_user_dire_timestep_list = list(
                         all_user_full_timestep_dict.keys())
                     target_timestep_index = len(
                         last_user_dire_timestep_list) - 1
+                    # Get the leaest time step
                     target_timestep = last_user_dire_timestep_list[target_timestep_index]
+                    # Jump to target time step
                     last_time_step_user_dire = all_user_full_timestep_dict[target_timestep]
+
+                    # Start to compare data 
                     if str(member_id) in last_time_step_user_dire.keys():
                         test_last_time_step_user_dire = last_time_step_user_dire[str(
                             member_id)]
                         test_last_time_step_user_dire = test_last_time_step_user_dire[key]
+                        # Dected the data type to aviod bug of type problem
                         if type(test_last_time_step_user_dire) == dict:
                             if 'last_time_step_pointer' in test_last_time_step_user_dire.keys():
+                                # Get the pointer
                                 last_time_step = test_last_time_step_user_dire['last_time_step_pointer']
                                 last_time_step_found = True
                             else:
@@ -272,7 +319,10 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                         #last_time_step_found = False
                         #print('Can not found old data for '+key+' data in user_dict, skipping current data')
                         # pass
+
+                    # Copy the pointer to the timestep data now
                     if last_time_step_found:
+                        # Load pointer from old data
                         if timestep_file:
                             last_all_user_dire_file_name = str(
                                 last_time_step)+'_all_user_dire.json'
@@ -280,13 +330,17 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                 last_all_user_dire_file_name, 'r', encoding='utf-8')
                             last_time_step_user_dire = json.loads(
                                 last_all_user_dire_file)
+                        
                         if timestep_key_dire:
                             last_time_step_user_dire = all_user_full_timestep_dict[str(
                                 last_time_step)]
+
                         last_time_step_user_dire = last_time_step_user_dire[str(
                             member_id)]
                         found_old_data = True
+
                     else:
+                        # Load old data dictionary
                         if str(member_id) in last_time_step_user_dire.keys():
                             last_time_step_user_dire = last_time_step_user_dire[str(
                                 member_id)]
@@ -295,6 +349,8 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                             print('Can not found old data for '+key +
                                   ' data in user_dict, creating new record')
                             found_old_data = False
+                    
+                    # Generate pointer or copy the pointer from old data
                     if found_old_data:
                         if last_time_step_user_dire[key] == commit_user_info[key]:
                             print('Find same data for '+key +
@@ -309,6 +365,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
 
             all_user_dict[member_id] = commit_user_info  # uid作为键
 
+        # Get replies data
         if reply_ana_flag == True:
             has_replies, replies_data, page_count = detect_replies(
                 video_oid=video_oid, root_rid=reply_id, root_timestep=collect_time_step)
@@ -396,6 +453,8 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
                                     'last_time_step_pointer': last_time_step}
 
             all_commit_direct[reply_id] = commit_info
+
+        # This replies get use for hot comments and top comments
         if reply_ana_flag == False:
             pass
         else:
