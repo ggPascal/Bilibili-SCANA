@@ -323,18 +323,20 @@ def build_reglaiour_model_v1_1_4(max_index_up_text, maxium_legth):
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
     
     # Words to sentence
-    lstm_output = layers.LSTM(600)(lstm_output)
-    lstm_output = layers.LSTM(700)(lstm_output)
-    lstm_output = layers.LSTM(800)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(700, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
 
     # Convert part
-    lstm_output = layers.LSTM(800)(lstm_output)
+    lstm_output = layers.LSTM(800, return_sequences = True)(lstm_output)
     lstm_output = layers.LSTM(800)(lstm_output)
 
     # Encode part
-    
+    lstm_output = layers.Conv1D(800, padding='same')(lstm_output)
+    lstm_output = layers.LSTM(800)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
+    final_output = layers.Dense(400)(lstm_output)
     final_output = layers.Dense(200)(lstm_output)
     final_output = layers.Dense(1)(final_output)
 
