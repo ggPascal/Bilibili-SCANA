@@ -288,6 +288,7 @@ for video_id in bvid_list:
         # Deal with other errors (Now just restart the pages)
         except:
             print("An error occurred, quitting")
+            time.sleep(sleep_seconds)
             ssl_retry = True
 
     # Wirte result dictonary to file
