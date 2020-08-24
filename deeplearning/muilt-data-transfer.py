@@ -68,6 +68,8 @@ for dirpath, floder_names, current_filename in floder_walk:
                 enc_dec_dict_root_path, 'dec_dict.json'))
             enc_dict = json.load(enc_dict_file)
             dec_dict = json.load(dec_dict_file)
+            enc_dict_file.close()
+            dec_dict_file.close()
         except:
             enc_dict = {}
             dec_dict = {}
@@ -82,11 +84,20 @@ for dirpath, floder_names, current_filename in floder_walk:
         if use_bvid_key == False:
             index += 1
 
+enc_dict_file = open(os.path.join(enc_dec_dict_root_path, 'enc_dict.json'), 'w', encoding='utf-8')
+dec_dict_file = open(os.path.join(enc_dec_dict_root_path, 'dec_dict.json'), 'w', encoding='utf-8')
 merged_encode_comment_dict_file = open(os.path.join(merged_data_root_path, 'merged_encode_comment_dict.json'), 'w', encoding='utf-8')
 merged_comment_data_dict_file = open(os.path.join(merged_data_root_path, 'merged_comment_data_dict.json'), 'w', encoding='utf-8')
 
 json.dump(merged_encode_comment_dict, merged_encode_comment_dict_file)
 json.dump(merged_comment_data_dict, merged_comment_data_dict_file)
+json.dump(enc_dict, enc_dict_file)
+json.dump(dec_dict, dec_dict_file)
+
+enc_dict_file.close()
+dec_dict_file.close()
+merged_encode_comment_dict_file.close()
+merged_comment_data_dict_file.close()
 
 if error_list != [] :
     print('During merge, we found theses errors')

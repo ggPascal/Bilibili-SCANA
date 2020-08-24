@@ -520,7 +520,7 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\dec-enc-dict'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = False
+make_new_data = True
 make_new_model = True
 merged_data = True
 
