@@ -11,7 +11,6 @@ from tqdm import tqdm
 import numba as nb
 import tensorflow as tf
 
-
 gpus = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(gpus[0], True)
 # tf.compat.v1.keras.backend.set_session(tf.compat.v1.Session(config=config))
@@ -414,9 +413,9 @@ def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
         500, 2, padding='same')(up_text_tensor_emb)
     cnn_up_output_3 = layers.Conv1D(
         500, 3, padding='same')(up_text_tensor_emb)
-    cnn_up_output_1 = layers.MaxPool1D(2)(cnn_up_output_1)
-    cnn_up_output_2 = layers.MaxPool1D(2)(cnn_up_output_2)
-    cnn_up_output_3 = layers.MaxPool1D(2)(cnn_up_output_3)
+    cnn_up_output_1 = layers.MaxPool1D(2, padding='same')(cnn_up_output_1)
+    cnn_up_output_2 = layers.MaxPool1D(2, padding='same')(cnn_up_output_2)
+    cnn_up_output_3 = layers.MaxPool1D(2, padding='same')(cnn_up_output_3)
     cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
     cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
 
@@ -433,9 +432,9 @@ def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
         500, 2, padding='same')(down_text_tensor_emb)
     cnn_down_output_3 = layers.Conv1D(
         500, 3, padding='same')(down_text_tensor_emb)
-    cnn_down_output_1 = layers.MaxPool1D(2)(cnn_down_output_1)
-    cnn_down_output_2 = layers.MaxPool1D(2)(cnn_down_output_2)
-    cnn_down_output_3 = layers.MaxPool1D(2)(cnn_down_output_3)
+    cnn_down_output_1 = layers.MaxPool1D(2, padding='same')(cnn_down_output_1)
+    cnn_down_output_2 = layers.MaxPool1D(2, padding='same')(cnn_down_output_2)
+    cnn_down_output_3 = layers.MaxPool1D(2, padding='same')(cnn_down_output_3)
     cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
     cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
     
@@ -520,18 +519,19 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = True
+make_new_data = False
 make_new_model = True
 merged_data = True
 
-load_model_data = True
+load_model_data = False
 load_arry_data = True
 
 fit_model = True
 r2_based_testing = False
 show_predictoutput = False
+test_accuracy = False
 
-model_file_name = 'result_verson_1_2.h5'
+model_file_name = 'result_verson_1_5.h5'
 
 percent_of_transet = 0.5
 testset_precent = 0.5
@@ -738,3 +738,15 @@ if show_predictoutput:
     print(model_output_array)
     print('expected output:')
     print(test_target_arry)
+if test_accuracy :
+    from sklearn.metrics import accuracy_score
+    import random
+    max_spelt_index = len(test_target_arry)
+    current_spelt_index = random.randint(0, max_spelt_index -1 )
+
+    current_test_up_arry = test_up_arry[current_spelt_index]
+    current_test_down_arry = test_down_arry[current_spelt_index]
+    current_test_target_arry = test_target_arry[current_spelt_index]
+
+    model_output_array = model.predict({'up_text': current_test_up_arry, 'down_text': current_test_down_arry})
+    print('Accuracy on test set:'+ accuracy_score(current_test_target_arry, model_output_array))
