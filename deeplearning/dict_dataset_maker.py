@@ -491,44 +491,43 @@ def message_encode_comment_dict(comment_data_dict, auto_update, enc_dict, dec_di
         dec_dict = {0: 'N/A'}
 
     for reply_id in comment_data_dict:
+        encode_result = []
+        encoding_message_dict = comment_data_dict[reply_id]
+        encoding_message = encoding_message_dict['message']
 
         # encode_contuine use for recover from last position.
         if encode_contuine:
-            if reply_id not in enc_dict.keys():
-                encode_result = []
-                encoding_message_dict = comment_data_dict[reply_id]
-                encoding_message = encoding_message_dict['message']
-                if str(reply_id) not in encode_comment_dict.keys():
-                    for charater in encoding_message:
-                        # check if the charater is not in encode dictionary
-                        if str(charater) not in enc_dict.keys():
-                            # only auto add a new index when auto_update is enabled
-                            if auto_update:
-                                new_index = len(enc_dict)
-                                enc_dict[str(charater)] = new_index
-                                dec_dict[str(new_index)] = charater
-                                encode_result.append(new_index)
-                            else:
-                                encode_result.append(0)
+            if str(reply_id) not in encode_comment_dict.keys():
+                for charater in encoding_message:
+                    # check if the charater is not in encode dictionary
+                    if str(charater) not in enc_dict.keys():
+                        # only auto add a new index when auto_update is enabled
+                        if auto_update:
+                            new_index = len(enc_dict)
+                            enc_dict[str(charater)] = new_index
+                            dec_dict[str(new_index)] = charater
+                            encode_result.append(new_index)
                         else:
-                            encode_result.append(enc_dict[str(charater)])
-                    encode_comment_dict[str(reply_id)] = encode_result
-                else:
-                    # overwrite only use in currect the index, not reconize
-                    if overwrite_flag:
-                        if str(reply_id) not in encode_comment_dict.keys():
-                            for charater in encoding_message:
-                                if str(charater) not in enc_dict.keys():
-                                    if auto_update:
-                                        new_index = len(enc_dict)
-                                        enc_dict[str(charater)] = new_index
-                                        dec_dict[str(new_index)] = charater
-                                    else:
-                                        encode_result.append(0)
+                            encode_result.append(0)
+                    else:
+                        encode_result.append(enc_dict[str(charater)])
+                encode_comment_dict[str(reply_id)] = encode_result
+            else:
+                # overwrite only use in currect the index, not reconize
+                if overwrite_flag:
+                    if str(reply_id) not in encode_comment_dict.keys():
+                        for charater in encoding_message:
+                            if str(charater) not in enc_dict.keys():
+                                if auto_update:
+                                    new_index = len(enc_dict)
+                                    enc_dict[str(charater)] = new_index
+                                    dec_dict[str(new_index)] = charater
                                 else:
-                                    encode_result.append(
-                                        enc_dict[str(charater)])
-                        encode_comment_dict[str(reply_id)] = encode_result
+                                    encode_result.append(0)
+                            else:
+                                encode_result.append(
+                                    enc_dict[str(charater)])
+                    encode_comment_dict[str(reply_id)] = encode_result
         else:
             # Same as above
             # TODO: Change them in to same fuction

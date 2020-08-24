@@ -7,7 +7,7 @@ timestep_key_add_mode = True
 use_bvid_key = True
 data_collect_keys_list = ['message', 'root_rid']
 video_data_rootdir = "E:\\爬虫\\test-data"
-enc_dec_dict_root_path = "E:\\爬虫\\test-data\\dec-enc-dict"
+enc_dec_dict_root_path = "E:\\爬虫\\test-data\\merged-data"
 merged_data_root_path = "E:\\爬虫\\test-data\\merged-data"
 error_list = []
 merged_comment_data_dict = {}
@@ -16,6 +16,18 @@ merged_encode_comment_dict = {}
 floder_walk = os.walk(video_data_rootdir, topdown=False)
 if use_bvid_key == False :
     index = 1
+try:
+    enc_dict_file = open(os.path.join(
+        enc_dec_dict_root_path, 'enc_dict.json'))
+    dec_dict_file = open(os.path.join(
+        enc_dec_dict_root_path, 'dec_dict.json'))
+    enc_dict = json.load(enc_dict_file)
+    dec_dict = json.load(dec_dict_file)
+    enc_dict_file.close()
+    dec_dict_file.close()
+except:
+    enc_dict = {}
+    dec_dict = {}
 
 for dirpath, floder_names, current_filename in floder_walk:
     for current_floder_name in floder_names:
@@ -61,19 +73,7 @@ for dirpath, floder_names, current_filename in floder_walk:
         except:
             current_encode_comment_dict = {}
 
-        try:
-            enc_dict_file = open(os.path.join(
-                enc_dec_dict_root_path, 'enc_dict.json'))
-            dec_dict_file = open(os.path.join(
-                enc_dec_dict_root_path, 'dec_dict.json'))
-            enc_dict = json.load(enc_dict_file)
-            dec_dict = json.load(dec_dict_file)
-            enc_dict_file.close()
-            dec_dict_file.close()
-        except:
-            enc_dict = {}
-            dec_dict = {}
-
+        
         
         current_encode_comment_dict, dec_dict, enc_dict = message_encode_comment_dict(
             comment_data_dict=current_comment_data_dict, auto_update=True, enc_dict=enc_dict, dec_dict=dec_dict, encode_comment_dict=current_encode_comment_dict, overwrite_flag=False, encode_contuine=True)

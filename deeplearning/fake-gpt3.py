@@ -516,7 +516,7 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
 
 
 data_root_dir = 'E:\\爬虫\\test-data\\merged-data'
-enc_dict_root_dir = 'E:\\爬虫\\test-data\\dec-enc-dict'
+enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
