@@ -60,7 +60,7 @@ def gpt_dataset_builder(comment_data_dict):
                     current_down_list.append(
                         current_encoded_message[down_index])
 
-            target_list_sort.append(current_encoded_message[proccess_index])
+            target_list_sort.append(current_encoded_message)
             up_list_sort.append(current_up_list)
             down_list_sort.append(current_down_list)
             proccess_index += 1
@@ -465,6 +465,71 @@ def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
 
     return model
 
+def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
+    
+    #Decoder part
+    #Charater to words 
+    up_text = Input(shape=(maxium_legth),
+                    name='up_text', dtype='float32')
+
+    up_text_tensor_emb = layers.Embedding(
+        max_index_up_text + 1, 64)(up_text)
+    cnn_up_output_1 = layers.Conv1D(
+        500, 1, padding='same')(up_text_tensor_emb)
+    cnn_up_output_2 = layers.Conv1D(
+        500, 2, padding='same')(up_text_tensor_emb)
+    cnn_up_output_3 = layers.Conv1D(
+        500, 3, padding='same')(up_text_tensor_emb)
+    cnn_up_output_1 = layers.MaxPool1D(2, padding='same')(cnn_up_output_1)
+    cnn_up_output_2 = layers.MaxPool1D(2, padding='same')(cnn_up_output_2)
+    cnn_up_output_3 = layers.MaxPool1D(2, padding='same')(cnn_up_output_3)
+    cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
+
+    lstm_up_output = layers.LSTM(500, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
+
+    down_text_tensor = Input(
+        shape=(maxium_legth),  name='down_text', dtype='float32')
+
+    down_text_tensor_emb = layers.Embedding(
+        max_index_up_text + 1, 64)(down_text_tensor)
+    cnn_down_output_1 = layers.Conv1D(
+        500, 1, padding='same')(down_text_tensor_emb)
+    cnn_down_output_2 = layers.Conv1D(
+        500, 2, padding='same')(down_text_tensor_emb)
+    cnn_down_output_3 = layers.Conv1D(
+        500, 3, padding='same')(down_text_tensor_emb)
+    cnn_down_output_1 = layers.MaxPool1D(2, padding='same')(cnn_down_output_1)
+    cnn_down_output_2 = layers.MaxPool1D(2, padding='same')(cnn_down_output_2)
+    cnn_down_output_3 = layers.MaxPool1D(2, padding='same')(cnn_down_output_3)
+    cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
+    
+
+    lstm_down_output = layers.LSTM(500, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
+
+    lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
+    
+    # Words to sentence
+    lstm_output = layers.LSTM(500, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+
+    # Convert part
+    lstm_output = layers.LSTM(600, return_sequences = True)(lstm_output)
+
+    # Encode part
+    lstm_output = layers.LSTM(600)(lstm_output)
+    lstm_output = layers.Flatten()(lstm_output)
+
+    final_output = layers.Dense(400)(lstm_output)
+    final_output = layers.Dense(200, activation='tanh')(lstm_output)
+    final_output = layers.Dense(1, activation='sigmoid')(final_output)
+
+    model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
+    model.compile(optimizer='Adam', loss='mse')
+
+    return model
+
 
 
 def build_reglaiour_model(max_index_up_text, maxium_legth):
@@ -519,12 +584,12 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = False
+make_new_data = True
 make_new_model = True
 merged_data = True
 
 load_model_data = False
-load_arry_data = True
+load_arry_data = False 
 
 fit_model = True
 r2_based_testing = False
@@ -636,14 +701,14 @@ if make_new_data:
     print("Initlazing up array...")
     train_up_arry = np.zeros(
         (train_up_count, maxium_legth), dtype=np.float32)
-    train_target_arry = np.zeros((train_target_count, max_enc_index), dtype=np.float32)
+    train_target_arry = np.zeros((train_target_count, maxium_legth), dtype=np.float32)
     train_down_arry = np.zeros(
         (train_down_count, maxium_legth), dtype=np.float32)
 
     test_up_arry = np.zeros(
         (test_up_count, maxium_legth), dtype=np.float32)
     test_target_arry = np.zeros(
-        (test_target_count, max_enc_index), dtype=np.float32)
+        (train_target_count, maxium_legth), dtype=np.float32)
     test_down_arry = np.zeros(
         (test_down_count,  maxium_legth), dtype=np.float32)
 
@@ -662,7 +727,8 @@ if make_new_data:
     @nb.jit
     def target_trans_train_arrary():
         for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
-            train_target_arry[splet_index, train_spelt] = 1
+            for charater_index, charater in enumerate(train_spelt):
+                train_target_arry[splet_index, charater_index] = charater / max_enc_index
 
     target_trans_train_arrary()
 
@@ -687,7 +753,9 @@ if make_new_data:
     @nb.jit
     def target_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
-            test_target_arry[splet_index, test_spelt] = 1
+            for charater_index, charater in enumerate(test_spelt):
+                test_target_arry[splet_index, charater_index] = charater / max_enc_index
+
 
     target_trans_test_arrary()
 
@@ -709,14 +777,14 @@ if make_new_model:
     print("building model")
 
     # model = build_reglaiour_model(max_enc_index, maxium_legth)
-    model = build_reglaiour_model_v1_1_5(max_enc_index, maxium_legth)
-    model.save(os.path.join(model_root_path,"init_verson_1_5.h5"))
+    model = build_reglaiour_model_v1_1_6(max_enc_index, maxium_legth)
+    model.save(os.path.join(model_root_path,"init_verson_1_6.h5"))
     print(model.summary())
 if fit_model:
     print("Starting fitting model...")
     tensor_callback = callbacks.TensorBoard(
         log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard\\tagged-bigger-data', histogram_freq=1, embeddings_freq=1, update_freq='batch')
-    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\tagged-bigger-data\\best_val_verson_1_5.h5",
+    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\tagged-bigger-data\\best_train_loss_1_6.h5",
                                                 monitor='train_loss', verbose=1, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 
     auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0,
@@ -724,7 +792,7 @@ if fit_model:
 
     model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
             train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint,auto_stop], epochs=10, validation_split=0.4, batch_size=30)
-    model.save(os.path.join(model_root_path,"result_verson_1_5.h5"))
+    model.save(os.path.join(model_root_path,"result_verson_1_6.h5"))
 
 if r2_based_testing:
     from sklearn.metrics import r2_score
@@ -749,4 +817,5 @@ if test_accuracy :
     current_test_target_arry = test_target_arry[current_spelt_index]
 
     model_output_array = model.predict({'up_text': current_test_up_arry, 'down_text': current_test_down_arry})
+    model_output_array = model_output_array[1]
     print('Accuracy on test set:'+ accuracy_score(current_test_target_arry, model_output_array))
