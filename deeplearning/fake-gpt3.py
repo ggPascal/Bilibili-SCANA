@@ -50,15 +50,17 @@ def gpt_dataset_builder(comment_data_dict):
                 while up_index == proccess_index - 1 or up_index < proccess_index - 1:
                     current_up_list.append(current_encoded_message[up_index])
                     up_index += 1
+            
             if proccess_index == len(current_encoded_message) - 1:
                 # TODO: Test wo delete it
                 current_down_list = [0]
             else:
                 # TODO: Replace with a while loop
-                down_index = 0
+                down_index = proccess_index + 1
                 while (down_index == proccess_index + 1 or down_index > proccess_index) and (down_index < len(current_encoded_message) - 1 or down_index == len(current_encoded_message) - 1):
                     current_down_list.append(
                         current_encoded_message[down_index])
+                    down_index += 1
 
             target_list_sort.append(current_encoded_message)
             up_list_sort.append(current_up_list)
@@ -585,18 +587,18 @@ model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
 make_new_data = True
-make_new_model = True
+make_new_model = False
 merged_data = True
 
-load_model_data = False
-load_arry_data = False 
+load_model_data = True
+load_arry_data = False
 
-fit_model = True
+fit_model = False
 r2_based_testing = False
-show_predictoutput = False
+show_predictoutput = True
 test_accuracy = False
 
-model_file_name = 'result_verson_1_5.h5'
+model_file_name = 'result_verson_1_6.h5'
 
 percent_of_transet = 0.5
 testset_precent = 0.5
@@ -695,7 +697,7 @@ if make_new_data:
     test_down_count = len(test_down_list)
     test_target_count = len(test_target_list) 
 
-    maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) 
+    maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
     max_enc_index = len(list(enc_dict.keys()))
 
     print("Initlazing up array...")
@@ -708,7 +710,7 @@ if make_new_data:
     test_up_arry = np.zeros(
         (test_up_count, maxium_legth), dtype=np.float32)
     test_target_arry = np.zeros(
-        (train_target_count, maxium_legth), dtype=np.float32)
+        (test_target_count, maxium_legth), dtype=np.float32)
     test_down_arry = np.zeros(
         (test_down_count,  maxium_legth), dtype=np.float32)
 
@@ -801,13 +803,21 @@ if r2_based_testing:
     print('r2_socre : '+ str(r2_ouput))
 
 if show_predictoutput:
+    import random
+    max_spelt_index = len(test_target_arry)
     model_output_array = model.predict({'up_text': test_up_arry, 'down_text': test_down_arry})
+
+    current_spelt_index = random.randint(0, max_spelt_index -1 )
+
+    current_test_up_arry = test_up_arry[current_spelt_index]
+    current_test_down_arry = test_down_arry[current_spelt_index]
+    current_test_target_arry = test_target_arry[current_spelt_index]
+
     print('model_output:')
     print(model_output_array)
     print('expected output:')
     print(test_target_arry)
 if test_accuracy :
-    from sklearn.metrics import accuracy_score
     import random
     max_spelt_index = len(test_target_arry)
     current_spelt_index = random.randint(0, max_spelt_index -1 )
@@ -817,5 +827,5 @@ if test_accuracy :
     current_test_target_arry = test_target_arry[current_spelt_index]
 
     model_output_array = model.predict({'up_text': current_test_up_arry, 'down_text': current_test_down_arry})
-    model_output_array = model_output_array[1]
-    print('Accuracy on test set:'+ accuracy_score(current_test_target_arry, model_output_array))
+    
+    
