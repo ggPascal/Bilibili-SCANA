@@ -587,15 +587,15 @@ model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
 make_new_data = True
-make_new_model = False
+make_new_model = True
 merged_data = True
 
-load_model_data = True
+load_model_data = False
 load_arry_data = False
 
-fit_model = False
+fit_model = True
 r2_based_testing = False
-show_predictoutput = True
+show_predictoutput = False
 test_accuracy = False
 
 model_file_name = 'result_verson_1_6.h5'
@@ -619,9 +619,13 @@ if load_arry_data:
         train_down_arry = all_in_one_data['train_down_arry']
         train_target_arry = all_in_one_data['train_target_arry']
 
-        test_up_arry = all_in_one_data['test_up_arry']
-        test_down_arry = all_in_one_data['test_down_arry']
-        test_target_arry = all_in_one_data['test_target_arry']
+        if test_accuracy:
+            test_up_arry = all_in_one_data['test_up_arry']
+            test_down_arry = all_in_one_data['test_down_arry']
+            test_target_arry = all_in_one_data['test_target_arry']
+            test_target_orinal_arry = all_in_one_data['test_target_orinal_arry']
+            maxium_legth = all_in_one_data['maxium_legth']
+            maxium_legth = maxium_legth.tolist()
 
         if make_new_model:
             maxium_legth = all_in_one_data['maxium_legth']
@@ -711,6 +715,8 @@ if make_new_data:
         (test_up_count, maxium_legth), dtype=np.float32)
     test_target_arry = np.zeros(
         (test_target_count, maxium_legth), dtype=np.float32)
+    test_target_orinal_arry = np.zeros(
+        (test_target_count, maxium_legth), dtype=np.float32)
     test_down_arry = np.zeros(
         (test_down_count,  maxium_legth), dtype=np.float32)
 
@@ -761,6 +767,14 @@ if make_new_data:
 
     target_trans_test_arrary()
 
+    def target_trans_test_orinal_arrary():
+        for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
+            for charater_index, charater in enumerate(test_spelt):
+                test_target_orinal_arry[splet_index, charater_index] = charater / max_enc_index
+
+
+    target_trans_test_orinal_arrary()
+
     @nb.jit
     def down_trans_test_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_down_list), total=len(test_down_list)):
@@ -772,7 +786,7 @@ if make_new_data:
 
     os.chdir(data_root_dir)
     np.savez_compressed('data_train_test_all_in_one', train_up_arry=train_up_arry, train_down_arry=train_down_arry, train_target_arry=train_target_arry,
-                        test_up_arry=test_up_arry, test_down_arry=test_down_arry, test_target_arry=test_target_arry, max_enc_index=max_enc_index, maxium_legth=maxium_legth)
+                        test_up_arry=test_up_arry, test_down_arry=test_down_arry, test_target_arry=test_target_arry, test_target_orianl_arry= test_target_orinal_arry, max_enc_index=max_enc_index, maxium_legth=maxium_legth)
 
 
 if make_new_model:
@@ -819,13 +833,65 @@ if show_predictoutput:
     print(test_target_arry)
 if test_accuracy :
     import random
+    from keras.losses import mean_squared_error
     max_spelt_index = len(test_target_arry)
-    current_spelt_index = random.randint(0, max_spelt_index -1 )
+    index_exit_list = []
 
-    current_test_up_arry = test_up_arry[current_spelt_index]
-    current_test_down_arry = test_down_arry[current_spelt_index]
-    current_test_target_arry = test_target_arry[current_spelt_index]
+    current_test_up_arry = np.zeros((100), dtype=np.float32)
+    current_test_down_arry = np.zeros((100), dtype=np.float32)
+    current_test_target_orinal_arry = np.zeros((100), dtype=np.float32)
+    current_test_target_arry = np.zeros((100), dtype=np.float32)
+
+    for control_index in range(0, 99):
+        while current_spelt_index not in index_exit_list :
+            current_spelt_index = random.randint(0, max_spelt_index)
+
+        current_test_up_arry[control_index] = test_up_arry[current_spelt_index]
+        current_test_down_arry[control_index] = test_down_arry[current_spelt_index]
+        current_test_target_arry[control_index] = test_target_arry[current_spelt_index]
+        current_test_target_orinal_arry[control_index] = test_target_orinal_arry[current_spelt_index]
+        index_exit_list.append(current_spelt_index)
 
     model_output_array = model.predict({'up_text': current_test_up_arry, 'down_text': current_test_down_arry})
+
+    avange_accuracy_orinal_split_list = []
+    avange_worng_distance_orinal_split_list = []
+
+    for accuracy_test_index in range(0,len(model_output_array) - 1):
+        current_accuracy_test_target_orinal_arry = current_test_target_orinal_arry[accuracy_test_index]
+        current_accuracy_test_model_output_array = model_output_array[accuracy_test_index]
+
+        worng_count = 0
+        worng_distance_list = []
+        for split_accuracy_test_index in range(0,len(current_accuracy_test_model_output_array) - 1):
+            orinal_test_target = current_accuracy_test_target_orinal_arry[split_accuracy_test_index]
+            orinal_model_output = current_accuracy_test_model_output_array[split_accuracy_test_index] * max_enc_index
+
+            if orinal_model_output > int(orinal_model_output) + 0.5 or orinal_model_output == int(orinal_model_output) + 0.5 :
+                orinal_model_output = int(orinal_model_output) + 1
+            else:
+                orinal_model_output = int(orinal_model_output)
+            
+            if orinal_model_output != orinal_test_target :
+                worng_count += 1
+                worng_distance_list.append(orinal_model_output - orinal_test_target)
+        
+        avange_accuracy_orinal_split_list.append(worng_count / maxium_legth)
+        avange_worng_distance_orinal_split_list.append(sum(worng_distance_list) / maxium_legth)
+    
+    avange_accuracy_orinal = sum(avange_accuracy_orinal_split_list) / 100
+    avange_worng_distance_orinal = sum(avange_worng_distance_orinal_split_list) / 100
+    testset_loss = mean_squared_error(current_test_target_arry, model_output_array)
+
+    print("Test set loss is :")
+    print(testset_loss)
+    print("The avange accuracy when you use it: ")
+    print(avange_accuracy_orinal)
+    print("The avange worng distance when you use it :")
+    print(avange_accuracy_orinal)
+
+
+
+
     
     
