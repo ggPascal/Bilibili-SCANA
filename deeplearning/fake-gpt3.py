@@ -525,7 +525,7 @@ def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
 
     final_output = layers.Dense(400)(lstm_output)
     final_output = layers.Dense(200, activation='tanh')(lstm_output)
-    final_output = layers.Dense(1, activation='sigmoid')(final_output)
+    final_output = layers.Dense(maxium_legth, activation='sigmoid')(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
     model.compile(optimizer='Adam', loss='mse')
@@ -586,17 +586,17 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = False
-make_new_model = False
+make_new_data = True
+make_new_model = True
 merged_data = True
 
-load_model_data = True
-load_arry_data = True
+load_model_data = False
+load_arry_data = False
 
-fit_model = False
+fit_model = True
 r2_based_testing = False
 show_predictoutput = False
-test_accuracy = True
+test_accuracy = False
 
 model_file_name = 'result_verson_1_6.h5'
 
@@ -770,7 +770,7 @@ if make_new_data:
     def target_trans_test_orinal_arrary():
         for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
             for charater_index, charater in enumerate(test_spelt):
-                test_target_orinal_arry[splet_index, charater_index] = charater / max_enc_index
+                test_target_orinal_arry[splet_index, charater_index] = charater 
 
 
     target_trans_test_orinal_arrary()
@@ -890,6 +890,8 @@ if test_accuracy :
     print(avange_accuracy_orinal)
     print("The avange worng distance when you use it :")
     print(avange_accuracy_orinal)
+
+exit()
 
 
 
