@@ -586,17 +586,17 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = True
-make_new_model = True
+make_new_data = False
+make_new_model = False
 merged_data = True
 
-load_model_data = False
-load_arry_data = False
+load_model_data = True
+load_arry_data = True
 
-fit_model = True
+fit_model = False
 r2_based_testing = False
 show_predictoutput = False
-test_accuracy = False
+test_accuracy = True
 
 model_file_name = 'result_verson_1_6.h5'
 
@@ -623,7 +623,7 @@ if load_arry_data:
             test_up_arry = all_in_one_data['test_up_arry']
             test_down_arry = all_in_one_data['test_down_arry']
             test_target_arry = all_in_one_data['test_target_arry']
-            test_target_orinal_arry = all_in_one_data['test_target_orinal_arry']
+            test_target_orinal_arry = all_in_one_data['test_target_orianl_arry']
             maxium_legth = all_in_one_data['maxium_legth']
             maxium_legth = maxium_legth.tolist()
 
@@ -837,13 +837,14 @@ if test_accuracy :
     max_spelt_index = len(test_target_arry)
     index_exit_list = []
 
-    current_test_up_arry = np.zeros((100), dtype=np.float32)
-    current_test_down_arry = np.zeros((100), dtype=np.float32)
-    current_test_target_orinal_arry = np.zeros((100), dtype=np.float32)
-    current_test_target_arry = np.zeros((100), dtype=np.float32)
+    current_test_up_arry = np.zeros((99, maxium_legth), dtype=np.float32)
+    current_test_down_arry = np.zeros((99, maxium_legth), dtype=np.float32)
+    current_test_target_orinal_arry = np.zeros((99, maxium_legth), dtype=np.float32)
+    current_test_target_arry = np.zeros((99, maxium_legth), dtype=np.float32)
 
     for control_index in range(0, 99):
-        while current_spelt_index not in index_exit_list :
+        current_spelt_index = random.randint(0, max_spelt_index)
+        while current_spelt_index in index_exit_list :
             current_spelt_index = random.randint(0, max_spelt_index)
 
         current_test_up_arry[control_index] = test_up_arry[current_spelt_index]
