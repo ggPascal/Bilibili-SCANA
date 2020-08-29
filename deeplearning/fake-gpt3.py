@@ -586,17 +586,17 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = True
-make_new_model = True
+make_new_data = False
+make_new_model = False
 merged_data = True
 
-load_model_data = False
-load_arry_data = False
+load_model_data = True
+load_arry_data = True
 
-fit_model = True
+fit_model = False
 r2_based_testing = False
 show_predictoutput = False
-test_accuracy = False
+test_accuracy = True
 
 model_file_name = 'result_verson_1_6.h5'
 
@@ -626,6 +626,8 @@ if load_arry_data:
             test_target_orinal_arry = all_in_one_data['test_target_orianl_arry']
             maxium_legth = all_in_one_data['maxium_legth']
             maxium_legth = maxium_legth.tolist()
+            max_enc_index = all_in_one_data['max_enc_index']
+            max_enc_index = max_enc_index.tolist()
 
         if make_new_model:
             maxium_legth = all_in_one_data['maxium_legth']
@@ -877,7 +879,7 @@ if test_accuracy :
                 worng_count += 1
                 worng_distance_list.append(orinal_model_output - orinal_test_target)
         
-        avange_accuracy_orinal_split_list.append(worng_count / maxium_legth)
+        avange_accuracy_orinal_split_list.append((maxium_legth - worng_count) / maxium_legth)
         avange_worng_distance_orinal_split_list.append(sum(worng_distance_list) / maxium_legth)
     
     avange_accuracy_orinal = sum(avange_accuracy_orinal_split_list) / 100
@@ -889,7 +891,7 @@ if test_accuracy :
     print("The avange accuracy when you use it: ")
     print(avange_accuracy_orinal)
     print("The avange worng distance when you use it :")
-    print(avange_accuracy_orinal)
+    print(avange_worng_distance_orinal)
 
 exit()
 
