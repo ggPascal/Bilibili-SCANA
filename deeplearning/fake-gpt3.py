@@ -140,14 +140,14 @@ def val_data_split(train_up_list, train_down_list, train_target_list, val_split)
 
     max_val_index = int(len(train_target_list) * val_split) - 1
     for control_index in range(0, max_val_index):
-        val_up_list[control_index] = train_up_list[control_index]
-        val_down_list[control_index] = train_down_list[control_index]
-        val_target_list[control_index] = train_target_list[control_index]
+        val_up_list.append(train_up_list[control_index])
+        val_down_list.append(train_down_list[control_index])
+        val_target_list.append(train_target_list[control_index])
 
     for control_index in range(max_val_index + 1, len(train_target_list) - 1):
-        new_train_up_list[control_index] = train_up_list[control_index]
-        new_train_down_list[control_index] = train_down_list[control_index]
-        new_train_target_list[control_index] = train_target_list[control_index]
+        new_train_up_list.append(train_up_list[control_index])
+        new_train_down_list.append(train_down_list[control_index])
+        new_train_target_list.append(train_target_list[control_index])
 
     return val_up_list, val_down_list, val_target_list, new_train_up_list, new_train_down_list, new_train_target_list
 
@@ -754,19 +754,19 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = False
+make_new_data = True
 make_new_model = False
 merged_data = True
 
-load_model_data = True
-load_arry_data = True
-load_tagged_data = True
+load_model_data = False
+load_arry_data = False
+load_tagged_data = False
 
 tagged_data = True
 fit_model = False
 r2_based_testing = False
 show_predictoutput = False
-test_accuracy = True
+test_accuracy = False
 test_tagged_data_accuray = False
 
 model_file_name = 'result_verson_1_6.h5'
@@ -806,12 +806,13 @@ if load_arry_data:
             maxium_legth = maxium_legth.tolist()
             max_enc_index = max_enc_index.tolist()
 
-if load_tagged_data :
+if load_tagged_data:
     try:
-        tagged_data_dict_file = open(os.path.join(data_root_dir, 'tagged_data_dict.json'), 'r', encoding='utf-8')
+        tagged_data_dict_file = open(os.path.join(
+            data_root_dir, 'tagged_data_dict.json'), 'r', encoding='utf-8')
     except:
-        print("Could not read tagged_data_dict.json from "+ data_root_dir)
-    
+        print("Could not read tagged_data_dict.json from " + data_root_dir)
+
     tagged_data_dict = json.load(tagged_data_dict_file)
     tagged_data_dict_file.close()
 
@@ -827,7 +828,6 @@ if load_tagged_data :
         test_up_list = tagged_data_dict['test_up_list']
         test_down_list = tagged_data_dict['test_down_list']
         test_target_list = tagged_data_dict['test_target_list']
-
 
 
 if load_model_data:
@@ -904,7 +904,8 @@ if make_new_data:
         test_down_count = len(test_down_list)
         test_target_count = len(test_target_list)
 
-        maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
+        maxium_legth = max(
+            [maxium_train_up_legth, maxium_train_down_legth]) + 1
         max_enc_index = len(list(enc_dict.keys()))
 
         print("Initlazing up array...")
@@ -931,7 +932,7 @@ if make_new_data:
             for splet_index, train_spelt in tqdm(enumerate(train_up_list), total=len(train_up_list)):
                 for charater_index, charater in enumerate(train_spelt):
                     train_up_arry[splet_index,
-                                charater_index] = charater / max_enc_index
+                                  charater_index] = charater / max_enc_index
 
         up_trans_train_arrary()
         print(train_up_arry)
@@ -941,7 +942,7 @@ if make_new_data:
             for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
                 for charater_index, charater in enumerate(train_spelt):
                     train_target_arry[splet_index,
-                                    charater_index] = charater / max_enc_index
+                                      charater_index] = charater / max_enc_index
 
         target_trans_train_arrary()
 
@@ -959,7 +960,7 @@ if make_new_data:
             for splet_index, test_spelt in tqdm(enumerate(test_up_list), total=len(test_up_list)):
                 for charater_index, charater in enumerate(test_spelt):
                     test_up_arry[splet_index,
-                                charater_index] = charater / max_enc_index
+                                 charater_index] = charater / max_enc_index
 
         up_trans_test_arrary()
 
@@ -968,14 +969,15 @@ if make_new_data:
             for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
                 for charater_index, charater in enumerate(test_spelt):
                     test_target_arry[splet_index,
-                                    charater_index] = charater / max_enc_index
+                                     charater_index] = charater / max_enc_index
 
         target_trans_test_arrary()
 
         def target_trans_test_orinal_arrary():
             for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
                 for charater_index, charater in enumerate(test_spelt):
-                    test_target_orinal_arry[splet_index, charater_index] = charater
+                    test_target_orinal_arry[splet_index,
+                                            charater_index] = charater
 
         target_trans_test_orinal_arrary()
 
@@ -984,7 +986,7 @@ if make_new_data:
             for splet_index, test_spelt in tqdm(enumerate(test_down_list), total=len(test_down_list)):
                 for charater_index, charater in enumerate(test_spelt):
                     test_down_arry[splet_index,
-                                charater_index] = charater / max_enc_index
+                                   charater_index] = charater / max_enc_index
 
         down_trans_test_arrary()
 
@@ -992,10 +994,21 @@ if make_new_data:
         np.savez_compressed('data_train_test_all_in_one', train_up_arry=train_up_arry, train_down_arry=train_down_arry, train_target_arry=train_target_arry,
                             test_up_arry=test_up_arry, test_down_arry=test_down_arry, test_target_arry=test_target_arry, test_target_orianl_arry=test_target_orinal_arry, max_enc_index=max_enc_index, maxium_legth=maxium_legth)
     else:
-        tagged_data_dict = {'train_up_list': train_up_list, 'train_down_list': train_down_list, 'train_target_list': train_target_list, 'val_up_list': val_up_list, 'val_down_list': val_down_list, 'val_target_list': val_target_list, 'test_up_list': test_up_list, 'test_down_list': test_down_list, 'test_target_list': test_target_list}
-        tagged_data_dict_file = open(os.path.join(data_root_dir, 'tagged_data_dict.json'), 'w', encoding='utf-8')
-        json.dump(tagged_data_dict, tagged_data_dict_file)
-        tagged_data_dict_file.close()
+        tagged_data_train_up_arry = np.array(train_up_list, dtype=object)
+        tagged_data_trian_down_arry = np.array(train_down_list, dtype=object)
+        tagged_data_train_target_arry = np.array(train_target_list, dtype=object)
+
+        tagged_data_val_up_arry = np.array(val_up_list, dtype=object)
+        tagged_data_val_down_arry = np.array(val_down_list, dtype=object)
+        tagged_data_val_target_arry = np.array(val_target_list, dtype=object)
+
+        tagged_data_test_up_arry = np.array(test_up_list, dtype=object)
+        tagged_data_test_down_arry = np.array(test_down_list, dtype=object)
+        tagged_data_test_target_arry = np.array(test_target_list, dtype=object)
+
+        os.chdir(data_root_dir)
+        np.savez_compressed('tagged_data_all_in_one', tagged_data_train_up_arry=tagged_data_train_up_arry, tagged_data_train_down_arry=tagged_data_trian_down_arry, tagged_data_train_target_arry=tagged_data_test_target_arry, tagged_data_val_up_arry=tagged_data_val_up_arry,
+                            tagged_data_val_down_arry=tagged_data_val_down_arry, tagged_data_val_target_arry=tagged_data_val_target_arry, tagged_data_test_up_arry=tagged_data_test_up_arry, tagged_data_test_down_arry=tagged_data_test_down_arry, tagged_data_test_target_arry=tagged_data_test_target_arry)
 
 if make_new_model:
     print("building model")
