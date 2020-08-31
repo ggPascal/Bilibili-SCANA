@@ -1,3 +1,4 @@
+import keras.backend as K
 import random as rd
 from keras.models import Model
 from keras.models import load_model
@@ -10,6 +11,7 @@ import numpy as np
 from tqdm import tqdm
 import numba as nb
 import tensorflow as tf
+import random
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_memory_growth(gpus[0], True)
@@ -17,7 +19,7 @@ tf.config.experimental.set_memory_growth(gpus[0], True)
 
 os.environ['NUMBA_WARNINGS'] = '0'
 
-import keras.backend as K
+
 def r2(y_true, y_pred):
     a = K.square(y_pred - y_true)
     b = K.sum(a)
@@ -26,6 +28,7 @@ def r2(y_true, y_pred):
     e = K.sum(d)
     f = 1 - b/e
     return f
+
 
 def gpt_dataset_builder(comment_data_dict):
     proccess_index = 0
@@ -36,7 +39,7 @@ def gpt_dataset_builder(comment_data_dict):
     display_count = len(list(comment_data_dict.keys()))
     display_show = 1
     key_list = list(comment_data_dict.keys())
-    for std_thow, reply_id in tqdm(enumerate(key_list), total = len(key_list)):
+    for std_thow, reply_id in tqdm(enumerate(key_list), total=len(key_list)):
         # print('Working on '+str(display_show)+'/'+str(display_count))
         current_encoded_message = comment_data_dict[reply_id]
         while proccess_index < len(current_encoded_message):
@@ -50,7 +53,7 @@ def gpt_dataset_builder(comment_data_dict):
                 while up_index == proccess_index - 1 or up_index < proccess_index - 1:
                     current_up_list.append(current_encoded_message[up_index])
                     up_index += 1
-            
+
             if proccess_index == len(current_encoded_message) - 1:
                 # TODO: Test wo delete it
                 current_down_list = [0]
@@ -106,9 +109,6 @@ def split_dataset(percent_of_transet, testset_present, target_list_rand, up_list
     test_target_list = []
     test_up_list = []
     test_down_list = []
-    val_target_list = []
-    val_up_list = []
-    val_down_list = []
 
     maxium_trainset_index = int(
         (len(target_list_rand) - 1) * percent_of_transet)
@@ -121,12 +121,139 @@ def split_dataset(percent_of_transet, testset_present, target_list_rand, up_list
     maxium_testset_index = int(
         (len(target_list_rand) - 1 - minimize_testset_index) * testset_present) + minimize_testset_index
     split_index = 0
-    for std_thow, split_index in tqdm(enumerate(range(minimize_testset_index, maxium_testset_index)), total = maxium_testset_index - minimize_testset_index, desc = 'Test-set-build'):
+    for std_thow, split_index in tqdm(enumerate(range(minimize_testset_index, maxium_testset_index)), total=maxium_testset_index - minimize_testset_index, desc='Test-set-build'):
         test_target_list.append(target_list_rand[split_index])
         test_up_list.append(up_list_rand[split_index])
         test_down_list.append(up_list_rand[split_index])
 
     return train_up_list, test_up_list, train_down_list, test_down_list, train_target_list, test_target_list
+
+
+def val_data_split(train_up_list, train_down_list, train_target_list, val_split):
+
+    val_up_list = []
+    val_down_list = []
+    val_target_list = []
+    new_train_down_list = []
+    new_train_up_list = []
+    new_train_target_list = []
+
+    max_val_index = int(len(train_target_list) * val_split) - 1
+    for control_index in range(0, max_val_index):
+        val_up_list[control_index] = train_up_list[control_index]
+        val_down_list[control_index] = train_down_list[control_index]
+        val_target_list[control_index] = train_target_list[control_index]
+
+    for control_index in range(max_val_index + 1, len(train_target_list) - 1):
+        new_train_up_list[control_index] = train_up_list[control_index]
+        new_train_down_list[control_index] = train_down_list[control_index]
+        new_train_target_list[control_index] = train_target_list[control_index]
+
+    return val_up_list, val_down_list, val_target_list, new_train_up_list, new_train_down_list, new_train_target_list
+
+
+def tagged_train_data_genetor(train_up_list, train_down_list, train_target_list, maxium_legth, max_enc_index):
+    maxium_genetor_index = len(train_up_list)
+    current_train_up_arry = np.zeros(1, maxium_legth)
+    current_train_down_arry = np.zeros(1, maxium_legth)
+    current_train_target_arry = np.zeros(maxium_legth, max_enc_index)
+    key_exit_list = []
+
+    splet_index = random.randint(0, maxium_genetor_index)
+
+    if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
+        while splet_index in key_exit_list:
+            splet_index = random.randint(0, maxium_genetor_index)
+    else:
+        key_exit_list = []
+
+    current_up_splet = train_up_list[splet_index]
+    current_down_splet = train_down_list[splet_index]
+    current_target_splet = train_target_list[splet_index]
+
+    for control_index, charater in enumerate(current_up_splet):
+        current_train_up_arry[control_index] = charater / max_enc_index
+
+    for control_index, charater in enumerate(current_down_splet):
+        current_train_down_arry[control_index] = charater / max_enc_index
+
+    for control_index, charater in enumerate(current_target_splet):
+        current_train_target_arry[control_index, charater] = 1
+
+    train_data = ({'up_text': current_train_up_arry,
+                   'down_text': current_train_down_arry}, current_train_target_arry)
+
+    return train_data
+
+
+def tagged_test_data_genetor(test_up_list, test_down_list, test_target_list, maxium_legth, sample_size):
+    maxium_genetor_index = len(test_up_list)
+
+    current_test_up_arry = np.zeros(1, maxium_legth)
+    current_test_down_arry = np.zeros(1, maxium_legth)
+    current_test_target_arry = np.zeros(maxium_legth, max_enc_index)
+    key_exit_list = []
+
+    splet_index = random.randint(0, maxium_genetor_index)
+
+    if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
+        while splet_index in key_exit_list:
+            splet_index = random.randint(0, maxium_genetor_index)
+    else:
+        key_exit_list = []
+
+    current_up_splet = test_up_list[splet_index]
+    current_down_splet = test_down_list[splet_index]
+    current_target_splet = test_target_list[splet_index]
+
+    for control_index, charater in enumerate(current_up_splet):
+        current_test_up_arry[control_index] = charater / max_enc_index
+
+    for control_index, charater in enumerate(current_down_splet):
+        current_test_down_arry[control_index] = charater / max_enc_index
+
+    for control_index, charater in enumerate(current_target_splet):
+        current_test_target_arry[control_index, charater] = 1
+
+    test_data = ({'up_text': current_test_up_arry,
+                  'down_text': current_test_down_arry}, current_test_target_arry)
+
+    return test_data
+
+
+def tagged_val_data_genetor(val_up_list, val_down_list, val_target_list, maxium_legth, max_enc_index):
+    maxium_genetor_index = len(test_up_list)
+
+    current_val_up_arry = np.zeros(1, maxium_legth)
+    current_val_down_arry = np.zeros(1, maxium_legth)
+    current_val_target_arry = np.zeros(maxium_legth, max_enc_index)
+    key_exit_list = []
+
+    splet_index = random.randint(0, maxium_genetor_index)
+
+    if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
+        while splet_index in key_exit_list:
+            splet_index = random.randint(0, maxium_genetor_index)
+    else:
+        key_exit_list = []
+
+    current_up_splet = val_up_list[splet_index]
+    current_down_splet = val_down_list[splet_index]
+    current_target_splet = val_target_list[splet_index]
+
+    for control_index, charater in enumerate(current_up_splet):
+        current_val_up_arry[control_index] = charater / max_enc_index
+
+    for control_index, charater in enumerate(current_down_splet):
+        current_val_down_arry[control_index] = charater / max_enc_index
+
+    for control_index, charater in enumerate(current_target_splet):
+        current_val_target_arry[control_index, charater] = 1
+
+    val_data = ({'up_text': current_val_up_arry,
+                 'down_text': current_val_down_arry}, current_val_target_arry)
+    return val_data
+
 
 def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
 
@@ -164,7 +291,7 @@ def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
     lstm_down_output = layers.LSTM(600, return_sequences=True)(cnn_down_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
+
     lstm_output = layers.LSTM(600)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
@@ -172,9 +299,11 @@ def build_reglaiour_model_v1_1(max_index_up_text, maxium_legth):
     final_output = layers.Dense(1)(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy', r2])
+    model.compile(optimizer='Adadelta', loss='mean_squared_error',
+                  metrics=['accuracy', r2])
 
     return model
+
 
 def build_reglaiour_model_v1_1_1(max_index_up_text, maxium_legth):
 
@@ -190,7 +319,8 @@ def build_reglaiour_model_v1_1_1(max_index_up_text, maxium_legth):
     cnn_up_output = layers.add([cnn_up_text_1, cnn_up_text_2, cnn_up_text_3])
     cnn_up_output = layers.Reshape((maxium_legth, 500))(cnn_up_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_up_output)
+    lstm_up_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_up_output)
 
     down_text_tensor = Input(
         shape=(None, maxium_legth),  name='down_text', dtype='float32')
@@ -209,10 +339,11 @@ def build_reglaiour_model_v1_1_1(max_index_up_text, maxium_legth):
     cnn_down_output = layers.Reshape(
         (maxium_legth, 500))(cnn_down_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_down_output)
+    lstm_down_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_down_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
+
     lstm_output = layers.LSTM(600)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
@@ -220,9 +351,11 @@ def build_reglaiour_model_v1_1_1(max_index_up_text, maxium_legth):
     final_output = layers.Dense(1)(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy', r2])
+    model.compile(optimizer='Adadelta', loss='mean_squared_error',
+                  metrics=['accuracy', r2])
 
     return model
+
 
 def build_reglaiour_model_v1_1_2(max_index_up_text, maxium_legth):
 
@@ -240,10 +373,13 @@ def build_reglaiour_model_v1_1_2(max_index_up_text, maxium_legth):
     cnn_up_output_1 = layers.MaxPool1D(2)(cnn_up_output_1)
     cnn_up_output_2 = layers.MaxPool1D(2)(cnn_up_output_2)
     cnn_up_output_3 = layers.MaxPool1D(2)(cnn_up_output_3)
-    cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
-    cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
+    cnn_up_all_merge_output = layers.concatenate(
+        [cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_up_all_merge_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
+    lstm_up_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
 
     down_text_tensor = Input(
         shape=(None, maxium_legth),  name='down_text', dtype='float32')
@@ -259,15 +395,17 @@ def build_reglaiour_model_v1_1_2(max_index_up_text, maxium_legth):
     cnn_down_output_1 = layers.MaxPool1D(2)(cnn_down_output_1)
     cnn_down_output_2 = layers.MaxPool1D(2)(cnn_down_output_2)
     cnn_down_output_3 = layers.MaxPool1D(2)(cnn_down_output_3)
-    cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
-    cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
-    
+    cnn_down_all_merge_output = layers.concatenate(
+        [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_down_all_merge_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
+    lstm_down_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
-    lstm_output = layers.LSTM(600, return_sequences = True)(lstm_output)
+
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
     lstm_output = layers.LSTM(600)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
@@ -275,9 +413,11 @@ def build_reglaiour_model_v1_1_2(max_index_up_text, maxium_legth):
     final_output = layers.Dense(max_enc_index)(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adam', loss='mean_squared_error', metrics=['accuracy'])
+    model.compile(optimizer='Adam', loss='mean_squared_error',
+                  metrics=['accuracy'])
 
     return model
+
 
 def build_reglaiour_model_v1_1_3(max_index_up_text, maxium_legth):
 
@@ -295,10 +435,13 @@ def build_reglaiour_model_v1_1_3(max_index_up_text, maxium_legth):
     cnn_up_output_1 = layers.MaxPool1D(2)(cnn_up_output_1)
     cnn_up_output_2 = layers.MaxPool1D(2)(cnn_up_output_2)
     cnn_up_output_3 = layers.MaxPool1D(2)(cnn_up_output_3)
-    cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
-    cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
+    cnn_up_all_merge_output = layers.concatenate(
+        [cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_up_all_merge_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
+    lstm_up_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
 
     down_text_tensor = Input(
         shape=(maxium_legth),  name='down_text', dtype='float32')
@@ -314,29 +457,34 @@ def build_reglaiour_model_v1_1_3(max_index_up_text, maxium_legth):
     cnn_down_output_1 = layers.MaxPool1D(2)(cnn_down_output_1)
     cnn_down_output_2 = layers.MaxPool1D(2)(cnn_down_output_2)
     cnn_down_output_3 = layers.MaxPool1D(2)(cnn_down_output_3)
-    cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
-    cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
-    
+    cnn_down_all_merge_output = layers.concatenate(
+        [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_down_all_merge_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True)(cnn_down_all_merge_output)
+    lstm_down_output = layers.LSTM(
+        600, return_sequences=True)(cnn_down_all_merge_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
+
     lstm_output = layers.LSTM(600)(lstm_output)
     lstm_output = layers.Flatten()(lstm_output)
 
     final_output = layers.Dense(200)(lstm_output)
-    final_output = layers.Dense(max_index_up_text, activation='softmax')(final_output)
+    final_output = layers.Dense(
+        max_index_up_text, activation='softmax')(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy'])
+    model.compile(optimizer='Adadelta',
+                  loss='mean_squared_error', metrics=['accuracy'])
 
     return model
 
+
 def build_reglaiour_model_v1_1_4(max_index_up_text, maxium_legth):
-    
-    #Decoder part
-    #Charater to words 
+
+    # Decoder part
+    # Charater to words
     up_text = Input(shape=(maxium_legth),
                     name='up_text', dtype='float32')
 
@@ -351,10 +499,13 @@ def build_reglaiour_model_v1_1_4(max_index_up_text, maxium_legth):
     cnn_up_output_1 = layers.MaxPool1D(2)(cnn_up_output_1)
     cnn_up_output_2 = layers.MaxPool1D(2)(cnn_up_output_2)
     cnn_up_output_3 = layers.MaxPool1D(2)(cnn_up_output_3)
-    cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
-    cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
+    cnn_up_all_merge_output = layers.concatenate(
+        [cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_up_all_merge_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
+    lstm_up_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
 
     down_text_tensor = Input(
         shape=(maxium_legth),  name='down_text', dtype='float32')
@@ -370,22 +521,24 @@ def build_reglaiour_model_v1_1_4(max_index_up_text, maxium_legth):
     cnn_down_output_1 = layers.MaxPool1D(2)(cnn_down_output_1)
     cnn_down_output_2 = layers.MaxPool1D(2)(cnn_down_output_2)
     cnn_down_output_3 = layers.MaxPool1D(2)(cnn_down_output_3)
-    cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
-    cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
-    
+    cnn_down_all_merge_output = layers.concatenate(
+        [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_down_all_merge_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
+    lstm_down_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
+
     # Words to sentence
     lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
     lstm_output = layers.LSTM(700, return_sequences=True)(lstm_output)
     lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
 
     # Convert part
-    lstm_output = layers.LSTM(800, return_sequences = True)(lstm_output)
-    lstm_output = layers.LSTM(800, return_sequences = True)(lstm_output)
+    lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
 
     # Encode part
     lstm_output = layers.LSTM(800)(lstm_output)
@@ -396,14 +549,16 @@ def build_reglaiour_model_v1_1_4(max_index_up_text, maxium_legth):
     final_output = layers.Dense(1)(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy', r2])
+    model.compile(optimizer='Adadelta', loss='mean_squared_error',
+                  metrics=['accuracy', r2])
 
     return model
 
+
 def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
-    
-    #Decoder part
-    #Charater to words 
+
+    # Decoder part
+    # Charater to words
     up_text = Input(shape=(maxium_legth),
                     name='up_text', dtype='float32')
 
@@ -418,10 +573,13 @@ def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
     cnn_up_output_1 = layers.MaxPool1D(2, padding='same')(cnn_up_output_1)
     cnn_up_output_2 = layers.MaxPool1D(2, padding='same')(cnn_up_output_2)
     cnn_up_output_3 = layers.MaxPool1D(2, padding='same')(cnn_up_output_3)
-    cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
-    cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
+    cnn_up_all_merge_output = layers.concatenate(
+        [cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_up_all_merge_output)
 
-    lstm_up_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
+    lstm_up_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
 
     down_text_tensor = Input(
         shape=(maxium_legth),  name='down_text', dtype='float32')
@@ -437,22 +595,24 @@ def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
     cnn_down_output_1 = layers.MaxPool1D(2, padding='same')(cnn_down_output_1)
     cnn_down_output_2 = layers.MaxPool1D(2, padding='same')(cnn_down_output_2)
     cnn_down_output_3 = layers.MaxPool1D(2, padding='same')(cnn_down_output_3)
-    cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
-    cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
-    
+    cnn_down_all_merge_output = layers.concatenate(
+        [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_down_all_merge_output)
 
-    lstm_down_output = layers.LSTM(600, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
+    lstm_down_output = layers.LSTM(
+        600, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
+
     # Words to sentence
     lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
     lstm_output = layers.LSTM(700, return_sequences=True)(lstm_output)
     lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
 
     # Convert part
-    lstm_output = layers.LSTM(800, return_sequences = True)(lstm_output)
-    lstm_output = layers.LSTM(800, return_sequences = True)(lstm_output)
+    lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(800, return_sequences=True)(lstm_output)
 
     # Encode part
     lstm_output = layers.LSTM(800)(lstm_output)
@@ -463,14 +623,16 @@ def build_reglaiour_model_v1_1_5(max_index_up_text, maxium_legth):
     final_output = layers.Dense(1, activation='sigmoid')(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adam', loss='mean_squared_error', metrics=['accuracy'])
+    model.compile(optimizer='Adam', loss='mean_squared_error',
+                  metrics=['accuracy'])
 
     return model
 
+
 def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
-    
-    #Decoder part
-    #Charater to words 
+
+    # Decoder part
+    # Charater to words
     up_text = Input(shape=(maxium_legth),
                     name='up_text', dtype='float32')
 
@@ -485,10 +647,13 @@ def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
     cnn_up_output_1 = layers.MaxPool1D(2, padding='same')(cnn_up_output_1)
     cnn_up_output_2 = layers.MaxPool1D(2, padding='same')(cnn_up_output_2)
     cnn_up_output_3 = layers.MaxPool1D(2, padding='same')(cnn_up_output_3)
-    cnn_up_all_merge_output = layers.concatenate([cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
-    cnn_up_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_up_all_merge_output)
+    cnn_up_all_merge_output = layers.concatenate(
+        [cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_up_all_merge_output)
 
-    lstm_up_output = layers.LSTM(500, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
+    lstm_up_output = layers.LSTM(
+        500, return_sequences=True, dropout=0.1)(cnn_up_all_merge_output)
 
     down_text_tensor = Input(
         shape=(maxium_legth),  name='down_text', dtype='float32')
@@ -504,20 +669,22 @@ def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
     cnn_down_output_1 = layers.MaxPool1D(2, padding='same')(cnn_down_output_1)
     cnn_down_output_2 = layers.MaxPool1D(2, padding='same')(cnn_down_output_2)
     cnn_down_output_3 = layers.MaxPool1D(2, padding='same')(cnn_down_output_3)
-    cnn_down_all_merge_output = layers.concatenate([cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
-    cnn_down_all_merge_output = layers.Conv1D(500, 2, padding='same')(cnn_down_all_merge_output)
-    
+    cnn_down_all_merge_output = layers.concatenate(
+        [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_down_all_merge_output)
 
-    lstm_down_output = layers.LSTM(500, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
+    lstm_down_output = layers.LSTM(
+        500, return_sequences=True, dropout=0.1)(cnn_down_all_merge_output)
 
     lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
-    
+
     # Words to sentence
     lstm_output = layers.LSTM(500, return_sequences=True)(lstm_output)
     lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
 
     # Convert part
-    lstm_output = layers.LSTM(600, return_sequences = True)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
 
     # Encode part
     lstm_output = layers.LSTM(600)(lstm_output)
@@ -525,13 +692,13 @@ def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
 
     final_output = layers.Dense(400)(lstm_output)
     final_output = layers.Dense(200, activation='tanh')(lstm_output)
-    final_output = layers.Dense(maxium_legth, activation='sigmoid')(final_output)
+    final_output = layers.Dense(
+        maxium_legth, activation='sigmoid')(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
     model.compile(optimizer='Adam', loss='mse')
 
     return model
-
 
 
 def build_reglaiour_model(max_index_up_text, maxium_legth):
@@ -576,7 +743,8 @@ def build_reglaiour_model(max_index_up_text, maxium_legth):
     final_output = layers.Dense(1)(final_output)
 
     model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
-    model.compile(optimizer='Adadelta', loss='mean_squared_error', metrics=['accuracy', r2])
+    model.compile(optimizer='Adadelta', loss='mean_squared_error',
+                  metrics=['accuracy', r2])
 
     return model
 
@@ -592,19 +760,22 @@ merged_data = True
 
 load_model_data = True
 load_arry_data = True
+load_tagged_data = True
 
+tagged_data = True
 fit_model = False
 r2_based_testing = False
 show_predictoutput = False
 test_accuracy = True
+test_tagged_data_accuray = False
 
 model_file_name = 'result_verson_1_6.h5'
 
 percent_of_transet = 0.5
 testset_precent = 0.5
+val_split = 0.5
 
 os.chdir(data_root_dir)
-
 
 
 if load_arry_data:
@@ -635,6 +806,30 @@ if load_arry_data:
             maxium_legth = maxium_legth.tolist()
             max_enc_index = max_enc_index.tolist()
 
+if load_tagged_data :
+    try:
+        tagged_data_dict_file = open(os.path.join(data_root_dir, 'tagged_data_dict.json'), 'r', encoding='utf-8')
+    except:
+        print("Could not read tagged_data_dict.json from "+ data_root_dir)
+    
+    tagged_data_dict = json.load(tagged_data_dict_file)
+    tagged_data_dict_file.close()
+
+    train_up_list = tagged_data_dict['train_up_list']
+    train_down_list = tagged_data_dict['train_down_list']
+    train_target_list = tagged_data_dict['train_target_list']
+
+    val_up_list = tagged_data_dict['val_up_list']
+    val_down_list = tagged_data_dict['val_down_list']
+    val_target_list = tagged_data_dict['val_target_list']
+
+    if test_tagged_data_accuray:
+        test_up_list = tagged_data_dict['test_up_list']
+        test_down_list = tagged_data_dict['test_down_list']
+        test_target_list = tagged_data_dict['test_target_list']
+
+
+
 if load_model_data:
     try:
         os.chdir(model_root_path)
@@ -654,7 +849,8 @@ if make_new_data:
         encode_comment_dict = json.load(encode_comment_dict_file)
     else:
         try:
-            merged_encode_comment_dict_file = open(os.path.join(merged_data_root_path, 'merged_encode_comment_dict.json'))
+            merged_encode_comment_dict_file = open(os.path.join(
+                merged_data_root_path, 'merged_encode_comment_dict.json'))
         except:
             print("Could not read merged_encode_comment_dict, are you sure you have it?")
             exit()
@@ -686,117 +882,127 @@ if make_new_data:
     train_up_list, test_up_list, train_down_list, test_down_list, train_target_list, test_target_list, = split_dataset(
         percent_of_transet, testset_precent, target_list_rand, up_list_rand, down_list_rand)
 
-    print("Calculating the legth of each data")
-    maxium_train_up_legth = max([len(i) for i in train_up_list]) + 1
-    maxium_train_target_legth = 1
-    maxium_train_down_legth = max([len(i) for i in train_down_list]) + 1
+    if tagged_data:
+        val_up_list, val_down_list, val_target_list, train_up_list, train_down_list, train_target_list = val_data_split(
+            train_up_list=train_up_list, train_down_list=train_down_list, train_target_list=train_target_list, val_split=val_split)
 
-    maxium_test_up_legth = max([len(i) for i in test_up_list]) + 1
-    maxium_test_down_legth = max([len(i) for i in test_down_list]) + 1
-    maxium_test_target_legth = 1
+    if tagged_data == False:
+        print("Calculating the legth of each data")
+        maxium_train_up_legth = max([len(i) for i in train_up_list]) + 1
+        maxium_train_target_legth = 1
+        maxium_train_down_legth = max([len(i) for i in train_down_list]) + 1
 
-    train_up_count = len(train_up_list)
-    train_down_count = len(train_down_list)
-    train_target_count = len(train_target_list)
+        maxium_test_up_legth = max([len(i) for i in test_up_list]) + 1
+        maxium_test_down_legth = max([len(i) for i in test_down_list]) + 1
+        maxium_test_target_legth = 1
 
-    test_up_count = len(test_up_list)
-    test_down_count = len(test_down_list)
-    test_target_count = len(test_target_list) 
+        train_up_count = len(train_up_list)
+        train_down_count = len(train_down_list)
+        train_target_count = len(train_target_list)
 
-    maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
-    max_enc_index = len(list(enc_dict.keys()))
+        test_up_count = len(test_up_list)
+        test_down_count = len(test_down_list)
+        test_target_count = len(test_target_list)
 
-    print("Initlazing up array...")
-    train_up_arry = np.zeros(
-        (train_up_count, maxium_legth), dtype=np.float32)
-    train_target_arry = np.zeros((train_target_count, maxium_legth), dtype=np.float32)
-    train_down_arry = np.zeros(
-        (train_down_count, maxium_legth), dtype=np.float32)
+        maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth]) + 1
+        max_enc_index = len(list(enc_dict.keys()))
 
-    test_up_arry = np.zeros(
-        (test_up_count, maxium_legth), dtype=np.float32)
-    test_target_arry = np.zeros(
-        (test_target_count, maxium_legth), dtype=np.float32)
-    test_target_orinal_arry = np.zeros(
-        (test_target_count, maxium_legth), dtype=np.float32)
-    test_down_arry = np.zeros(
-        (test_down_count,  maxium_legth), dtype=np.float32)
+        print("Initlazing up array...")
+        train_up_arry = np.zeros(
+            (train_up_count, maxium_legth), dtype=np.float32)
+        train_target_arry = np.zeros(
+            (train_target_count, maxium_legth), dtype=np.float32)
+        train_down_arry = np.zeros(
+            (train_down_count, maxium_legth), dtype=np.float32)
 
-    print("transforming list to numpy array...")
+        test_up_arry = np.zeros(
+            (test_up_count, maxium_legth), dtype=np.float32)
+        test_target_arry = np.zeros(
+            (test_target_count, maxium_legth), dtype=np.float32)
+        test_target_orinal_arry = np.zeros(
+            (test_target_count, maxium_legth), dtype=np.float32)
+        test_down_arry = np.zeros(
+            (test_down_count,  maxium_legth), dtype=np.float32)
 
-    @nb.jit
-    def up_trans_train_arrary():
-        for splet_index, train_spelt in tqdm(enumerate(train_up_list), total=len(train_up_list)):
-            for charater_index, charater in enumerate(train_spelt):
-                train_up_arry[splet_index,
-                              charater_index] = charater / max_enc_index
+        print("transforming list to numpy array...")
 
-    up_trans_train_arrary()
-    print(train_up_arry)
-
-    @nb.jit
-    def target_trans_train_arrary():
-        for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
-            for charater_index, charater in enumerate(train_spelt):
-                train_target_arry[splet_index, charater_index] = charater / max_enc_index
-
-    target_trans_train_arrary()
-
-    @nb.jit
-    def down_trans_train_arrary():
-        for splet_index, train_spelt in tqdm(enumerate(train_down_list), total=len(train_down_list)):
-            for charater_index, charater in enumerate(train_spelt):
-                train_down_arry[splet_index,
+        @nb.jit
+        def up_trans_train_arrary():
+            for splet_index, train_spelt in tqdm(enumerate(train_up_list), total=len(train_up_list)):
+                for charater_index, charater in enumerate(train_spelt):
+                    train_up_arry[splet_index,
                                 charater_index] = charater / max_enc_index
 
-    down_trans_train_arrary()
+        up_trans_train_arrary()
+        print(train_up_arry)
 
-    @nb.jit
-    def up_trans_test_arrary():
-        for splet_index, test_spelt in tqdm(enumerate(test_up_list), total=len(test_up_list)):
-            for charater_index, charater in enumerate(test_spelt):
-                test_up_arry[splet_index,
-                             charater_index] = charater / max_enc_index
+        @nb.jit
+        def target_trans_train_arrary():
+            for splet_index, train_spelt in tqdm(enumerate(train_target_list), total=len(train_target_list)):
+                for charater_index, charater in enumerate(train_spelt):
+                    train_target_arry[splet_index,
+                                    charater_index] = charater / max_enc_index
 
-    up_trans_test_arrary()
+        target_trans_train_arrary()
 
-    @nb.jit
-    def target_trans_test_arrary():
-        for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
-            for charater_index, charater in enumerate(test_spelt):
-                test_target_arry[splet_index, charater_index] = charater / max_enc_index
+        @nb.jit
+        def down_trans_train_arrary():
+            for splet_index, train_spelt in tqdm(enumerate(train_down_list), total=len(train_down_list)):
+                for charater_index, charater in enumerate(train_spelt):
+                    train_down_arry[splet_index,
+                                    charater_index] = charater / max_enc_index
 
+        down_trans_train_arrary()
 
-    target_trans_test_arrary()
+        @nb.jit
+        def up_trans_test_arrary():
+            for splet_index, test_spelt in tqdm(enumerate(test_up_list), total=len(test_up_list)):
+                for charater_index, charater in enumerate(test_spelt):
+                    test_up_arry[splet_index,
+                                charater_index] = charater / max_enc_index
 
-    def target_trans_test_orinal_arrary():
-        for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
-            for charater_index, charater in enumerate(test_spelt):
-                test_target_orinal_arry[splet_index, charater_index] = charater 
+        up_trans_test_arrary()
 
+        @nb.jit
+        def target_trans_test_arrary():
+            for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
+                for charater_index, charater in enumerate(test_spelt):
+                    test_target_arry[splet_index,
+                                    charater_index] = charater / max_enc_index
 
-    target_trans_test_orinal_arrary()
+        target_trans_test_arrary()
 
-    @nb.jit
-    def down_trans_test_arrary():
-        for splet_index, test_spelt in tqdm(enumerate(test_down_list), total=len(test_down_list)):
-            for charater_index, charater in enumerate(test_spelt):
-                test_down_arry[splet_index,
-                               charater_index] = charater / max_enc_index
+        def target_trans_test_orinal_arrary():
+            for splet_index, test_spelt in tqdm(enumerate(test_target_list), total=len(test_target_list)):
+                for charater_index, charater in enumerate(test_spelt):
+                    test_target_orinal_arry[splet_index, charater_index] = charater
 
-    down_trans_test_arrary()
+        target_trans_test_orinal_arrary()
 
-    os.chdir(data_root_dir)
-    np.savez_compressed('data_train_test_all_in_one', train_up_arry=train_up_arry, train_down_arry=train_down_arry, train_target_arry=train_target_arry,
-                        test_up_arry=test_up_arry, test_down_arry=test_down_arry, test_target_arry=test_target_arry, test_target_orianl_arry= test_target_orinal_arry, max_enc_index=max_enc_index, maxium_legth=maxium_legth)
+        @nb.jit
+        def down_trans_test_arrary():
+            for splet_index, test_spelt in tqdm(enumerate(test_down_list), total=len(test_down_list)):
+                for charater_index, charater in enumerate(test_spelt):
+                    test_down_arry[splet_index,
+                                charater_index] = charater / max_enc_index
 
+        down_trans_test_arrary()
+
+        os.chdir(data_root_dir)
+        np.savez_compressed('data_train_test_all_in_one', train_up_arry=train_up_arry, train_down_arry=train_down_arry, train_target_arry=train_target_arry,
+                            test_up_arry=test_up_arry, test_down_arry=test_down_arry, test_target_arry=test_target_arry, test_target_orianl_arry=test_target_orinal_arry, max_enc_index=max_enc_index, maxium_legth=maxium_legth)
+    else:
+        tagged_data_dict = {'train_up_list': train_up_list, 'train_down_list': train_down_list, 'train_target_list': train_target_list, 'val_up_list': val_up_list, 'val_down_list': val_down_list, 'val_target_list': val_target_list, 'test_up_list': test_up_list, 'test_down_list': test_down_list, 'test_target_list': test_target_list}
+        tagged_data_dict_file = open(os.path.join(data_root_dir, 'tagged_data_dict.json'), 'w', encoding='utf-8')
+        json.dump(tagged_data_dict, tagged_data_dict_file)
+        tagged_data_dict_file.close()
 
 if make_new_model:
     print("building model")
 
     # model = build_reglaiour_model(max_enc_index, maxium_legth)
     model = build_reglaiour_model_v1_1_6(max_enc_index, maxium_legth)
-    model.save(os.path.join(model_root_path,"init_verson_1_6.h5"))
+    model.save(os.path.join(model_root_path, "init_verson_1_6.h5"))
     print(model.summary())
 if fit_model:
     print("Starting fitting model...")
@@ -807,23 +1013,29 @@ if fit_model:
 
     auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0,
                                         verbose=0, mode='auto', baseline=None, restore_best_weights=False)
+    if tagged_data == False:
+        model.fit({'up_text': train_up_arry, 'down_text': train_down_arry}, train_target_arry, verbose=1, callbacks=[
+                  tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=30)
+    else:
+        model.fit(tagged_train_data_genetor(train_up_list=train_up_list, train_down_list=train_down_list, train_target_list=train_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), validation_data=tagged_val_data_genetor(
+            val_up_list=val_up_list, val_down_list=val_down_list, val_target_list=val_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=30)
 
-    model.fit({'up_text': train_up_arry, 'down_text': train_down_arry},
-            train_target_arry, verbose=1, callbacks=[tensor_callback, save_checkpoint,auto_stop], epochs=10, validation_split=0.4, batch_size=30)
-    model.save(os.path.join(model_root_path,"result_verson_1_6.h5"))
+    model.save(os.path.join(model_root_path, "result_verson_1_6.h5"))
 
 if r2_based_testing:
     from sklearn.metrics import r2_score
-    model_output_array = model.predict({'up_text': test_up_arry, 'down_text': test_down_arry})
+    model_output_array = model.predict(
+        {'up_text': test_up_arry, 'down_text': test_down_arry})
     r2_ouput = r2_score(test_target_arry, model_output_array)
-    print('r2_socre : '+ str(r2_ouput))
+    print('r2_socre : ' + str(r2_ouput))
 
 if show_predictoutput:
     import random
     max_spelt_index = len(test_target_arry)
-    model_output_array = model.predict({'up_text': test_up_arry, 'down_text': test_down_arry})
+    model_output_array = model.predict(
+        {'up_text': test_up_arry, 'down_text': test_down_arry})
 
-    current_spelt_index = random.randint(0, max_spelt_index -1 )
+    current_spelt_index = random.randint(0, max_spelt_index - 1)
 
     current_test_up_arry = test_up_arry[current_spelt_index]
     current_test_down_arry = test_down_arry[current_spelt_index]
@@ -833,7 +1045,9 @@ if show_predictoutput:
     print(model_output_array)
     print('expected output:')
     print(test_target_arry)
-if test_accuracy :
+
+
+if test_accuracy:
     import random
     from keras.losses import mean_squared_error
     max_spelt_index = len(test_target_arry)
@@ -841,12 +1055,13 @@ if test_accuracy :
 
     current_test_up_arry = np.zeros((99, maxium_legth), dtype=np.float32)
     current_test_down_arry = np.zeros((99, maxium_legth), dtype=np.float32)
-    current_test_target_orinal_arry = np.zeros((99, maxium_legth), dtype=np.float32)
+    current_test_target_orinal_arry = np.zeros(
+        (99, maxium_legth), dtype=np.float32)
     current_test_target_arry = np.zeros((99, maxium_legth), dtype=np.float32)
 
     for control_index in range(0, 99):
         current_spelt_index = random.randint(0, max_spelt_index)
-        while current_spelt_index in index_exit_list :
+        while current_spelt_index in index_exit_list:
             current_spelt_index = random.randint(0, max_spelt_index)
 
         current_test_up_arry[control_index] = test_up_arry[current_spelt_index]
@@ -855,36 +1070,44 @@ if test_accuracy :
         current_test_target_orinal_arry[control_index] = test_target_orinal_arry[current_spelt_index]
         index_exit_list.append(current_spelt_index)
 
-    model_output_array = model.predict({'up_text': current_test_up_arry, 'down_text': current_test_down_arry})
+    model_output_array = model.predict(
+        {'up_text': current_test_up_arry, 'down_text': current_test_down_arry})
 
     avange_accuracy_orinal_split_list = []
     avange_worng_distance_orinal_split_list = []
 
-    for accuracy_test_index in range(0,len(model_output_array) - 1):
-        current_accuracy_test_target_orinal_arry = current_test_target_orinal_arry[accuracy_test_index]
+    for accuracy_test_index in range(0, len(model_output_array) - 1):
+        current_accuracy_test_target_orinal_arry = current_test_target_orinal_arry[
+            accuracy_test_index]
         current_accuracy_test_model_output_array = model_output_array[accuracy_test_index]
 
         worng_count = 0
         worng_distance_list = []
-        for split_accuracy_test_index in range(0,len(current_accuracy_test_model_output_array) - 1):
+        for split_accuracy_test_index in range(0, len(current_accuracy_test_model_output_array) - 1):
             orinal_test_target = current_accuracy_test_target_orinal_arry[split_accuracy_test_index]
-            orinal_model_output = current_accuracy_test_model_output_array[split_accuracy_test_index] * max_enc_index
+            orinal_model_output = current_accuracy_test_model_output_array[
+                split_accuracy_test_index] * max_enc_index
 
-            if orinal_model_output > int(orinal_model_output) + 0.5 or orinal_model_output == int(orinal_model_output) + 0.5 :
+            if orinal_model_output > int(orinal_model_output) + 0.5 or orinal_model_output == int(orinal_model_output) + 0.5:
                 orinal_model_output = int(orinal_model_output) + 1
             else:
                 orinal_model_output = int(orinal_model_output)
-            
-            if orinal_model_output != orinal_test_target :
+
+            if orinal_model_output != orinal_test_target:
                 worng_count += 1
-                worng_distance_list.append(orinal_model_output - orinal_test_target)
-        
-        avange_accuracy_orinal_split_list.append((maxium_legth - worng_count) / maxium_legth)
-        avange_worng_distance_orinal_split_list.append(sum(worng_distance_list) / maxium_legth)
-    
+                worng_distance_list.append(
+                    orinal_model_output - orinal_test_target)
+
+        avange_accuracy_orinal_split_list.append(
+            (maxium_legth - worng_count) / maxium_legth)
+        avange_worng_distance_orinal_split_list.append(
+            sum(worng_distance_list) / maxium_legth)
+
     avange_accuracy_orinal = sum(avange_accuracy_orinal_split_list) / 100
-    avange_worng_distance_orinal = sum(avange_worng_distance_orinal_split_list) / 100
-    testset_loss = mean_squared_error(current_test_target_arry, model_output_array)
+    avange_worng_distance_orinal = sum(
+        avange_worng_distance_orinal_split_list) / 100
+    testset_loss = mean_squared_error(
+        current_test_target_arry, model_output_array)
 
     print("Test set loss is :")
     print(testset_loss)
@@ -894,9 +1117,3 @@ if test_accuracy :
     print(avange_worng_distance_orinal)
 
 exit()
-
-
-
-
-    
-    
