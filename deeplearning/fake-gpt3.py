@@ -754,13 +754,13 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = True
+make_new_data = False
 make_new_model = False
 merged_data = True
 
 load_model_data = False
 load_arry_data = False
-load_tagged_data = False
+load_tagged_data = True
 
 tagged_data = True
 fit_model = False
@@ -807,27 +807,36 @@ if load_arry_data:
             max_enc_index = max_enc_index.tolist()
 
 if load_tagged_data:
+    os.chdir(data_root_dir)
     try:
-        tagged_data_dict_file = open(os.path.join(
-            data_root_dir, 'tagged_data_dict.json'), 'r', encoding='utf-8')
+        tagged_data_all_in_one = np.load('tagged_data_all_in_one.npz', allow_pickle=True)
     except:
-        print("Could not read tagged_data_dict.json from " + data_root_dir)
+        print('Could not load data from '+ os.path.join(data_root_dir, 'tagged_data_all_in_one.npz'))
 
-    tagged_data_dict = json.load(tagged_data_dict_file)
-    tagged_data_dict_file.close()
+    train_up_list = tagged_data_all_in_one['tagged_data_train_up_arry']
+    train_down_list = tagged_data_all_in_one['tagged_data_train_down_arry']
+    train_target_list = tagged_data_all_in_one['tagged_data_train_target_arry']
 
-    train_up_list = tagged_data_dict['train_up_list']
-    train_down_list = tagged_data_dict['train_down_list']
-    train_target_list = tagged_data_dict['train_target_list']
+    train_up_list = train_up_list.tolist()
+    train_down_list = train_down_list.tolist()
+    train_target_list = train_target_list.tolist()
 
-    val_up_list = tagged_data_dict['val_up_list']
-    val_down_list = tagged_data_dict['val_down_list']
-    val_target_list = tagged_data_dict['val_target_list']
+    val_up_list = tagged_data_all_in_one['tagged_data_val_up_arry']
+    val_down_list = tagged_data_all_in_one['tagged_data_val_down_arry']
+    val_target_list = tagged_data_all_in_one['tagged_data_val_target_arry']
+
+    val_up_list = val_up_list.tolist()
+    val_down_list = val_down_list.tolist()
+    val_target_list = val_target_list.tolist()
 
     if test_tagged_data_accuray:
-        test_up_list = tagged_data_dict['test_up_list']
-        test_down_list = tagged_data_dict['test_down_list']
-        test_target_list = tagged_data_dict['test_target_list']
+        test_up_list = tagged_data_all_in_one['tagged_data_test_up_arry']
+        test_down_list = tagged_data_all_in_one['tagged_data_test_down_arry']
+        test_target_list = tagged_data_all_in_one['tagged_data_test_target_arry']
+
+        test_up_list = test_up_list.tolist()
+        test_down_list = test_down_list.tolist()
+        test_target_list = test_target_list.tolist()
 
 
 if load_model_data:
