@@ -154,9 +154,9 @@ def val_data_split(train_up_list, train_down_list, train_target_list, val_split)
 
 def tagged_train_data_genetor(train_up_list, train_down_list, train_target_list, maxium_legth, max_enc_index):
     maxium_genetor_index = len(train_up_list)
-    current_train_up_arry = np.zeros(1, maxium_legth)
-    current_train_down_arry = np.zeros(1, maxium_legth)
-    current_train_target_arry = np.zeros(maxium_legth, max_enc_index)
+    current_train_up_arry = np.zeros((1, maxium_legth), dtype = np.float32)
+    current_train_down_arry = np.zeros((1, maxium_legth), dtype = np.float32)
+    current_train_target_arry = np.zeros((maxium_legth, max_enc_index), dtype = np.float32)
     key_exit_list = []
 
     splet_index = random.randint(0, maxium_genetor_index)
@@ -172,10 +172,10 @@ def tagged_train_data_genetor(train_up_list, train_down_list, train_target_list,
     current_target_splet = train_target_list[splet_index]
 
     for control_index, charater in enumerate(current_up_splet):
-        current_train_up_arry[control_index] = charater / max_enc_index
+        current_train_up_arry[0, control_index] = charater / max_enc_index
 
-    for control_index, charater in enumerate(current_down_splet):
-        current_train_down_arry[control_index] = charater / max_enc_index
+    for  control_index, charater in enumerate(current_down_splet):
+        current_train_down_arry[0, control_index] = charater / max_enc_index
 
     for control_index, charater in enumerate(current_target_splet):
         current_train_target_arry[control_index, charater] = 1
@@ -189,9 +189,9 @@ def tagged_train_data_genetor(train_up_list, train_down_list, train_target_list,
 def tagged_test_data_genetor(test_up_list, test_down_list, test_target_list, maxium_legth, sample_size):
     maxium_genetor_index = len(test_up_list)
 
-    current_test_up_arry = np.zeros(1, maxium_legth)
-    current_test_down_arry = np.zeros(1, maxium_legth)
-    current_test_target_arry = np.zeros(maxium_legth, max_enc_index)
+    current_test_up_arry = np.zeros((1, maxium_legth), dtype = np.float32)
+    current_test_down_arry = np.zeros((1, maxium_legth), dtype = np.float32)
+    current_test_target_arry = np.zeros((maxium_legth, max_enc_index), dtype = np.float32)
     key_exit_list = []
 
     splet_index = random.randint(0, maxium_genetor_index)
@@ -207,10 +207,10 @@ def tagged_test_data_genetor(test_up_list, test_down_list, test_target_list, max
     current_target_splet = test_target_list[splet_index]
 
     for control_index, charater in enumerate(current_up_splet):
-        current_test_up_arry[control_index] = charater / max_enc_index
+        current_test_up_arry[0, control_index] = charater / max_enc_index
 
     for control_index, charater in enumerate(current_down_splet):
-        current_test_down_arry[control_index] = charater / max_enc_index
+        current_test_down_arry[0, control_index] = charater / max_enc_index
 
     for control_index, charater in enumerate(current_target_splet):
         current_test_target_arry[control_index, charater] = 1
@@ -224,9 +224,9 @@ def tagged_test_data_genetor(test_up_list, test_down_list, test_target_list, max
 def tagged_val_data_genetor(val_up_list, val_down_list, val_target_list, maxium_legth, max_enc_index):
     maxium_genetor_index = len(test_up_list)
 
-    current_val_up_arry = np.zeros(1, maxium_legth)
-    current_val_down_arry = np.zeros(1, maxium_legth)
-    current_val_target_arry = np.zeros(maxium_legth, max_enc_index)
+    current_val_up_arry = np.zeros((1, maxium_legth), dtype = np.float32)
+    current_val_down_arry = np.zeros((1, maxium_legth), dtype = np.float32)
+    current_val_target_arry = np.zeros((maxium_legth, max_enc_index), dtype = np.float32)
     key_exit_list = []
 
     splet_index = random.randint(0, maxium_genetor_index)
@@ -242,10 +242,10 @@ def tagged_val_data_genetor(val_up_list, val_down_list, val_target_list, maxium_
     current_target_splet = val_target_list[splet_index]
 
     for control_index, charater in enumerate(current_up_splet):
-        current_val_up_arry[control_index] = charater / max_enc_index
+        current_val_up_arry[0 , control_index] = charater / max_enc_index
 
     for control_index, charater in enumerate(current_down_splet):
-        current_val_down_arry[control_index] = charater / max_enc_index
+        current_val_down_arry[0, control_index] = charater / max_enc_index
 
     for control_index, charater in enumerate(current_target_splet):
         current_val_target_arry[control_index, charater] = 1
@@ -754,7 +754,7 @@ enc_dict_root_dir = 'E:\\爬虫\\test-data\\merged-data'
 model_root_path = 'E:\\爬虫\\Fake-GPT3\\models\\tagged-bigger-data'
 merged_data_root_path = 'E:\\爬虫\\test-data\\merged-data'
 
-make_new_data = False
+make_new_data = True
 make_new_model = False
 merged_data = True
 
@@ -768,6 +768,8 @@ r2_based_testing = False
 show_predictoutput = False
 test_accuracy = False
 test_tagged_data_accuray = False
+
+test_data_genetor = True
 
 model_file_name = 'result_verson_1_6.h5'
 
@@ -809,9 +811,11 @@ if load_arry_data:
 if load_tagged_data:
     os.chdir(data_root_dir)
     try:
-        tagged_data_all_in_one = np.load('tagged_data_all_in_one.npz', allow_pickle=True)
+        tagged_data_all_in_one = np.load(
+            'tagged_data_all_in_one.npz', allow_pickle=True)
     except:
-        print('Could not load data from '+ os.path.join(data_root_dir, 'tagged_data_all_in_one.npz'))
+        print('Could not load data from ' +
+              os.path.join(data_root_dir, 'tagged_data_all_in_one.npz'))
 
     train_up_list = tagged_data_all_in_one['tagged_data_train_up_arry']
     train_down_list = tagged_data_all_in_one['tagged_data_train_down_arry']
@@ -895,16 +899,24 @@ if make_new_data:
         val_up_list, val_down_list, val_target_list, train_up_list, train_down_list, train_target_list = val_data_split(
             train_up_list=train_up_list, train_down_list=train_down_list, train_target_list=train_target_list, val_split=val_split)
 
-    if tagged_data == False:
-        print("Calculating the legth of each data")
-        maxium_train_up_legth = max([len(i) for i in train_up_list]) + 1
-        maxium_train_target_legth = 1
-        maxium_train_down_legth = max([len(i) for i in train_down_list]) + 1
+    print("Calculating the legth of each data")
+    maxium_train_up_legth = max([len(i) for i in train_up_list])
+    maxium_train_target_legth = max([len(i) for i in train_target_list])
+    maxium_train_down_legth = max([len(i) for i in train_down_list])
 
-        maxium_test_up_legth = max([len(i) for i in test_up_list]) + 1
-        maxium_test_down_legth = max([len(i) for i in test_down_list]) + 1
-        maxium_test_target_legth = 1
+    maxium_test_up_legth = max([len(i) for i in test_up_list])
+    maxium_test_down_legth = max([len(i) for i in test_down_list])
+    maxium_test_target_legth = max([len(i) for i in test_target_list])
 
+    if tagged_data == True:
+        maxium_val_up_legth = max([len(i) for i in val_up_list])
+        maxium_val_down_legth = max([len(i) for i in val_down_list])
+        maxium_val_target_legth = max([len(i) for i in val_target_list])
+
+        maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth, maxium_train_target_legth, maxium_test_up_legth,
+                            maxium_test_down_legth, maxium_test_target_legth, maxium_val_up_legth, maxium_val_down_legth, maxium_val_target_legth])
+        max_enc_index = len(list(enc_dict.keys()))
+    else:
         train_up_count = len(train_up_list)
         train_down_count = len(train_down_list)
         train_target_count = len(train_target_list)
@@ -913,10 +925,11 @@ if make_new_data:
         test_down_count = len(test_down_list)
         test_target_count = len(test_target_list)
 
-        maxium_legth = max(
-            [maxium_train_up_legth, maxium_train_down_legth]) + 1
+        maxium_legth = max([maxium_train_up_legth, maxium_train_down_legth, maxium_train_target_legth,
+                            maxium_test_up_legth, maxium_test_down_legth, maxium_test_target_legth])
         max_enc_index = len(list(enc_dict.keys()))
 
+    if tagged_data == False:
         print("Initlazing up array...")
         train_up_arry = np.zeros(
             (train_up_count, maxium_legth), dtype=np.float32)
@@ -1005,7 +1018,8 @@ if make_new_data:
     else:
         tagged_data_train_up_arry = np.array(train_up_list, dtype=object)
         tagged_data_trian_down_arry = np.array(train_down_list, dtype=object)
-        tagged_data_train_target_arry = np.array(train_target_list, dtype=object)
+        tagged_data_train_target_arry = np.array(
+            train_target_list, dtype=object)
 
         tagged_data_val_up_arry = np.array(val_up_list, dtype=object)
         tagged_data_val_down_arry = np.array(val_down_list, dtype=object)
@@ -1017,7 +1031,13 @@ if make_new_data:
 
         os.chdir(data_root_dir)
         np.savez_compressed('tagged_data_all_in_one', tagged_data_train_up_arry=tagged_data_train_up_arry, tagged_data_train_down_arry=tagged_data_trian_down_arry, tagged_data_train_target_arry=tagged_data_test_target_arry, tagged_data_val_up_arry=tagged_data_val_up_arry,
-                            tagged_data_val_down_arry=tagged_data_val_down_arry, tagged_data_val_target_arry=tagged_data_val_target_arry, tagged_data_test_up_arry=tagged_data_test_up_arry, tagged_data_test_down_arry=tagged_data_test_down_arry, tagged_data_test_target_arry=tagged_data_test_target_arry)
+                            tagged_data_val_down_arry=tagged_data_val_down_arry, tagged_data_val_target_arry=tagged_data_val_target_arry, tagged_data_test_up_arry=tagged_data_test_up_arry, tagged_data_test_down_arry=tagged_data_test_down_arry, tagged_data_test_target_arry=tagged_data_test_target_arry, max_enc_index=max_enc_index, maxium_legth=maxium_legth)
+
+if test_data_genetor:
+    train_data = tagged_train_data_genetor(train_up_list=train_up_list, train_down_list=train_down_list,
+                                           train_target_list=train_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index)
+    validation_data = tagged_val_data_genetor(val_up_list=val_up_list, val_down_list=val_down_list,
+                                              val_target_list=val_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index)
 
 if make_new_model:
     print("building model")
