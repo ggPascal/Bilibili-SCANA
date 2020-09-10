@@ -17,6 +17,9 @@ import queue
 import os
 import re
 import traceback as tb
+from multiprocessing import Pool
+import queue
+import json 
 
 # Time step file is waiting for develoap done.
 timestep_file = False
@@ -65,8 +68,10 @@ if proxy_enable:
     proxies = {'http': 'socks5://127.0.0.1:9150',
                'https': 'socks5://127.0.0.1:9150'}
 
+bvid_process_queue = queue.Queue(maxsize=0)
 
-for video_id in bvid_list:
+
+def bvid_handel_main_process():
     print('Now we are collecting information from '+video_id)
 
     # Smart create a new floder to contain data if the floder is not exits

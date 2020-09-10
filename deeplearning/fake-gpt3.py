@@ -5,6 +5,7 @@ from keras.models import load_model
 from keras import layers
 from keras import Input
 from keras import callbacks
+import keras
 import os
 import json
 import numpy as np
@@ -157,33 +158,33 @@ def tagged_train_data_genetor(train_up_list, train_down_list, train_target_list,
     key_exit_list = [random.randint(0, maxium_genetor_index)]
     while True:
         
-        current_train_up_arry = np.zeros((1, maxium_legth), dtype=np.float32)
-        current_train_down_arry = np.zeros((1, maxium_legth), dtype=np.float32)
+        current_train_up_arry = np.zeros((10, maxium_legth), dtype=np.float32)
+        current_train_down_arry = np.zeros((10, maxium_legth), dtype=np.float32)
         current_train_target_arry = np.zeros(
-            (1, maxium_legth, max_enc_index), dtype=np.float32)
+            (10, maxium_legth, max_enc_index), dtype=np.float32)
         
+        for current_batch in range(0, 10 - 1):
+            splet_index = random.randint(0, maxium_genetor_index)
 
-        splet_index = random.randint(0, maxium_genetor_index)
+            if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
+                while splet_index in key_exit_list:
+                    splet_index = random.randint(0, maxium_genetor_index)
+            else:
+                key_exit_list = [random.randint(0, maxium_genetor_index)]
+                splet_index = key_exit_list[0]
 
-        if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
-            while splet_index in key_exit_list:
-                splet_index = random.randint(0, maxium_genetor_index)
-        else:
-            key_exit_list = [random.randint(0, maxium_genetor_index)]
-            splet_index = key_exit_list[0]
+            current_up_splet = train_up_list[splet_index]
+            current_down_splet = train_down_list[splet_index]
+            current_target_splet = train_target_list[splet_index]
 
-        current_up_splet = train_up_list[splet_index]
-        current_down_splet = train_down_list[splet_index]
-        current_target_splet = train_target_list[splet_index]
+            for control_index, charater in enumerate(current_up_splet):
+                current_train_up_arry[current_batch, control_index] = charater / max_enc_index
 
-        for control_index, charater in enumerate(current_up_splet):
-            current_train_up_arry[0, control_index] = charater / max_enc_index
+            for control_index, charater in enumerate(current_down_splet):
+                current_train_down_arry[current_batch, control_index] = charater / max_enc_index
 
-        for control_index, charater in enumerate(current_down_splet):
-            current_train_down_arry[0, control_index] = charater / max_enc_index
-
-        for control_index, charater in enumerate(current_target_splet):
-            current_train_target_arry[0, control_index, charater] = 1
+            for control_index, charater in enumerate(current_target_splet):
+                current_train_target_arry[current_batch, control_index, charater] = 1
 
         yield {'up_text': current_train_up_arry, 'down_text': current_train_down_arry}, current_train_target_arry
 
@@ -192,48 +193,13 @@ def tagged_test_data_genetor(test_up_list, test_down_list, test_target_list, max
     maxium_genetor_index = len(test_up_list) - 1
     key_exit_list = []
 
-    current_test_up_arry = np.zeros((1, maxium_legth), dtype=np.float32)
-    current_test_down_arry = np.zeros((1, maxium_legth), dtype=np.float32)
-    current_test_target_arry = np.zeros(
-        (1, maxium_legth, max_enc_index), dtype=np.float32)
-    
-
-    splet_index = random.randint(0, maxium_genetor_index)
-
-    if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
-        while splet_index in key_exit_list:
-            splet_index = random.randint(0, maxium_genetor_index)
-    else:
-        key_exit_list = [random.randint(0, maxium_genetor_index)]
-        splet_index = key_exit_list[0]
-
-    current_up_splet = test_up_list[splet_index]
-    current_down_splet = test_down_list[splet_index]
-    current_target_splet = test_target_list[splet_index]
-
-    for control_index, charater in enumerate(current_up_splet):
-        current_test_up_arry[0, control_index] = charater / max_enc_index
-
-    for control_index, charater in enumerate(current_down_splet):
-        current_test_down_arry[0, control_index] = charater / max_enc_index
-
-    for control_index, charater in enumerate(current_target_splet):
-        current_test_target_arry[0, control_index, charater] = 1
-
-    return {'up_text': current_test_up_arry, 'down_text': current_test_down_arry}, current_test_target_arry
-
-
-def tagged_val_data_genetor(val_up_list, val_down_list, val_target_list, maxium_legth, max_enc_index):
-    maxium_genetor_index = len(val_up_list) - 1
-    key_exit_list = [random.randint(0, maxium_genetor_index)]
-    while True:
-        
-
-        current_val_up_arry = np.zeros((1, maxium_legth), dtype=np.float32)
-        current_val_down_arry = np.zeros((1, maxium_legth), dtype=np.float32)
-        current_val_target_arry = np.zeros(
+    while True :
+        current_test_up_arry = np.zeros((1, maxium_legth), dtype=np.float32)
+        current_test_down_arry = np.zeros((1, maxium_legth), dtype=np.float32)
+        current_test_target_arry = np.zeros(
             (1, maxium_legth, max_enc_index), dtype=np.float32)
         
+
         splet_index = random.randint(0, maxium_genetor_index)
 
         if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
@@ -243,18 +209,55 @@ def tagged_val_data_genetor(val_up_list, val_down_list, val_target_list, maxium_
             key_exit_list = [random.randint(0, maxium_genetor_index)]
             splet_index = key_exit_list[0]
 
-        current_up_splet = val_up_list[splet_index]
-        current_down_splet = val_down_list[splet_index]
-        current_target_splet = val_target_list[splet_index]
+        current_up_splet = test_up_list[splet_index]
+        current_down_splet = test_down_list[splet_index]
+        current_target_splet = test_target_list[splet_index]
 
         for control_index, charater in enumerate(current_up_splet):
-            current_val_up_arry[0, control_index] = charater / max_enc_index
+            current_test_up_arry[0, control_index] = charater / max_enc_index
 
         for control_index, charater in enumerate(current_down_splet):
-            current_val_down_arry[0, control_index] = charater / max_enc_index
+            current_test_down_arry[0, control_index] = charater / max_enc_index
 
         for control_index, charater in enumerate(current_target_splet):
-            current_val_target_arry[0, control_index, charater] = 1
+            current_test_target_arry[0, control_index, charater] = 1
+
+        yield {'up_text': current_test_up_arry, 'down_text': current_test_down_arry}, current_test_target_arry
+
+
+def tagged_val_data_genetor(val_up_list, val_down_list, val_target_list, maxium_legth, max_enc_index):
+    maxium_genetor_index = len(val_up_list) - 1
+    key_exit_list = [random.randint(0, maxium_genetor_index)]
+    while True:
+        
+
+        current_val_up_arry = np.zeros((10, maxium_legth), dtype=np.float32)
+        current_val_down_arry = np.zeros((10, maxium_legth), dtype=np.float32)
+        current_val_target_arry = np.zeros(
+            (10, maxium_legth, max_enc_index), dtype=np.float32)
+        
+        for current_batch in range(0, 10 - 1):
+            splet_index = random.randint(0, maxium_genetor_index)
+
+            if len(key_exit_list) < maxium_legth or len(key_exit_list) == maxium_legth:
+                while splet_index in key_exit_list:
+                    splet_index = random.randint(0, maxium_genetor_index)
+            else:
+                key_exit_list = [random.randint(0, maxium_genetor_index)]
+                splet_index = key_exit_list[0]
+
+            current_up_splet = val_up_list[splet_index]
+            current_down_splet = val_down_list[splet_index]
+            current_target_splet = val_target_list[splet_index]
+
+            for control_index, charater in enumerate(current_up_splet):
+                current_val_up_arry[current_batch, control_index] = charater / max_enc_index
+
+            for control_index, charater in enumerate(current_down_splet):
+                current_val_down_arry[current_batch, control_index] = charater / max_enc_index
+
+            for control_index, charater in enumerate(current_target_splet):
+                current_val_target_arry[current_batch, control_index, charater] = 1
 
         yield {'up_text': current_val_up_arry, 'down_text': current_val_down_arry}, current_val_target_arry
 
@@ -694,6 +697,72 @@ def build_reglaiour_model_v1_1_6(max_index_up_text, maxium_legth):
 
     return model
 
+def build_reglaiour_model_v1_1_7(max_index_up_text, maxium_legth):
+
+    # Decoder part
+    # Charater to words
+    up_text = Input(shape=(maxium_legth),
+                    name='up_text', dtype='float32')
+
+    up_text_tensor_emb = layers.Embedding(
+        max_index_up_text + 1, 64)(up_text)
+    cnn_up_output_1 = layers.Conv1D(
+        500, 1, padding='same')(up_text_tensor_emb)
+    cnn_up_output_2 = layers.Conv1D(
+        500, 2, padding='same')(up_text_tensor_emb)
+    cnn_up_output_3 = layers.Conv1D(
+        500, 3, padding='same')(up_text_tensor_emb)
+    cnn_up_all_merge_output = layers.concatenate(
+        [cnn_up_output_1, cnn_up_output_2, cnn_up_output_3])
+    cnn_up_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_up_all_merge_output)
+
+    lstm_up_output = layers.LSTM(
+        500, return_sequences=True)(cnn_up_all_merge_output)
+
+    down_text_tensor = Input(
+        shape=(maxium_legth),  name='down_text', dtype='float32')
+
+    down_text_tensor_emb = layers.Embedding(
+        max_index_up_text + 1, 64)(down_text_tensor)
+    cnn_down_output_1 = layers.Conv1D(
+        500, 1, padding='same')(down_text_tensor_emb)
+    cnn_down_output_2 = layers.Conv1D(
+        500, 2, padding='same')(down_text_tensor_emb)
+    cnn_down_output_3 = layers.Conv1D(
+        500, 3, padding='same')(down_text_tensor_emb)
+    cnn_down_all_merge_output = layers.concatenate(
+        [cnn_down_output_1, cnn_down_output_2, cnn_down_output_3])
+    cnn_down_all_merge_output = layers.Conv1D(
+        500, 2, padding='same')(cnn_down_all_merge_output)
+
+    lstm_down_output = layers.LSTM(
+        500, return_sequences=True)(cnn_down_all_merge_output)
+
+    lstm_output = layers.concatenate([lstm_up_output, lstm_down_output])
+
+    # Words to sentence
+    lstm_output = layers.LSTM(500, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+
+    # Convert part
+    lstm_output = layers.LSTM(700, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(700, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(700, return_sequences=True)(lstm_output)
+
+    # Encode part
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+    lstm_output = layers.LSTM(600, return_sequences=True)(lstm_output)
+    final_output = layers.SimpleRNN(max_enc_index, return_sequences = True, activation = 'softmax')(lstm_output)
+
+    model = Model(inputs=[up_text, down_text_tensor], outputs=[final_output])
+    model.compile(optimizer='Nadam',
+                  loss='categorical_crossentropy', metrics=['accuracy'])
+
+    return model
+
 
 def build_reglaiour_model(max_index_up_text, maxium_legth):
 
@@ -761,12 +830,14 @@ fit_model = True
 r2_based_testing = False
 show_predictoutput = False
 show_tagged_data_predict_output = True
+
 test_accuracy = False
-test_tagged_data_accuray = False
+test_tagged_data_accuray = True
+test_samples = 100
 
 test_data_genetor = False
 
-model_file_name = 'best_train_loss_1_6.h5'
+model_file_name = 'best_train_loss_1_7.h5'
 
 percent_of_transet = 0.5
 testset_precent = 0.5
@@ -1043,26 +1114,26 @@ if make_new_model:
     print("building model")
 
     # model = build_reglaiour_model(max_enc_index, maxium_legth)
-    model = build_reglaiour_model_v1_1_6(max_enc_index, maxium_legth)
-    model.save(os.path.join(model_root_path, "init_verson_1_6.h5"))
+    model = build_reglaiour_model_v1_1_7(max_enc_index, maxium_legth)
+    model.save(os.path.join(model_root_path, "init_verson_1_7.h5"))
     print(model.summary())
 if fit_model:
     print("Starting fitting model...")
     tensor_callback = callbacks.TensorBoard(
         log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard\\tagged-bigger-data', histogram_freq=1, embeddings_freq=1, update_freq='batch')
-    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\tagged-bigger-data\\best_train_loss_1_6.h5",
+    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\tagged-bigger-data\\best_train_loss_1_7_cp_1.h5",
                                                 monitor='train_loss', verbose=1, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 
-    auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0,
+    auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=1,
                                         verbose=0, mode='auto', baseline=None, restore_best_weights=False)
     if tagged_data == False:
         model.fit({'up_text': train_up_arry, 'down_text': train_down_arry}, train_target_arry, verbose=1, callbacks=[
                   tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=30)
     else:
         model.fit(tagged_train_data_genetor(train_up_list=train_up_list, train_down_list=train_down_list, train_target_list=train_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), validation_data=tagged_val_data_genetor(
-            val_up_list=val_up_list, val_down_list=val_down_list, val_target_list=val_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=38,  steps_per_epoch = 367, validation_steps = 367, initial_epoch = 6)
+            val_up_list=val_up_list, val_down_list=val_down_list, val_target_list=val_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), verbose=1, callbacks=[tensor_callback, save_checkpoint, auto_stop], epochs=38,  steps_per_epoch = 367, validation_steps = 367, initial_epoch = 3)
 
-    model.save(os.path.join(model_root_path, "result_verson_1_6.h5"))
+    model.save(os.path.join(model_root_path, "result_verson_1_7.h5"))
 
 if r2_based_testing:
     from sklearn.metrics import r2_score
@@ -1089,9 +1160,31 @@ if show_predictoutput:
     print(test_target_arry)
 
 if show_tagged_data_predict_output :
-    model_output_array = model.predict(tagged_test_data_genetor(test_up_list = test_up_list, test_down_list = test_down_list, test_target_list = test_target_list, maxium_legth = maxium_legth))
+    model_output_array = model.predict(tagged_test_data_genetor(test_up_list = test_up_list, test_down_list = test_down_list, test_target_list = test_target_list, maxium_legth = maxium_legth),batch_size = None, steps = 100)
 
+if test_tagged_data_accuray:
+    model_test_loss_all_list = []
+    model_test_acc_all_list = []
 
+    model_mertics_names = model.metrics_names
+    for i in range(1, test_samples):
+        model_mertics_list = model.evaluate(tagged_test_data_genetor(test_up_list = test_up_list, test_down_list = test_down_list, test_target_list = test_target_list, maxium_legth = maxium_legth),batch_size = None, steps = 1)
+        model_test_loss_all_list.append(model_mertics_list[0])
+        model_test_acc_all_list.append(model_mertics_list[1])
+    
+    max_loss = max(model_test_loss_all_list)
+    min_loss = min(model_test_loss_all_list)
+    avg_loss = np.mean(model_test_loss_all_list)
+
+    max_acc = max(model_test_acc_all_list)
+    min_acc = min(model_test_acc_all_list)
+    avg_acc = np.mean(model_test_acc_all_list)
+
+    print("This model loss on testset range is :"+str(min_loss)+" - "+str(max_loss))
+    print("Avange testset loss is :"+str(avg_loss))
+
+    print("This model accuracy on testset range is :"+str(min_acc)+" - "+str(max_acc))
+    print("Avange testset accuracy is :"+str(avg_acc))
 if test_accuracy:
     import random
     from keras.losses import mean_squared_error
