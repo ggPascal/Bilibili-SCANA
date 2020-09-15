@@ -142,7 +142,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
             current_commit = commit_all[commit_index]
         else:
             current_commit = commit_all[str(commit_index)]
-    current_commit_keys = current_commit.keys()
+    
 
     # Get reply ID
     # 获取评论ID
@@ -185,7 +185,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
         # Get the avatar image url
         # 获取头像地址
         avatar_adress = member_data['avatar']  
-        member_data_keys = member_data.keys()
+        
         if 'official_verify' in member_data.keys():
             offical_data = member_data['official_verify']
             offical_type = offical_data['type']
@@ -246,7 +246,7 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
             vip_due_timestep = 'N/A'
 
         message_data = current_commit['content']
-        message_data_keys = member_data.keys()
+        
         # Get the comments/replies text, meme image will be replace to text(Convert by bilibili API)
         # 获取评论/回复内容，表情包将换为对应字符表达（此部分由Bilibili的API完成）
         message = message_data['message']  
@@ -465,17 +465,17 @@ def commit_info(continue_mode_enable, video_oid, commit_all, commit_index, reply
 
 
 def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_commit_direct, all_user_dict, video_oid, timestep_file, timestep_add_mode, timestep_key_dire, all_user_full_timestep_dict, all_commit_full_timestep_dict):
-    hot_collect_flag = None
+    
 
     if is_file:
         json_data = json.load(f)
     commit_data = json_data['data']  # 获取评论区数据
-    page_data = commit_data['page']  # 获取页数据
-    page_now = int(page_data['num'])
-    if page_init == True:
-        commit_size = int(page_data['size'])
-        all_commit = int(page_data['acount'])
-        hot_collect_flag = True
+    
+    
+    
+        
+        
+        
     commit_all = commit_data['replies']
     commit_index = 0
     for commit_index in range(0, len(commit_all)):
@@ -504,6 +504,6 @@ def commit_json_ana(continue_mode_enable, f, page_init, is_file, json_data, all_
                       str(commit_index) + '/' + str(total_number))
                 all_commit_direct, all_user_dict = commit_info(continue_mode_enable=continue_mode_enable, video_oid=video_oid, commit_all=commit_all, commit_index=commit_index, reply_ana_flag=True, root_rid='N/A',
                                                                all_user_dict=all_user_dict, all_commit_direct=all_commit_direct, collect_time_step=time.time(), is_top=False, is_list=True, is_hot='Y', timestep_file=timestep_file, timestep_add_mode=timestep_add_mode, timestep_key_dire=timestep_key_dire, all_user_full_timestep_dict=all_user_full_timestep_dict, all_commit_full_timestep_dict=all_commit_full_timestep_dict)
-            hot_collect_flag = False
+            
 
     return all_commit_direct, all_user_dict
