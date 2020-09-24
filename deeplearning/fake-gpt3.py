@@ -886,8 +886,8 @@ test_samples = 100
 
 test_data_genetor = False
 
-model_file_name = 'best_train_loss_1_7_cp_2.h5'
-model_file_names = ['best_train_loss_1_7.h5', 'best_train_loss_1_7_cp_1.h5', 'best_train_loss_1_7_cp_2.h5', 'best_train_loss_1_7_cp_3.h5']
+model_file_name = 'best_train_loss_1_7_cp_6.h5'
+model_file_names = ['best_train_loss_1_7.h5', 'best_train_loss_1_7_cp_1.h5', 'best_train_loss_1_7_cp_2.h5', 'best_train_loss_1_7_cp_3.h5', 'best_train_loss_1_7_cp_4.h5', 'best_train_loss_1_7_cp_5.h5', 'best_train_loss_1_7_cp_6.h5']
 
 percent_of_transet = 0.5
 testset_precent = 0.5
@@ -1171,7 +1171,7 @@ if fit_model:
     print("Starting fitting model...")
     tensor_callback = callbacks.TensorBoard(
         log_dir='E:\\爬虫\\Fake-GPT3\\tensorboard\\tagged-bigger-data', histogram_freq=1, embeddings_freq=1, update_freq='batch')
-    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\tagged-bigger-data\\best_train_loss_1_7_cp_3.h5",
+    save_checkpoint = callbacks.ModelCheckpoint("E:\\爬虫\\Fake-GPT3\\Check-point\\tagged-bigger-data\\best_train_loss_1_7_cp_6.h5",
                                                 monitor='train_loss', verbose=1, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 
     auto_stop = callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=1,
@@ -1181,7 +1181,7 @@ if fit_model:
                   tensor_callback, save_checkpoint, auto_stop], epochs=10, validation_split=0.4, batch_size=30)
     else:
         model.fit(tagged_train_data_genetor(train_up_list=train_up_list, train_down_list=train_down_list, train_target_list=train_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), validation_data=tagged_val_data_genetor(
-            val_up_list=val_up_list, val_down_list=val_down_list, val_target_list=val_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=18,  steps_per_epoch=367, validation_steps=367, initial_epoch=18)
+            val_up_list=val_up_list, val_down_list=val_down_list, val_target_list=val_target_list, maxium_legth=maxium_legth, max_enc_index=max_enc_index), verbose=1, callbacks=[tensor_callback, save_checkpoint], epochs=148,  steps_per_epoch=367, validation_steps=367, initial_epoch=59)
 
     model.save(os.path.join(model_root_path, "result_verson_1_7.h5"))
 
@@ -1225,7 +1225,8 @@ if test_tagged_data_accuray:
     model_test_acc_all_list = []
 
     models_mertics_dict = {}
-
+    categorical_crossentropy_processer = tf.keras.losses.CategoricalCrossentropy()
+    categorical_accuracy_processer = tf.keras.metrics.CategoricalAccuracy()
     for model_file_name in model_file_names:
         current_models_mertics_dict = {
             'model_test_loss_all_list': [], 'model_test_acc_all_list': []}
@@ -1254,14 +1255,18 @@ if test_tagged_data_accuray:
 
         for current_up_splet, current_down_splet, current_target_splet in zip(current_up_splet_batch, current_down_splet_batch, current_target_splet_batch):
             curretn_test_input_arrys, current_test_target_arry = tagged_test_data_genetor_batch_transfer(current_up_splet_batch, current_down_splet_batch, current_target_splet_batch)
-            model_mertics_list = model.evaluate(curretn_test_input_arrys, current_test_target_arry, batch_size=None, steps=1)
+            predict_result = model.predict(curretn_test_input_arrys, batch_size=None, steps=1, verbose = 1)
+            current_loss = categorical_crossentropy_processer(y_true=current_test_target_arry, y_pred=predict_result).numpy()
+            categorical_accuracy_processer.reset_states()
+            categorical_accuracy_processer.update_state(y_true=current_test_target_arry, y_pred=predict_result)
+            current_categorical_accuracy = categorical_accuracy_processer.result().numpy()
 
             current_models_mertics_dict = models_mertics_dict[model_file_name]
             model_test_loss_all_list = current_models_mertics_dict['model_test_loss_all_list']
             model_test_acc_all_list = current_models_mertics_dict['model_test_acc_all_list']
 
-            model_test_loss_all_list.append(model_mertics_list[0])
-            model_test_acc_all_list.append(model_mertics_list[1])
+            model_test_loss_all_list.append(current_loss)
+            model_test_acc_all_list.append(current_categorical_accuracy)
 
             current_models_mertics_dict['model_test_loss_all_list'] = model_test_loss_all_list
             current_models_mertics_dict['model_test_acc_all_list'] = model_test_acc_all_list
@@ -1293,9 +1298,9 @@ if test_tagged_data_accuray:
               str(min_loss)+" - "+str(max_loss))
         print("Avange testset loss is :"+str(avg_loss))
 
-        print("This model accuracy on testset range is :" +
+        print("This model categorical accuracy on testset range is :" +
               str(min_acc)+" - "+str(max_acc))
-        print("Avange testset accuracy is :"+str(avg_acc))
+        print("Avange testset categorical accuracy is :"+str(avg_acc))
 if test_accuracy:
     import random
     from keras.losses import mean_squared_error

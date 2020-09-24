@@ -17,7 +17,7 @@ import queue
 import os
 import re
 import traceback as tb
-from multiprocessing import Pool
+
 import queue
 import json 
 
@@ -71,7 +71,7 @@ if proxy_enable:
 bvid_process_queue = queue.Queue(maxsize=0)
 
 
-def bvid_handel_main_process():
+for video_id in bvid_list:
     print('Now we are collecting information from '+video_id)
 
     # Smart create a new floder to contain data if the floder is not exits

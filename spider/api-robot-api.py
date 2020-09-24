@@ -72,7 +72,7 @@ def initlyze_request_session():
 
 
 
-def main_collect_process(video_id, root_dir, timestep_key_dire, timestep_add_mode, all_user_full_timestep_dict_file_name, all_commit_full_timestep_dict_file_name, video_info_full_timestep_dire_file_name):
+def main_collect_process(video_id, root_dir, timestep_key_dire, timestep_add_mode, all_user_full_timestep_dict_file_name, all_commit_full_timestep_dict_file_name, video_info_full_timestep_dire_file_name, all_commit_direct):
     
     print('Now we are collecting information from '+video_id)
 
@@ -296,6 +296,17 @@ def main_collect_process(video_id, root_dir, timestep_key_dire, timestep_add_mod
         page_collect_process(page)
         
 # Wirte result dictonary to file
+def muilt_main_collect_process(main_collect_process_data_container):
+    video_id = main_collect_process_data_container.video_id
+    root_dir = main_collect_process_data_container.root_dir
+    timestep_key_dire = main_collect_process_data_container.timestep_key_dire
+    timestep_add_mode = main_collect_process_data_container.timestep_add_mode
+    all_user_full_timestep_dict_file_name = main_collect_process_data_container.all_user_full_timestep_dict_file_name
+    all_commit_full_timestep_dict_file_name = main_collect_process_data_container.all_commit_full_timestep_dict_file_name
+
+
+    main_collect_process(video_id, root_dir, timestep_key_dire, timestep_add_mode, all_user_full_timestep_dict_file_name, all_commit_full_timestep_dict_file_name, video_info_full_timestep_dire_file_name, all_commit_direct)
+
 if write_copy_dict:
     # TODO: add a way to write file using bvid+timestep as name to sprate time step
 
